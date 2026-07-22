@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Slices selected architecture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "id",
+    "packageName",
+    "packageVersion",
+    "manifestSha256",
+    "components",
+    "capabilities",
+    "options",
+    "entrypointCapabilityFloors",
+    "projectDocuments",
+    "installedFiles",
+    "installedVerifier",
+    "controllerCommands"
+  ],
+  "properties": {
+    "$schema": { "const": "./architecture.schema.json" },
+    "version": { "const": 1 },
+    "id": { "$ref": "#/$defs/id" },
+    "packageName": { "type": "string", "minLength": 1 },
+    "packageVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "manifestSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "components": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "object" }
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/capability" }
+    },
+    "options": { "type": "object" },
+    "entrypointCapabilityFloors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generatedBaseline", "preCommit", "prePush", "ci", "loop"],
+      "properties": {
+        "generatedBaseline": { "$ref": "#/$defs/capabilityList" },
+        "preCommit": { "$ref": "#/$defs/capabilityList" },
+        "prePush": { "$ref": "#/$defs/capabilityList" },
+        "ci": { "$ref": "#/$defs/capabilityList" },
+        "loop": { "$ref": "#/$defs/capabilityList" }
+      }
+    },
+    "projectDocuments": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/path" }
+    },
+    "installedFiles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/path" }
+    },
+    "installedVerifier": { "$ref": "#/$defs/path" },
+    "controllerCommands": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cursor", "codex", "claude-code"],
+      "properties": {
+        "cursor": { "type": "string", "minLength": 1 },
+        "codex": { "type": "string", "minLength": 1 },
+        "claude-code": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "capability": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?::[a-z0-9]+(?:-[a-z0-9]+)*)*$"
+    },
+    "capabilityList": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/capability" }
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.{1,2}(?:/|$))(?!.*//)(?!.*\\/$)[A-Za-z0-9._/-]+$"
+    }
+  }
+}

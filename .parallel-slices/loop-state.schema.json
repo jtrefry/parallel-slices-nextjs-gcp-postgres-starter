@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Slices loop state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "plan",
+    "planCommit",
+    "milestone",
+    "goalBranch",
+    "controller",
+    "runId",
+    "status",
+    "slices",
+    "findings",
+    "finalAudit"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "../../../.parallel-slices/loop-state.schema.json"
+    },
+    "version": { "enum": [3, 4] },
+    "plan": {
+      "type": "string",
+      "pattern": "^docs/plans/.+\\.md$"
+    },
+    "planCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "compilation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sizingStrategy",
+        "configSha256",
+        "architectureManifestSha256",
+        "sizingRationale"
+      ],
+      "properties": {
+        "sizingStrategy": {
+          "enum": ["isolation-first", "throughput-balanced"]
+        },
+        "configSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "architectureManifestSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sizingRationale": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 1000 }
+        },
+        "planningReview": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["scope", "artifact"],
+          "properties": {
+            "scope": {
+              "type": "string",
+              "pattern": "^docs/plans/scopes/[^/]+/_planning\\.scope$"
+            },
+            "artifact": {
+              "type": "string",
+              "pattern": "^docs/plans/reviews/[^/]+/planning\\.json$"
+            }
+          }
+        }
+      }
+    },
+    "milestone": { "type": "string", "minLength": 1 },
+    "goalBranch": { "type": "string", "minLength": 1 },
+    "controller": { "enum": ["cursor", "codex", "claude-code"] },
+    "runId": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{15,63}$"
+    },
+    "status": {
+      "enum": [
+        "not_started",
+        "in_progress",
+        "pull_request_ready",
+        "blocked",
+        "failed",
+        "finished"
+      ]
+    },
+    "slices": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$" },
+      "additionalProperties": { "$ref": "#/$defs/sliceState" }
+    },
+    "findings": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "finalAudit": {
+      "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/finalAudit" }]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "version": { "const": 4 } },
+        "required": ["version"]
+      },
+      "then": { "required": ["compilation"] }
+    },
+    {
+      "if": {
+        "properties": { "version": { "const": 3 } },
+        "required": ["version"]
+      },
+      "then": { "not": { "required": ["compilation"] } }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": { "enum": ["finished", "pull_request_ready"] }
+        },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": {
+          "finalAudit": { "$ref": "#/$defs/finalAudit" },
+          "slices": {
+            "additionalProperties": {
+              "properties": { "status": { "const": "accepted" } }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": { "finalAudit": { "type": "null" } }
+      }
+    }
+  ],
+  "$defs": {
+    "sha": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "auditEvidence": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 2000 }
+    },
+    "finalAudit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "completedAt",
+        "auditedCommit",
+        "acceptedSlices",
+        "requirements",
+        "preservation",
+        "gates",
+        "reviews",
+        "releaseFragments",
+        "state",
+        "nonGoals"
+      ],
+      "properties": {
+        "version": { "const": 1 },
+        "completedAt": { "type": "string", "format": "date-time" },
+        "auditedCommit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "acceptedSlices": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+          }
+        },
+        "requirements": { "$ref": "#/$defs/auditEvidence" },
+        "preservation": { "$ref": "#/$defs/auditEvidence" },
+        "gates": { "$ref": "#/$defs/auditEvidence" },
+        "reviews": { "$ref": "#/$defs/auditEvidence" },
+        "releaseFragments": { "$ref": "#/$defs/auditEvidence" },
+        "state": { "$ref": "#/$defs/auditEvidence" },
+        "nonGoals": { "$ref": "#/$defs/auditEvidence" }
+      }
+    },
+    "sliceState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "status",
+        "candidateCommit",
+        "gateEvidence",
+        "reviewEvidence",
+        "reviewArtifact"
+      ],
+      "properties": {
+        "manifest": {
+          "type": "string",
+          "pattern": "^docs/plans/scopes/.+\\.scope$"
+        },
+        "status": {
+          "enum": [
+            "not_started",
+            "in_progress",
+            "accepted",
+            "blocked",
+            "failed"
+          ]
+        },
+        "candidateCommit": { "$ref": "#/$defs/sha" },
+        "gateEvidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 2000 }
+        },
+        "reviewEvidence": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 2000 }
+        },
+        "reviewArtifact": {
+          "type": "string",
+          "pattern": "^docs/plans/reviews/.+\\.json$"
+        }
+      }
+    }
+  }
+}

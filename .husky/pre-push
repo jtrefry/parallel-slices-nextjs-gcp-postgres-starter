@@ -1,0 +1,1 @@
+node scripts/parallel-slices/quality.mjs entrypoint prePush --remote "${1:-origin}"

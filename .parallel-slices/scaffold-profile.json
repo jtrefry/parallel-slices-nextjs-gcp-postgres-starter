@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "generator": {
+    "name": "create-turbo",
+    "version": "2.10.5"
+  },
+  "framework": {
+    "name": "next",
+    "version": "16.2.11"
+  },
+  "react": {
+    "version": "19.2.8"
+  },
+  "packageManager": "pnpm@10.34.5",
+  "ui": {
+    "library": "mantine",
+    "version": "9.4.2",
+    "tailwind": false
+  },
+  "securityOverrides": {
+    "postcss": "8.5.21"
+  },
+  "applications": [
+    "apps/docs",
+    "apps/web"
+  ]
+}

@@ -1,0 +1,27 @@
+timeout: 10m0s
+quiet: false
+exit-code: 1
+format: table
+severity:
+  - HIGH
+  - CRITICAL
+scan:
+  scanners:
+    - vuln
+    - misconfig
+    - secret
+  skip-dirs:
+    - .git
+    - .next
+    - .turbo
+    - build
+    - coverage
+    - dist
+    - node_modules
+    - playwright-report
+    - test-results
+  skip-version-check: true
+db:
+  no-progress: true
+vulnerability:
+  ignore-unfixed: false

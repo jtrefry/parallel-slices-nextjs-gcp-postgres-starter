@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Slices multi-agent review configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "enabled",
+    "billingPolicy",
+    "maxRounds",
+    "turnTimeoutSeconds",
+    "overallTimeoutSeconds",
+    "authWaitSeconds",
+    "reviewers"
+  ],
+  "properties": {
+    "$schema": { "const": "./review.schema.json" },
+    "version": { "const": 1 },
+    "enabled": { "type": "boolean" },
+    "billingPolicy": {
+      "enum": ["subscription-only", "provider-managed"]
+    },
+    "maxRounds": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "turnTimeoutSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3600
+    },
+    "overallTimeoutSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 18000
+    },
+    "authWaitSeconds": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3600
+    },
+    "reviewers": {
+      "type": "array",
+      "maxItems": 10,
+      "items": { "$ref": "#/$defs/reviewer" }
+    }
+  },
+  "$defs": {
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "provider"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "maxLength": 40
+        },
+        "provider": {
+          "enum": ["codex", "claude-code", "antigravity"]
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "effort": {
+          "enum": ["low", "medium", "high", "xhigh", "max"]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "provider": { "const": "codex" } },
+            "required": ["provider"]
+          },
+          "then": {
+            "properties": {
+              "effort": { "enum": ["low", "medium", "high", "xhigh"] }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "provider": { "const": "claude-code" } },
+            "required": ["provider"]
+          },
+          "then": {
+            "properties": {
+              "effort": {
+                "enum": ["low", "medium", "high", "xhigh", "max"]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "provider": { "const": "antigravity" } },
+            "required": ["provider"]
+          },
+          "then": { "not": { "required": ["effort"] } }
+        }
+      ]
+    }
+  }
+}

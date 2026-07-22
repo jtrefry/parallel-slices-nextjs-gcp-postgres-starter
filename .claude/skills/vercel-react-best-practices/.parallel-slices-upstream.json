@@ -1,0 +1,9 @@
+{
+  "repository": "https://github.com/vercel-labs/agent-skills.git",
+  "commit": "f8a72b9603728bb92a217a879b7e62e43ad76c81",
+  "source": "skills/react-best-practices",
+  "name": "vercel-react-best-practices",
+  "agent": "claude-code",
+  "license": "MIT",
+  "treeSha256": "e3f2294574b469c7c198373a443a86571012769d0bbeed68854bd55642ec0d7b"
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "./review.schema.json",
+  "version": 1,
+  "enabled": false,
+  "billingPolicy": "subscription-only",
+  "maxRounds": 3,
+  "turnTimeoutSeconds": 600,
+  "overallTimeoutSeconds": 3600,
+  "authWaitSeconds": 900,
+  "reviewers": []
+}

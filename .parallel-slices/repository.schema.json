@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Slices repository publication profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "mode", "remote", "baseBranch"],
+  "properties": {
+    "$schema": { "const": "./repository.schema.json" },
+    "version": { "const": 1 },
+    "mode": { "enum": ["local-only", "github"] },
+    "remote": { "type": "string", "pattern": "^[A-Za-z0-9._-]+$" },
+    "baseBranch": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9._/-]*[A-Za-z0-9])?$"
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+    },
+    "account": { "type": "string", "pattern": "^[A-Za-z0-9-]+$" },
+    "visibility": { "enum": ["private", "public", "internal"] },
+    "createIfMissing": { "type": "boolean" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "mode": { "const": "github" } } },
+      "then": {
+        "required": ["repository", "account", "visibility", "createIfMissing"]
+      },
+      "else": {
+        "not": {
+          "anyOf": [
+            { "required": ["repository"] },
+            { "required": ["account"] },
+            { "required": ["visibility"] },
+            { "required": ["createIfMissing"] }
+          ]
+        }
+      }
+    }
+  ]
+}

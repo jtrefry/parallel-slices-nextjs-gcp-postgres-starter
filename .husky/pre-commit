@@ -1,0 +1,1 @@
+node scripts/parallel-slices/quality.mjs entrypoint preCommit

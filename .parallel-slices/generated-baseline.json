@@ -1,0 +1,2380 @@
+{
+  "version": 1,
+  "architecture": {
+    "id": "nextjs-gcp-postgres",
+    "packageVersion": "0.3.1",
+    "manifestSha256": "2ae8e87ec27e6e40c5a28e989823acbe9fade99042ea337a7f74046485f4c147"
+  },
+  "files": [
+    {
+      "path": ".agents/skills/THIRD_PARTY.md",
+      "sha256": "443e4e596c8c9881fc3acf862e8a84d8d6bbdcd41eff4110df44cea8a42779db",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/parallel-slices-init/SKILL.md",
+      "sha256": "1b6f7b8bd38bc92594fc90d17696fbe83b994131e9def023ec9ce35f37cf960a",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/parallel-slices-next/SKILL.md",
+      "sha256": "5e288be0a1754e4b13c7d821b1a114f50689fca9dc1a9c2875ee9d37395b4a83",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/parallel-slices-plan/SKILL.md",
+      "sha256": "f24129b08c03f393219ec6faa96220bae18040512b4686d74b0a3915e1186643",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/parallel-slices-plan/agents/openai.yaml",
+      "sha256": "ff3a80e84460542ce7c494f2fbe7d8925921cea7447f9b781133b09d32c509cc",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/parallel-slices-prepare/SKILL.md",
+      "sha256": "21a5f827b6ec890b27b8cdbb91f61b84765734d71f987ab59d36bb0c58951840",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/parallel-slices-status/SKILL.md",
+      "sha256": "76fec1f2a50542ef1da95af41d2fc560e1054beff913f75ed6079ba15702eb91",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/slices-init/SKILL.md",
+      "sha256": "a0ac5fe0ad424e97c1fdf9d038e1604a2fbe050b41d15726505540f234de283c",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/slices-next/SKILL.md",
+      "sha256": "25ca87b4e3f11f2f247b3919403617eb8725f04c1c7b46aeee3ef2e5cbb2d28e",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/slices-plan/SKILL.md",
+      "sha256": "09a654a280f8c029a742f4538d2bcda9227695912a5edc94bdff7f13c20d881a",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/slices-prepare/SKILL.md",
+      "sha256": "e3790a1d958fdb754cb7b77115a243a64588dcb5c19e5aa40ff310028179a5e4",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/slices-status/SKILL.md",
+      "sha256": "c434007c2743a43f0f7d63fe05768681a2c0319c34233ea791d545a60809a432",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/.parallel-slices-upstream.json",
+      "sha256": "4695cb8077b8953bb66a0c004fb33be3a419d354cdb4ee0da3599369c3ad2a54",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/AGENTS.md",
+      "sha256": "89e3ddd58fcf99a53a50e25dfd21b8cde1be5f10b7df6bacd3dfa6796932f516",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/README.md",
+      "sha256": "85915a43a6f0b4efe525e3cf6398dd866166da2025837c4460468a24a940da94",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/SKILL.md",
+      "sha256": "e38e0eaa609316b10423a9a138ed95e35099accd3f735585295c8a8f165c28a3",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/metadata.json",
+      "sha256": "49262ed5cb4186f31ee980cf8d990be0170c51efed4908d0464a1cff9905bd05",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/_sections.md",
+      "sha256": "a174213b87e6911e2b766995a2cbaf8d1534057076e82fb79fe3f0ecb38047df",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/_template.md",
+      "sha256": "587f7d16b0660eb61fee4a4d3d7df2b3077d6835de170602c7d6e60bee559131",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/architecture-avoid-boolean-props.md",
+      "sha256": "007555ebb020f4d552582a2c4db194db71a1fd33094012e5187bcfa4f8c392d5",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/architecture-compound-components.md",
+      "sha256": "f246af13dc269b521cf20eb8ad99a0cb645beac381c8c9b117262c34612c8457",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/patterns-children-over-render-props.md",
+      "sha256": "7c45a0d21b3c4126a32cba916ee31adeae195386ad1dbbe6634aedb7457aa0ad",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/patterns-explicit-variants.md",
+      "sha256": "8c19e596e61807549d01ce8c6954c6358199f97a8511c0c02c625ec0efda8c0e",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/react19-no-forwardref.md",
+      "sha256": "881830adb7534c4b2d70db426556646ad9837f5478f744f35641f635ada22227",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/state-context-interface.md",
+      "sha256": "09e73afbf9285fa416679cc864a287b9e8b821d0969272ab784295386d8c9bc3",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/state-decouple-implementation.md",
+      "sha256": "76a8c1eb29a70d8996ab3f71260345af2f7bc89deab815a421d6c87c6591a9c3",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-composition-patterns/rules/state-lift-state.md",
+      "sha256": "74c54038a6c554c748fe31cec673b80861b5d920b7553cf78cdf10d18b4b759b",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/.parallel-slices-upstream.json",
+      "sha256": "865785ddacb06af61cd4b0f7b50e29671cf8448ebfb317c95541febb11b3b5fe",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/AGENTS.md",
+      "sha256": "fc93e7421177bbf869cce892bc60a6c83a4517d974bc3bf65c4e2c1e58a6ccf6",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/README.md",
+      "sha256": "9eafb2123d3b8b2aef41fba0db2648a3f4f49996f8c7c8bb2c86263befd8b48a",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/SKILL.md",
+      "sha256": "71ed7794962fa6e803ee83030517b5b93a9f70fbfeb431ec4535c5480a8d8355",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/metadata.json",
+      "sha256": "c4e18bac3290fbe1b471a605867d4df68b03144ea26b8befdbe8f9d8fd124354",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/_sections.md",
+      "sha256": "01c59969e4e867f0708c8f8ef9c6d87fab9a07d0586244f429ff84013db8a115",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/_template.md",
+      "sha256": "99df2a3ea088c6c22de2484ddc7e964d0e9923846f44c63380343ecc64455442",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/advanced-effect-event-deps.md",
+      "sha256": "55ed8f9f27a1bff803d6fa55828176207714b02123cbb97ddb8a90d88024a723",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/advanced-event-handler-refs.md",
+      "sha256": "a3097edeecfb2ff6851cd66ed8cdf0617c3c88180504bee824aa6e75a215bbbc",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/advanced-init-once.md",
+      "sha256": "3e4dc22173eb0e2b6dcf583e3babd862b8696328f8f59aee7c4d746c5bc05f6c",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/advanced-use-latest.md",
+      "sha256": "8a3f64dfe5a77d1564248faf17fe662ae75b55d497a243cb30b38eb07ccbbf9a",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/async-api-routes.md",
+      "sha256": "523338540d73427dc14c0cbb19f2741ebccdf8b105a7b2c1b33d2905cf237a42",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/async-cheap-condition-before-await.md",
+      "sha256": "03107c1f70a293cd58a8abc5474c5548e20ea4efdf01b6d45aae7ad0ac1cb32c",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/async-defer-await.md",
+      "sha256": "f3c142d090615abdcc99d31c123be37b31f0f1ed8d9ec9f7789a3bc6883ae0fb",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/async-dependencies.md",
+      "sha256": "16ef469f877e30c6b8e1e1b4bc3e527312fa3c6318cb785a4eca186ea236131a",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/async-parallel.md",
+      "sha256": "6d2f841896279e976dfcdc1ac89e70771ac188baadfd43c096b5706cb838b961",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/async-suspense-boundaries.md",
+      "sha256": "de05fedac2eb7ae563b887b5a424464ec3dfaf84e5b7797467ebe2a796ac8afc",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/bundle-analyzable-paths.md",
+      "sha256": "62090b5c815fd71bf1133dce754f51abc16a9456d0ccd025fd627de27726e92a",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/bundle-barrel-imports.md",
+      "sha256": "e648f6d54525f07a691357040ca5bff6ea3424788a91ff63812adb29622a671b",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/bundle-conditional.md",
+      "sha256": "09c8259c3efb04fc0abb8e412ccbda217c222ae8118516283e571c995fe3a7d4",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/bundle-defer-third-party.md",
+      "sha256": "3719fb47b191e8db4fe22686ec88448ad5af9e6838585425abbe103d0b642e37",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/bundle-dynamic-imports.md",
+      "sha256": "401817a7369f315fc5a68a1095742ff7d53d0461906880dc9d64a41495ee1986",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/bundle-preload.md",
+      "sha256": "d1f7cc28da7cd5ab249acd287edc5b761afcfb194e9cb62cd44c5f3543db2de2",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/client-event-listeners.md",
+      "sha256": "242a873349febc1ce685e85617994784dbab92c2eaa68aed7fed5a83e7680e93",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/client-localstorage-schema.md",
+      "sha256": "0fb7cdf9dc93fdf22f87e3669f953fb9d4ac9b0be42eec4a29fe9a2560610b88",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/client-passive-event-listeners.md",
+      "sha256": "1f35016f9053de69e884ee9be00654e37979c2ca85f5e57764dc2626ff7acb4b",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/client-swr-dedup.md",
+      "sha256": "644652c39c6cc00de8d1c77a7273612e868dc3f7edda30764164c12ec0f764a3",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-batch-dom-css.md",
+      "sha256": "480b891b9eaf96e929dc1e964274a4828e3a78009b7d00ccd965a0d425215959",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-cache-function-results.md",
+      "sha256": "3daaa11d24f4295cb6be8bc6f407f2ce83cc7b5bd1f0e68891ea8ab835721dc7",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-cache-property-access.md",
+      "sha256": "73e47431e74878a927061bf0ddc7cd91a7556cb35d2573f3421e82300d9ae311",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-cache-storage.md",
+      "sha256": "11b826b0433898c1ece2d3547010d8e77db9fb240185748c45db91493de9b6cc",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-combine-iterations.md",
+      "sha256": "71add08aeeb43091d4ff4c0b2842cce8b4bdef8ad3e732cc034bb5a84827e746",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-early-exit.md",
+      "sha256": "925ce5ce87f3347186ca62212f29cc6baa2b8c85a96d2720ad07c3d0abf781c0",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-flatmap-filter.md",
+      "sha256": "9e5b166a41914d975bef7635467f8fb32cd98b5c3126c0bc6f163490812fb5f0",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-hoist-regexp.md",
+      "sha256": "f9e9aef2f7c2307dd7310f283df85dcada45fc43e9bb941b0c3aa414dec21ec4",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-index-maps.md",
+      "sha256": "5df1bdc2cfabb2c98abd55d26762e5c18189535c2e686184f426082e62920391",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-length-check-first.md",
+      "sha256": "8b54a311c826b299272f29187fc58bc55772a04c4a72eeb29456ee96dc9fc624",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-min-max-loop.md",
+      "sha256": "87dfb67e2f39df6ad8bcfb5b78c5fb364d3c07554ad188a202408d99f3763421",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-request-idle-callback.md",
+      "sha256": "ee08f83905b4011abbc33d594033157d77561b5bbd9b36b04f0f409581ffec32",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-set-map-lookups.md",
+      "sha256": "a7fd781a6ba9ad49065961b6f9a90ef486bf6b648390e1a08704025f98e1642b",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/js-tosorted-immutable.md",
+      "sha256": "d0a5e1b0fec48a0a81397957e2f068e224329f7c42cb5feeed8aae6fa64025e8",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-activity.md",
+      "sha256": "1e5e7eaf3555e61d6a2e900089c676527d26259501db5594f59544b6c664f85a",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-animate-svg-wrapper.md",
+      "sha256": "9c6ae0ca7a51434e803887c64cded760956579a1452ccb80a461a03f9c937c77",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-conditional-render.md",
+      "sha256": "2ec2fa23c4148285144687050c52369adba3da2fbe3d486f8d3e0aad8f06f2bc",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-content-visibility.md",
+      "sha256": "64eee6d5b916fe74df33363994b27fc7f71bea3bcedc7ee04bda23107ca3e6e4",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-hoist-jsx.md",
+      "sha256": "93b229560fae92005ed9a2a829064607b39b2e984e92d221d05b2d41df2b7c0e",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-hydration-no-flicker.md",
+      "sha256": "dc7ab358c67c177bca6e6f360fbc935ebe4efa928c0ba3ebd3f9f3d9e2000ca3",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-hydration-suppress-warning.md",
+      "sha256": "915bacb934e2927d84b37a3f3d225a47b309ac8f9e494ed2bcb66ce07c5676a2",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-resource-hints.md",
+      "sha256": "351b1095d641717b930f1b2253282b7120af3023bc74e06c17675168d4286864",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-script-defer-async.md",
+      "sha256": "4cea07b7875ba7fc2c7465ff23b63a2bb334f90aaf2d9293d38d67b05fdb32ab",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-svg-precision.md",
+      "sha256": "ed468533f6e95f622859c884b122cf21f9f593ed6bb3d500a54de4b9f9bcb9fb",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rendering-usetransition-loading.md",
+      "sha256": "3a1249c3f13026b6f54ab5712c388df219d6af01b12aa542749acd99a46f4bc1",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-defer-reads.md",
+      "sha256": "234050a77faf50cb306be10a9e15bd4421134ab5907e75f13e6d78e2bd262dc9",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-dependencies.md",
+      "sha256": "17eb5830956fb56486fd3cfc7431f5849d39751730c05ad9e77dd4f0c27169c5",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-derived-state-no-effect.md",
+      "sha256": "cb11ec76f50aa7b6847269f02d79b120c889a30d9ecd2c1d578f75144419c77a",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-derived-state.md",
+      "sha256": "1c326bb67b01fb084eb00c8911b0a7cff54681c2315b629f88e49b64eaa6481d",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-functional-setstate.md",
+      "sha256": "5e68df6b2ae8058e67f476ff1ac67bde159f5a9d18df439e46eabcdeb7b52e58",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-lazy-state-init.md",
+      "sha256": "4ae844740f266fc8cbf050701230286624a2440ec5be67b9a63d9edc3c580573",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-memo-with-default-value.md",
+      "sha256": "81c47476564ad8a79fc68fc442734255ca7d6829424359464503fda0a9f9a0dd",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-memo.md",
+      "sha256": "1f258990c2f27ff6256b3cc5c43300631bb3f0d81f749aed08d07fcdcc131dd1",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-move-effect-to-event.md",
+      "sha256": "abc2cbf167bee056743023351e96806a411d3398da8802093620aecf0721f029",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-no-inline-components.md",
+      "sha256": "1cc32907a770272524ba682eef9e7efdd8ad4533b6f89b718a1fcd7d1d0eb6a3",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-simple-expression-in-memo.md",
+      "sha256": "5bdcf2d1558ba5204e643c887b7b4060f89630969425651eb68e96427d97f800",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-split-combined-hooks.md",
+      "sha256": "6f45d703343484ef9acef9388397f3642966ae6a5a258899a0cf1f9977cfbf6c",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-transitions.md",
+      "sha256": "60f4033909a62df5e5b8c601494f9e50a562e2f8c1c2d81eac24f38142265f1c",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-use-deferred-value.md",
+      "sha256": "8c3579576a61a949884167745dcfaf1d5426ba305cc61fd0a79602d70fda4909",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/rerender-use-ref-transient-values.md",
+      "sha256": "f1a649af9d1d0b5c762f6c9c4c1c70c90d7df82aa10296ee87aadb78c1b76c54",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-after-nonblocking.md",
+      "sha256": "d0b8d24a3db9f0f65f9e2bddbf230b0e03a5f60e1229d93a4a18f5e7a991c7c2",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-auth-actions.md",
+      "sha256": "a2ca8aa102839251c7971ec784560fab943c20b36fe6f80365d4110c13260c23",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-cache-lru.md",
+      "sha256": "1924b64561841923b88a657085097a0aeba3e0ba2d5470b9f5c15cc10d6ae70f",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-cache-react.md",
+      "sha256": "fddeea6c870bb3da4134b61d54b7d09b83d2603f929b7547cd3dc1dc269edd5c",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-dedup-props.md",
+      "sha256": "c2747424cdac46be62f835f245a0aa887b0090b416d28e2ac8676702645eeb37",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-hoist-static-io.md",
+      "sha256": "5abea4dd882b13661bd5f7dfb93f9e547d5f08176c61c448ade91b210ed5d49f",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-no-shared-module-state.md",
+      "sha256": "4d869bf1cd2f1632e5ca4c0e64b1cf0e71c5f5a0f940bc8a22174d205e735ed7",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-parallel-fetching.md",
+      "sha256": "569a2e9fc04f9606686cd75c5894ef8781b502786a7fffe241396846c7733472",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-parallel-nested-fetching.md",
+      "sha256": "ad5d9656984d4a959997a2367bf59cc6632297b4634a1dd13a087939d83f30b3",
+      "executable": false
+    },
+    {
+      "path": ".agents/skills/vercel-react-best-practices/rules/server-serialization.md",
+      "sha256": "f4c7d68b29c82381baad059c4a7f09e868e71ec9c3115a26ad3ae7d24c0dfe1f",
+      "executable": false
+    },
+    {
+      "path": ".claude/CLAUDE.md",
+      "sha256": "6b7653066fd2560fd617d82eee47f27aeb38b9fea1c3989ffa8d14a289963edf",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/THIRD_PARTY.md",
+      "sha256": "ce88faffce0fe1180688bdac48bb234a59395bfde648f10b02b63c6cb4eb19cd",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/parallel-slices-init/SKILL.md",
+      "sha256": "d82d47991ceb62a0976eba4d3376ffe7dfb933be5e0548c1064560376d577142",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/parallel-slices-next/SKILL.md",
+      "sha256": "a2de02346b8372292d6c4798702db65d681e9d1d1b40cb8c7d56c5810d32e5a0",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/parallel-slices-plan/SKILL.md",
+      "sha256": "564940465419499e6fe3ed8880fb90aef6d369ff63ec717f2eaf5258cd6267fd",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/parallel-slices-prepare/SKILL.md",
+      "sha256": "d15e595b7a8dac5b425edc930d92bf71dbcc38a2264d74734a0e2e9c6277b3fe",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/parallel-slices-status/SKILL.md",
+      "sha256": "aa6cbe171b9b650db308535b7968fb791a0d44fcf422b5608cb9c2c1b9337e2b",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/slices-init/SKILL.md",
+      "sha256": "5ee437c451c7e59a0c7c1af595f7eb6c3676990fb1df5260a523a66595a79b29",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/slices-next/SKILL.md",
+      "sha256": "18d22b124b890ca07dcd26f2d370f37e6b875ebd44dbc122cc7c97310a38a093",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/slices-plan/SKILL.md",
+      "sha256": "5cf550aa47c535722e4716f90d323fc219718b125327ebe37cb113ac14347f31",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/slices-prepare/SKILL.md",
+      "sha256": "bfd5dd549adf1402c7429c08617dd3fae4b7dada86447c10781fc35e56833fa3",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/slices-status/SKILL.md",
+      "sha256": "8f66b8c70bdbf6840ad2514ac9426bec09eff39b308814c37e4c3ceb5a810528",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/.parallel-slices-upstream.json",
+      "sha256": "c755ac2c93744b21d58559ce202fb824a9b7cc5a105c68269daad1ba56fbaca6",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/AGENTS.md",
+      "sha256": "89e3ddd58fcf99a53a50e25dfd21b8cde1be5f10b7df6bacd3dfa6796932f516",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/README.md",
+      "sha256": "85915a43a6f0b4efe525e3cf6398dd866166da2025837c4460468a24a940da94",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/SKILL.md",
+      "sha256": "e38e0eaa609316b10423a9a138ed95e35099accd3f735585295c8a8f165c28a3",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/metadata.json",
+      "sha256": "49262ed5cb4186f31ee980cf8d990be0170c51efed4908d0464a1cff9905bd05",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/_sections.md",
+      "sha256": "a174213b87e6911e2b766995a2cbaf8d1534057076e82fb79fe3f0ecb38047df",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/_template.md",
+      "sha256": "587f7d16b0660eb61fee4a4d3d7df2b3077d6835de170602c7d6e60bee559131",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/architecture-avoid-boolean-props.md",
+      "sha256": "007555ebb020f4d552582a2c4db194db71a1fd33094012e5187bcfa4f8c392d5",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/architecture-compound-components.md",
+      "sha256": "f246af13dc269b521cf20eb8ad99a0cb645beac381c8c9b117262c34612c8457",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/patterns-children-over-render-props.md",
+      "sha256": "7c45a0d21b3c4126a32cba916ee31adeae195386ad1dbbe6634aedb7457aa0ad",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/patterns-explicit-variants.md",
+      "sha256": "8c19e596e61807549d01ce8c6954c6358199f97a8511c0c02c625ec0efda8c0e",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/react19-no-forwardref.md",
+      "sha256": "881830adb7534c4b2d70db426556646ad9837f5478f744f35641f635ada22227",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/state-context-interface.md",
+      "sha256": "09e73afbf9285fa416679cc864a287b9e8b821d0969272ab784295386d8c9bc3",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/state-decouple-implementation.md",
+      "sha256": "76a8c1eb29a70d8996ab3f71260345af2f7bc89deab815a421d6c87c6591a9c3",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-composition-patterns/rules/state-lift-state.md",
+      "sha256": "74c54038a6c554c748fe31cec673b80861b5d920b7553cf78cdf10d18b4b759b",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/.parallel-slices-upstream.json",
+      "sha256": "3663c9643e001892f4ae05da86d3159b617f989209e9941d70d68a970c1635ef",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/AGENTS.md",
+      "sha256": "fc93e7421177bbf869cce892bc60a6c83a4517d974bc3bf65c4e2c1e58a6ccf6",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/README.md",
+      "sha256": "9eafb2123d3b8b2aef41fba0db2648a3f4f49996f8c7c8bb2c86263befd8b48a",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/SKILL.md",
+      "sha256": "71ed7794962fa6e803ee83030517b5b93a9f70fbfeb431ec4535c5480a8d8355",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/metadata.json",
+      "sha256": "c4e18bac3290fbe1b471a605867d4df68b03144ea26b8befdbe8f9d8fd124354",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/_sections.md",
+      "sha256": "01c59969e4e867f0708c8f8ef9c6d87fab9a07d0586244f429ff84013db8a115",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/_template.md",
+      "sha256": "99df2a3ea088c6c22de2484ddc7e964d0e9923846f44c63380343ecc64455442",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/advanced-effect-event-deps.md",
+      "sha256": "55ed8f9f27a1bff803d6fa55828176207714b02123cbb97ddb8a90d88024a723",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/advanced-event-handler-refs.md",
+      "sha256": "a3097edeecfb2ff6851cd66ed8cdf0617c3c88180504bee824aa6e75a215bbbc",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/advanced-init-once.md",
+      "sha256": "3e4dc22173eb0e2b6dcf583e3babd862b8696328f8f59aee7c4d746c5bc05f6c",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/advanced-use-latest.md",
+      "sha256": "8a3f64dfe5a77d1564248faf17fe662ae75b55d497a243cb30b38eb07ccbbf9a",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/async-api-routes.md",
+      "sha256": "523338540d73427dc14c0cbb19f2741ebccdf8b105a7b2c1b33d2905cf237a42",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/async-cheap-condition-before-await.md",
+      "sha256": "03107c1f70a293cd58a8abc5474c5548e20ea4efdf01b6d45aae7ad0ac1cb32c",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/async-defer-await.md",
+      "sha256": "f3c142d090615abdcc99d31c123be37b31f0f1ed8d9ec9f7789a3bc6883ae0fb",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/async-dependencies.md",
+      "sha256": "16ef469f877e30c6b8e1e1b4bc3e527312fa3c6318cb785a4eca186ea236131a",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/async-parallel.md",
+      "sha256": "6d2f841896279e976dfcdc1ac89e70771ac188baadfd43c096b5706cb838b961",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/async-suspense-boundaries.md",
+      "sha256": "de05fedac2eb7ae563b887b5a424464ec3dfaf84e5b7797467ebe2a796ac8afc",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/bundle-analyzable-paths.md",
+      "sha256": "62090b5c815fd71bf1133dce754f51abc16a9456d0ccd025fd627de27726e92a",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/bundle-barrel-imports.md",
+      "sha256": "e648f6d54525f07a691357040ca5bff6ea3424788a91ff63812adb29622a671b",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/bundle-conditional.md",
+      "sha256": "09c8259c3efb04fc0abb8e412ccbda217c222ae8118516283e571c995fe3a7d4",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/bundle-defer-third-party.md",
+      "sha256": "3719fb47b191e8db4fe22686ec88448ad5af9e6838585425abbe103d0b642e37",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/bundle-dynamic-imports.md",
+      "sha256": "401817a7369f315fc5a68a1095742ff7d53d0461906880dc9d64a41495ee1986",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/bundle-preload.md",
+      "sha256": "d1f7cc28da7cd5ab249acd287edc5b761afcfb194e9cb62cd44c5f3543db2de2",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/client-event-listeners.md",
+      "sha256": "242a873349febc1ce685e85617994784dbab92c2eaa68aed7fed5a83e7680e93",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/client-localstorage-schema.md",
+      "sha256": "0fb7cdf9dc93fdf22f87e3669f953fb9d4ac9b0be42eec4a29fe9a2560610b88",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/client-passive-event-listeners.md",
+      "sha256": "1f35016f9053de69e884ee9be00654e37979c2ca85f5e57764dc2626ff7acb4b",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/client-swr-dedup.md",
+      "sha256": "644652c39c6cc00de8d1c77a7273612e868dc3f7edda30764164c12ec0f764a3",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-batch-dom-css.md",
+      "sha256": "480b891b9eaf96e929dc1e964274a4828e3a78009b7d00ccd965a0d425215959",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-cache-function-results.md",
+      "sha256": "3daaa11d24f4295cb6be8bc6f407f2ce83cc7b5bd1f0e68891ea8ab835721dc7",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-cache-property-access.md",
+      "sha256": "73e47431e74878a927061bf0ddc7cd91a7556cb35d2573f3421e82300d9ae311",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-cache-storage.md",
+      "sha256": "11b826b0433898c1ece2d3547010d8e77db9fb240185748c45db91493de9b6cc",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-combine-iterations.md",
+      "sha256": "71add08aeeb43091d4ff4c0b2842cce8b4bdef8ad3e732cc034bb5a84827e746",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-early-exit.md",
+      "sha256": "925ce5ce87f3347186ca62212f29cc6baa2b8c85a96d2720ad07c3d0abf781c0",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-flatmap-filter.md",
+      "sha256": "9e5b166a41914d975bef7635467f8fb32cd98b5c3126c0bc6f163490812fb5f0",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-hoist-regexp.md",
+      "sha256": "f9e9aef2f7c2307dd7310f283df85dcada45fc43e9bb941b0c3aa414dec21ec4",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-index-maps.md",
+      "sha256": "5df1bdc2cfabb2c98abd55d26762e5c18189535c2e686184f426082e62920391",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-length-check-first.md",
+      "sha256": "8b54a311c826b299272f29187fc58bc55772a04c4a72eeb29456ee96dc9fc624",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-min-max-loop.md",
+      "sha256": "87dfb67e2f39df6ad8bcfb5b78c5fb364d3c07554ad188a202408d99f3763421",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-request-idle-callback.md",
+      "sha256": "ee08f83905b4011abbc33d594033157d77561b5bbd9b36b04f0f409581ffec32",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-set-map-lookups.md",
+      "sha256": "a7fd781a6ba9ad49065961b6f9a90ef486bf6b648390e1a08704025f98e1642b",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/js-tosorted-immutable.md",
+      "sha256": "d0a5e1b0fec48a0a81397957e2f068e224329f7c42cb5feeed8aae6fa64025e8",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-activity.md",
+      "sha256": "1e5e7eaf3555e61d6a2e900089c676527d26259501db5594f59544b6c664f85a",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-animate-svg-wrapper.md",
+      "sha256": "9c6ae0ca7a51434e803887c64cded760956579a1452ccb80a461a03f9c937c77",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-conditional-render.md",
+      "sha256": "2ec2fa23c4148285144687050c52369adba3da2fbe3d486f8d3e0aad8f06f2bc",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-content-visibility.md",
+      "sha256": "64eee6d5b916fe74df33363994b27fc7f71bea3bcedc7ee04bda23107ca3e6e4",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-hoist-jsx.md",
+      "sha256": "93b229560fae92005ed9a2a829064607b39b2e984e92d221d05b2d41df2b7c0e",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-hydration-no-flicker.md",
+      "sha256": "dc7ab358c67c177bca6e6f360fbc935ebe4efa928c0ba3ebd3f9f3d9e2000ca3",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-hydration-suppress-warning.md",
+      "sha256": "915bacb934e2927d84b37a3f3d225a47b309ac8f9e494ed2bcb66ce07c5676a2",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-resource-hints.md",
+      "sha256": "351b1095d641717b930f1b2253282b7120af3023bc74e06c17675168d4286864",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-script-defer-async.md",
+      "sha256": "4cea07b7875ba7fc2c7465ff23b63a2bb334f90aaf2d9293d38d67b05fdb32ab",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-svg-precision.md",
+      "sha256": "ed468533f6e95f622859c884b122cf21f9f593ed6bb3d500a54de4b9f9bcb9fb",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rendering-usetransition-loading.md",
+      "sha256": "3a1249c3f13026b6f54ab5712c388df219d6af01b12aa542749acd99a46f4bc1",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-defer-reads.md",
+      "sha256": "234050a77faf50cb306be10a9e15bd4421134ab5907e75f13e6d78e2bd262dc9",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-dependencies.md",
+      "sha256": "17eb5830956fb56486fd3cfc7431f5849d39751730c05ad9e77dd4f0c27169c5",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-derived-state-no-effect.md",
+      "sha256": "cb11ec76f50aa7b6847269f02d79b120c889a30d9ecd2c1d578f75144419c77a",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-derived-state.md",
+      "sha256": "1c326bb67b01fb084eb00c8911b0a7cff54681c2315b629f88e49b64eaa6481d",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-functional-setstate.md",
+      "sha256": "5e68df6b2ae8058e67f476ff1ac67bde159f5a9d18df439e46eabcdeb7b52e58",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-lazy-state-init.md",
+      "sha256": "4ae844740f266fc8cbf050701230286624a2440ec5be67b9a63d9edc3c580573",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-memo-with-default-value.md",
+      "sha256": "81c47476564ad8a79fc68fc442734255ca7d6829424359464503fda0a9f9a0dd",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-memo.md",
+      "sha256": "1f258990c2f27ff6256b3cc5c43300631bb3f0d81f749aed08d07fcdcc131dd1",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-move-effect-to-event.md",
+      "sha256": "abc2cbf167bee056743023351e96806a411d3398da8802093620aecf0721f029",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-no-inline-components.md",
+      "sha256": "1cc32907a770272524ba682eef9e7efdd8ad4533b6f89b718a1fcd7d1d0eb6a3",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-simple-expression-in-memo.md",
+      "sha256": "5bdcf2d1558ba5204e643c887b7b4060f89630969425651eb68e96427d97f800",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-split-combined-hooks.md",
+      "sha256": "6f45d703343484ef9acef9388397f3642966ae6a5a258899a0cf1f9977cfbf6c",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-transitions.md",
+      "sha256": "60f4033909a62df5e5b8c601494f9e50a562e2f8c1c2d81eac24f38142265f1c",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-use-deferred-value.md",
+      "sha256": "8c3579576a61a949884167745dcfaf1d5426ba305cc61fd0a79602d70fda4909",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/rerender-use-ref-transient-values.md",
+      "sha256": "f1a649af9d1d0b5c762f6c9c4c1c70c90d7df82aa10296ee87aadb78c1b76c54",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-after-nonblocking.md",
+      "sha256": "d0b8d24a3db9f0f65f9e2bddbf230b0e03a5f60e1229d93a4a18f5e7a991c7c2",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-auth-actions.md",
+      "sha256": "a2ca8aa102839251c7971ec784560fab943c20b36fe6f80365d4110c13260c23",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-cache-lru.md",
+      "sha256": "1924b64561841923b88a657085097a0aeba3e0ba2d5470b9f5c15cc10d6ae70f",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-cache-react.md",
+      "sha256": "fddeea6c870bb3da4134b61d54b7d09b83d2603f929b7547cd3dc1dc269edd5c",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-dedup-props.md",
+      "sha256": "c2747424cdac46be62f835f245a0aa887b0090b416d28e2ac8676702645eeb37",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-hoist-static-io.md",
+      "sha256": "5abea4dd882b13661bd5f7dfb93f9e547d5f08176c61c448ade91b210ed5d49f",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-no-shared-module-state.md",
+      "sha256": "4d869bf1cd2f1632e5ca4c0e64b1cf0e71c5f5a0f940bc8a22174d205e735ed7",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-parallel-fetching.md",
+      "sha256": "569a2e9fc04f9606686cd75c5894ef8781b502786a7fffe241396846c7733472",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-parallel-nested-fetching.md",
+      "sha256": "ad5d9656984d4a959997a2367bf59cc6632297b4634a1dd13a087939d83f30b3",
+      "executable": false
+    },
+    {
+      "path": ".claude/skills/vercel-react-best-practices/rules/server-serialization.md",
+      "sha256": "f4c7d68b29c82381baad059c4a7f09e868e71ec9c3115a26ad3ae7d24c0dfe1f",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/parallel-slices-init.md",
+      "sha256": "58c93976f18a68bf92eb02985a0bdf18346358d4a2cd69ac64fd36d58537e4d6",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/parallel-slices-next.md",
+      "sha256": "92e4f6c1b11bfb9d487216059fc2ad3a0de91070fb1c4897ad19f735c7fc0e0f",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/parallel-slices-plan.md",
+      "sha256": "8afc33df6b3b9339afaacb128491601f4e78b58bc2e8f08e668d52484b5b2682",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/parallel-slices-prepare.md",
+      "sha256": "2d867ff194fe5fb4767673b4203316d0f9e603e2ae06ff2eeb5813bce9f1c4dd",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/parallel-slices-status.md",
+      "sha256": "8a15c63b4dcfcea1798e061a86d9edeb6bcec70376009dbd39cbc2ae05e52c12",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/slices-init.md",
+      "sha256": "4478b4dba15d4c5da4c145f48052865f1e6b01ef00c622b2accb3d63f6cd28a8",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/slices-next.md",
+      "sha256": "af857e68d0618e93e7fdb3957b9d57cb966ec1026b91946f5fa3e056c00e6eb5",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/slices-plan.md",
+      "sha256": "d2bb0363ec04271cf494ede49df429eeeec0b46d814aa16d0902fd41a254491a",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/slices-prepare.md",
+      "sha256": "09101cfbb56f7328c4bad15ca7dfb19ddf529906c9931d86171cef9a9dd17b28",
+      "executable": false
+    },
+    {
+      "path": ".cursor/commands/slices-status.md",
+      "sha256": "a17d02b66fc2027138f053522c94a327c1674bc92f9958a11f01e9245dd7caba",
+      "executable": false
+    },
+    {
+      "path": ".cursor/rules/parallel-slices-controller.mdc",
+      "sha256": "d0fe29423a85a7b53896bc5ebf9e2d3e7f22130b51f75723db2ef471d2a53f55",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/THIRD_PARTY.md",
+      "sha256": "a0f889b5ee7e0efc0868a9d96c9ae31a8503fb1cece92bef1624ff3b0b859143",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/parallel-slices-init/SKILL.md",
+      "sha256": "e8c41963cdc85ffd1e4418ca9eb88856a22d6d6f37134e76e7ac2fadc8da9975",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/parallel-slices-next/SKILL.md",
+      "sha256": "32a7d8af1388080e07e1ce14a8e50ec839b2085abc97a65be60cbbf872ad55eb",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/parallel-slices-plan/SKILL.md",
+      "sha256": "1e9fe6308aa3078fe8df5e00ec66227ba1454e2047c1acd5aaf3f4efc8deb547",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/.parallel-slices-upstream.json",
+      "sha256": "bf6d189b91490460fb4d99831cb6c9eead150f9607ce06f587088e955dc23b6c",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/AGENTS.md",
+      "sha256": "89e3ddd58fcf99a53a50e25dfd21b8cde1be5f10b7df6bacd3dfa6796932f516",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/README.md",
+      "sha256": "85915a43a6f0b4efe525e3cf6398dd866166da2025837c4460468a24a940da94",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/SKILL.md",
+      "sha256": "e38e0eaa609316b10423a9a138ed95e35099accd3f735585295c8a8f165c28a3",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/metadata.json",
+      "sha256": "49262ed5cb4186f31ee980cf8d990be0170c51efed4908d0464a1cff9905bd05",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/_sections.md",
+      "sha256": "a174213b87e6911e2b766995a2cbaf8d1534057076e82fb79fe3f0ecb38047df",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/_template.md",
+      "sha256": "587f7d16b0660eb61fee4a4d3d7df2b3077d6835de170602c7d6e60bee559131",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/architecture-avoid-boolean-props.md",
+      "sha256": "007555ebb020f4d552582a2c4db194db71a1fd33094012e5187bcfa4f8c392d5",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/architecture-compound-components.md",
+      "sha256": "f246af13dc269b521cf20eb8ad99a0cb645beac381c8c9b117262c34612c8457",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/patterns-children-over-render-props.md",
+      "sha256": "7c45a0d21b3c4126a32cba916ee31adeae195386ad1dbbe6634aedb7457aa0ad",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/patterns-explicit-variants.md",
+      "sha256": "8c19e596e61807549d01ce8c6954c6358199f97a8511c0c02c625ec0efda8c0e",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/react19-no-forwardref.md",
+      "sha256": "881830adb7534c4b2d70db426556646ad9837f5478f744f35641f635ada22227",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/state-context-interface.md",
+      "sha256": "09e73afbf9285fa416679cc864a287b9e8b821d0969272ab784295386d8c9bc3",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/state-decouple-implementation.md",
+      "sha256": "76a8c1eb29a70d8996ab3f71260345af2f7bc89deab815a421d6c87c6591a9c3",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-composition-patterns/rules/state-lift-state.md",
+      "sha256": "74c54038a6c554c748fe31cec673b80861b5d920b7553cf78cdf10d18b4b759b",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/.parallel-slices-upstream.json",
+      "sha256": "83b08b5f00cbb49b42b28cbe66d60a76ed0968197f8bd2c42d51c66fcdcd2b79",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/AGENTS.md",
+      "sha256": "fc93e7421177bbf869cce892bc60a6c83a4517d974bc3bf65c4e2c1e58a6ccf6",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/README.md",
+      "sha256": "9eafb2123d3b8b2aef41fba0db2648a3f4f49996f8c7c8bb2c86263befd8b48a",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/SKILL.md",
+      "sha256": "71ed7794962fa6e803ee83030517b5b93a9f70fbfeb431ec4535c5480a8d8355",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/metadata.json",
+      "sha256": "c4e18bac3290fbe1b471a605867d4df68b03144ea26b8befdbe8f9d8fd124354",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/_sections.md",
+      "sha256": "01c59969e4e867f0708c8f8ef9c6d87fab9a07d0586244f429ff84013db8a115",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/_template.md",
+      "sha256": "99df2a3ea088c6c22de2484ddc7e964d0e9923846f44c63380343ecc64455442",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/advanced-effect-event-deps.md",
+      "sha256": "55ed8f9f27a1bff803d6fa55828176207714b02123cbb97ddb8a90d88024a723",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/advanced-event-handler-refs.md",
+      "sha256": "a3097edeecfb2ff6851cd66ed8cdf0617c3c88180504bee824aa6e75a215bbbc",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/advanced-init-once.md",
+      "sha256": "3e4dc22173eb0e2b6dcf583e3babd862b8696328f8f59aee7c4d746c5bc05f6c",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/advanced-use-latest.md",
+      "sha256": "8a3f64dfe5a77d1564248faf17fe662ae75b55d497a243cb30b38eb07ccbbf9a",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/async-api-routes.md",
+      "sha256": "523338540d73427dc14c0cbb19f2741ebccdf8b105a7b2c1b33d2905cf237a42",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/async-cheap-condition-before-await.md",
+      "sha256": "03107c1f70a293cd58a8abc5474c5548e20ea4efdf01b6d45aae7ad0ac1cb32c",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/async-defer-await.md",
+      "sha256": "f3c142d090615abdcc99d31c123be37b31f0f1ed8d9ec9f7789a3bc6883ae0fb",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/async-dependencies.md",
+      "sha256": "16ef469f877e30c6b8e1e1b4bc3e527312fa3c6318cb785a4eca186ea236131a",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/async-parallel.md",
+      "sha256": "6d2f841896279e976dfcdc1ac89e70771ac188baadfd43c096b5706cb838b961",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/async-suspense-boundaries.md",
+      "sha256": "de05fedac2eb7ae563b887b5a424464ec3dfaf84e5b7797467ebe2a796ac8afc",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/bundle-analyzable-paths.md",
+      "sha256": "62090b5c815fd71bf1133dce754f51abc16a9456d0ccd025fd627de27726e92a",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/bundle-barrel-imports.md",
+      "sha256": "e648f6d54525f07a691357040ca5bff6ea3424788a91ff63812adb29622a671b",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/bundle-conditional.md",
+      "sha256": "09c8259c3efb04fc0abb8e412ccbda217c222ae8118516283e571c995fe3a7d4",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/bundle-defer-third-party.md",
+      "sha256": "3719fb47b191e8db4fe22686ec88448ad5af9e6838585425abbe103d0b642e37",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/bundle-dynamic-imports.md",
+      "sha256": "401817a7369f315fc5a68a1095742ff7d53d0461906880dc9d64a41495ee1986",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/bundle-preload.md",
+      "sha256": "d1f7cc28da7cd5ab249acd287edc5b761afcfb194e9cb62cd44c5f3543db2de2",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/client-event-listeners.md",
+      "sha256": "242a873349febc1ce685e85617994784dbab92c2eaa68aed7fed5a83e7680e93",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/client-localstorage-schema.md",
+      "sha256": "0fb7cdf9dc93fdf22f87e3669f953fb9d4ac9b0be42eec4a29fe9a2560610b88",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/client-passive-event-listeners.md",
+      "sha256": "1f35016f9053de69e884ee9be00654e37979c2ca85f5e57764dc2626ff7acb4b",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/client-swr-dedup.md",
+      "sha256": "644652c39c6cc00de8d1c77a7273612e868dc3f7edda30764164c12ec0f764a3",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-batch-dom-css.md",
+      "sha256": "480b891b9eaf96e929dc1e964274a4828e3a78009b7d00ccd965a0d425215959",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-cache-function-results.md",
+      "sha256": "3daaa11d24f4295cb6be8bc6f407f2ce83cc7b5bd1f0e68891ea8ab835721dc7",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-cache-property-access.md",
+      "sha256": "73e47431e74878a927061bf0ddc7cd91a7556cb35d2573f3421e82300d9ae311",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-cache-storage.md",
+      "sha256": "11b826b0433898c1ece2d3547010d8e77db9fb240185748c45db91493de9b6cc",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-combine-iterations.md",
+      "sha256": "71add08aeeb43091d4ff4c0b2842cce8b4bdef8ad3e732cc034bb5a84827e746",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-early-exit.md",
+      "sha256": "925ce5ce87f3347186ca62212f29cc6baa2b8c85a96d2720ad07c3d0abf781c0",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-flatmap-filter.md",
+      "sha256": "9e5b166a41914d975bef7635467f8fb32cd98b5c3126c0bc6f163490812fb5f0",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-hoist-regexp.md",
+      "sha256": "f9e9aef2f7c2307dd7310f283df85dcada45fc43e9bb941b0c3aa414dec21ec4",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-index-maps.md",
+      "sha256": "5df1bdc2cfabb2c98abd55d26762e5c18189535c2e686184f426082e62920391",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-length-check-first.md",
+      "sha256": "8b54a311c826b299272f29187fc58bc55772a04c4a72eeb29456ee96dc9fc624",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-min-max-loop.md",
+      "sha256": "87dfb67e2f39df6ad8bcfb5b78c5fb364d3c07554ad188a202408d99f3763421",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-request-idle-callback.md",
+      "sha256": "ee08f83905b4011abbc33d594033157d77561b5bbd9b36b04f0f409581ffec32",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-set-map-lookups.md",
+      "sha256": "a7fd781a6ba9ad49065961b6f9a90ef486bf6b648390e1a08704025f98e1642b",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/js-tosorted-immutable.md",
+      "sha256": "d0a5e1b0fec48a0a81397957e2f068e224329f7c42cb5feeed8aae6fa64025e8",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-activity.md",
+      "sha256": "1e5e7eaf3555e61d6a2e900089c676527d26259501db5594f59544b6c664f85a",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-animate-svg-wrapper.md",
+      "sha256": "9c6ae0ca7a51434e803887c64cded760956579a1452ccb80a461a03f9c937c77",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-conditional-render.md",
+      "sha256": "2ec2fa23c4148285144687050c52369adba3da2fbe3d486f8d3e0aad8f06f2bc",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-content-visibility.md",
+      "sha256": "64eee6d5b916fe74df33363994b27fc7f71bea3bcedc7ee04bda23107ca3e6e4",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-hoist-jsx.md",
+      "sha256": "93b229560fae92005ed9a2a829064607b39b2e984e92d221d05b2d41df2b7c0e",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-hydration-no-flicker.md",
+      "sha256": "dc7ab358c67c177bca6e6f360fbc935ebe4efa928c0ba3ebd3f9f3d9e2000ca3",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-hydration-suppress-warning.md",
+      "sha256": "915bacb934e2927d84b37a3f3d225a47b309ac8f9e494ed2bcb66ce07c5676a2",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-resource-hints.md",
+      "sha256": "351b1095d641717b930f1b2253282b7120af3023bc74e06c17675168d4286864",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-script-defer-async.md",
+      "sha256": "4cea07b7875ba7fc2c7465ff23b63a2bb334f90aaf2d9293d38d67b05fdb32ab",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-svg-precision.md",
+      "sha256": "ed468533f6e95f622859c884b122cf21f9f593ed6bb3d500a54de4b9f9bcb9fb",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rendering-usetransition-loading.md",
+      "sha256": "3a1249c3f13026b6f54ab5712c388df219d6af01b12aa542749acd99a46f4bc1",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-defer-reads.md",
+      "sha256": "234050a77faf50cb306be10a9e15bd4421134ab5907e75f13e6d78e2bd262dc9",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-dependencies.md",
+      "sha256": "17eb5830956fb56486fd3cfc7431f5849d39751730c05ad9e77dd4f0c27169c5",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-derived-state-no-effect.md",
+      "sha256": "cb11ec76f50aa7b6847269f02d79b120c889a30d9ecd2c1d578f75144419c77a",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-derived-state.md",
+      "sha256": "1c326bb67b01fb084eb00c8911b0a7cff54681c2315b629f88e49b64eaa6481d",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-functional-setstate.md",
+      "sha256": "5e68df6b2ae8058e67f476ff1ac67bde159f5a9d18df439e46eabcdeb7b52e58",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-lazy-state-init.md",
+      "sha256": "4ae844740f266fc8cbf050701230286624a2440ec5be67b9a63d9edc3c580573",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-memo-with-default-value.md",
+      "sha256": "81c47476564ad8a79fc68fc442734255ca7d6829424359464503fda0a9f9a0dd",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-memo.md",
+      "sha256": "1f258990c2f27ff6256b3cc5c43300631bb3f0d81f749aed08d07fcdcc131dd1",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-move-effect-to-event.md",
+      "sha256": "abc2cbf167bee056743023351e96806a411d3398da8802093620aecf0721f029",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-no-inline-components.md",
+      "sha256": "1cc32907a770272524ba682eef9e7efdd8ad4533b6f89b718a1fcd7d1d0eb6a3",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-simple-expression-in-memo.md",
+      "sha256": "5bdcf2d1558ba5204e643c887b7b4060f89630969425651eb68e96427d97f800",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-split-combined-hooks.md",
+      "sha256": "6f45d703343484ef9acef9388397f3642966ae6a5a258899a0cf1f9977cfbf6c",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-transitions.md",
+      "sha256": "60f4033909a62df5e5b8c601494f9e50a562e2f8c1c2d81eac24f38142265f1c",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-use-deferred-value.md",
+      "sha256": "8c3579576a61a949884167745dcfaf1d5426ba305cc61fd0a79602d70fda4909",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/rerender-use-ref-transient-values.md",
+      "sha256": "f1a649af9d1d0b5c762f6c9c4c1c70c90d7df82aa10296ee87aadb78c1b76c54",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-after-nonblocking.md",
+      "sha256": "d0b8d24a3db9f0f65f9e2bddbf230b0e03a5f60e1229d93a4a18f5e7a991c7c2",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-auth-actions.md",
+      "sha256": "a2ca8aa102839251c7971ec784560fab943c20b36fe6f80365d4110c13260c23",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-cache-lru.md",
+      "sha256": "1924b64561841923b88a657085097a0aeba3e0ba2d5470b9f5c15cc10d6ae70f",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-cache-react.md",
+      "sha256": "fddeea6c870bb3da4134b61d54b7d09b83d2603f929b7547cd3dc1dc269edd5c",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-dedup-props.md",
+      "sha256": "c2747424cdac46be62f835f245a0aa887b0090b416d28e2ac8676702645eeb37",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-hoist-static-io.md",
+      "sha256": "5abea4dd882b13661bd5f7dfb93f9e547d5f08176c61c448ade91b210ed5d49f",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-no-shared-module-state.md",
+      "sha256": "4d869bf1cd2f1632e5ca4c0e64b1cf0e71c5f5a0f940bc8a22174d205e735ed7",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-parallel-fetching.md",
+      "sha256": "569a2e9fc04f9606686cd75c5894ef8781b502786a7fffe241396846c7733472",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-parallel-nested-fetching.md",
+      "sha256": "ad5d9656984d4a959997a2367bf59cc6632297b4634a1dd13a087939d83f30b3",
+      "executable": false
+    },
+    {
+      "path": ".cursor/skills/vercel-react-best-practices/rules/server-serialization.md",
+      "sha256": "f4c7d68b29c82381baad059c4a7f09e868e71ec9c3115a26ad3ae7d24c0dfe1f",
+      "executable": false
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "abe77238703422ab215198c8b411a604e3b93b4ec84f874c3c9147b2138b06bf",
+      "executable": false
+    },
+    {
+      "path": ".github/pull_request_template.md",
+      "sha256": "6c299ad98e8ab4044e1b098eceb843c758864d15fbafb3447ccf976c4a7afda7",
+      "executable": false
+    },
+    {
+      "path": ".github/workflows/deploy-cloud-run.yml",
+      "sha256": "0cefcce20b66835a23c66934262ea75bdddc0005c16ec28e46bd9b8c338ea69f",
+      "executable": false
+    },
+    {
+      "path": ".github/workflows/quality.yml",
+      "sha256": "a93194ba627a3edf7e66718ae71e1ba58f3c750327736a938a9fd4bdf21daf6a",
+      "executable": false
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "4b030689969356c36b6b2fa116815813ed1b1bc072a48c5248a033adc05dd3fb",
+      "executable": false
+    },
+    {
+      "path": ".husky/pre-commit",
+      "sha256": "1dc11cb1f197c0f644003893e286b7b5557ebef49e62e9274adc186489070b65",
+      "executable": true
+    },
+    {
+      "path": ".husky/pre-push",
+      "sha256": "d2dbc4c5ab7b638a770c80d41639cb940f13213374c57a4d1487750ab4f44b55",
+      "executable": true
+    },
+    {
+      "path": ".npmrc",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/agent.json",
+      "sha256": "48b16fc1527bacc7ce5cf0c6fa3f8296b27c4ddd2c41544eaa60eb4e82233639",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/agent.schema.json",
+      "sha256": "fc949a8864e32ffe0c1f669ccddfdf6b6e101fffc88b87f92f9505a04965a828",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/architecture.json",
+      "sha256": "3bc4dee2fa75a61904ee0fb796a247195e99011ef4bd8de66ec2b50d17eef3fa",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/architecture.schema.json",
+      "sha256": "1baef05020574abea6314f9944f968384e90cf47ea535b156f44694d1be13ffc",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/config.json",
+      "sha256": "64694e1442ebf1176d670f81a172d419bbafd122dfd2dd06c1dc96e26fd3d1f6",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/config.schema.json",
+      "sha256": "46603f3112988b4df19278cfa2b09252b295582f86fd4b34d1954a7ce692b2c0",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/curated-skills.json",
+      "sha256": "df158a7ae5a617756a67e222aed9a6f7933084b45fb1eae8f6667d9856269c43",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/loop-state.schema.json",
+      "sha256": "dded678e4fc5c57999f559ad80e325b3b649c915057c4762a6dbdfb638e63e3e",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/project-state.json",
+      "sha256": "3c680f508e77ece12f07ed536eeeef1d5d74ab85cedf633a0d8bd118d607cf1c",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/repository.json",
+      "sha256": "03a7296e6879aba14dc0f1b0dae54f6cb504ac35d45480311273b1e91306ccbe",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/repository.schema.json",
+      "sha256": "78d48f029441de065748d8e24bbb8ee27d7b145c1e2026de119be219a608b368",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/review-response.schema.json",
+      "sha256": "f421958729947dc1fe0b8c931f24ba82d7c3e972e0209e42d1ed54ffb5ed62c3",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/review.json",
+      "sha256": "a6fbf2480a5e8d295e62fbec9b5e7e2e2ab4ac47b14b9072f5c1b99dc36289c9",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/review.schema.json",
+      "sha256": "e5c4deea21186a355a6307e5cbdce30f8c7b7092e252e2bbbb879593cebd63e9",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/runtime/.gitignore",
+      "sha256": "240a3e0d37d2e86b614063f5347eb02d4f99ca6c254de6b82871ff8d95532a7d",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/scaffold-profile.json",
+      "sha256": "c60622863713053a68f5d94b746fb05ca338c7b173d3920e4aba9413869193b0",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/scope-correction.schema.json",
+      "sha256": "79fcb6ea6de38d49ac061bb0dd2c7b6ff8418f2f77f5ac4990cc601361894eba",
+      "executable": false
+    },
+    {
+      "path": ".parallel-slices/sql-security.json",
+      "sha256": "4e1266ce6eef0991decda4d821ab922de15b0b3225df43ea2e2eed3cc1aa4bea",
+      "executable": false
+    },
+    {
+      "path": ".trivy-version",
+      "sha256": "3bbac2b8bc8b6dfafcf20756d1a420e1758fc32244e99f57d0130b0c44a16457",
+      "executable": false
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "fcc70d53fdfad23424229fe8516547e0dde0aaadeabeae6682b2fbe451899146",
+      "executable": false
+    },
+    {
+      "path": "README.md",
+      "sha256": "06903356962129d989eea63b374397e27b75723c6b0c7e691da1c73613787db2",
+      "executable": false
+    },
+    {
+      "path": "apps/backend/migrations/AGENTS.md",
+      "sha256": "ecce2db4bbe92a8a5fd69b8029a9bcf90d06d1352db373b3972782e71fce2d97",
+      "executable": false
+    },
+    {
+      "path": "apps/backend/migrations/README.md",
+      "sha256": "c69e3073bc4f25aed8276e2af0ea4dc10a00fc6857cc44c42638410dfa57dc2b",
+      "executable": false
+    },
+    {
+      "path": "apps/backend/migrations/_MIGRATION_TEMPLATE.sql",
+      "sha256": "aa1d1185e8639d5692afbeb7c9dc0b02aeea96c96558089e7976567cead1d4de",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/.gitignore",
+      "sha256": "aff8a8f64634f90d6fa196be9e5441e7fc293285902dd1dd2170583ace77a45e",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/README.md",
+      "sha256": "a672b2d0eff4d5620899a1c5085b1f8f9a33f2ec5c38fca2090290922c768205",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/app/favicon.ico",
+      "sha256": "2b8ad2d33455a8f736fc3a8ebf8f0bdea8848ad4c0db48a2833bd0f9cd775932",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/app/fonts/GeistMonoVF.woff",
+      "sha256": "e8b65928f551b17e3d67c3f709721b952c39842d14b00701f9232057fde73608",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/app/fonts/GeistVF.woff",
+      "sha256": "296fafafd41304f7c992079054b8af914dbbd865f32de97c66d0f613b55755d6",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/app/globals.css",
+      "sha256": "771dade81d3b86e70f49136c6db2cc04baf14d5b82d5dc0d87e17b8359a0257b",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/app/layout.tsx",
+      "sha256": "c70e1417a4050aae1635df0971e108d592feb708d1ec53e56d9f760581221cca",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/app/page.tsx",
+      "sha256": "08501df1d8d922c94ea8fa732cfeb1ff36a24d3cd65807cf66a79742b2d6cabb",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/eslint.config.js",
+      "sha256": "7bff1f9e6c8c2e54bc99c2362eda876331a9fd2d63a1fb74e61215ccd374a674",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/next.config.js",
+      "sha256": "b9e284045939e964f32b37007eb743c9c9fdfa2eb51361cf24ecc63b3fa8c4e7",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/package.json",
+      "sha256": "312ca16e0d570b325fa16cd1c8979e80360fac46930fc5790b99435c7127bf75",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/postcss.config.mjs",
+      "sha256": "fe308d4b4f2c90e36ff2c4aa3488424ba55e98fdcbccc1db4261554779c20301",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/public/file-text.svg",
+      "sha256": "4a9282e2713aeebe76c6f9a98dd005e59621b1394e28b739a54a971611cdd7bc",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/public/globe.svg",
+      "sha256": "1359ef3f3212e7335d9f0213c13a50b99a89df4597d0e4b254289c53d37d921b",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/public/next.svg",
+      "sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/public/turborepo-dark.svg",
+      "sha256": "34bf128f8d29eeda939b0c149099ae0ef7d94a468a8a35b714785939f39acc8e",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/public/turborepo-light.svg",
+      "sha256": "2afca88b9139f7f86195af3b30b5bcedc7bca028d07cb41bacab3ddff2e92c5e",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/public/vercel.svg",
+      "sha256": "90364018e584568db238b777e87790249cc58a55c1e921ae56ed4915662be582",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/public/window.svg",
+      "sha256": "3d6c388b3b3f3ad96ccd0ddc1c6b518dfbab51128fb2d163fe42403b2fb74e7e",
+      "executable": false
+    },
+    {
+      "path": "apps/docs/tsconfig.json",
+      "sha256": "0d0237fc599470f8796e839e3ebc3643028acbded457a0a6bf9a02eb25dd95fd",
+      "executable": false
+    },
+    {
+      "path": "apps/web/.gitignore",
+      "sha256": "abc55c2e0d51493f7059f7a5f2f36c965ca43886f4ac09a3e64329f07816e34a",
+      "executable": false
+    },
+    {
+      "path": "apps/web/README.md",
+      "sha256": "a672b2d0eff4d5620899a1c5085b1f8f9a33f2ec5c38fca2090290922c768205",
+      "executable": false
+    },
+    {
+      "path": "apps/web/app/favicon.ico",
+      "sha256": "2b8ad2d33455a8f736fc3a8ebf8f0bdea8848ad4c0db48a2833bd0f9cd775932",
+      "executable": false
+    },
+    {
+      "path": "apps/web/app/fonts/GeistMonoVF.woff",
+      "sha256": "e8b65928f551b17e3d67c3f709721b952c39842d14b00701f9232057fde73608",
+      "executable": false
+    },
+    {
+      "path": "apps/web/app/fonts/GeistVF.woff",
+      "sha256": "296fafafd41304f7c992079054b8af914dbbd865f32de97c66d0f613b55755d6",
+      "executable": false
+    },
+    {
+      "path": "apps/web/app/globals.css",
+      "sha256": "771dade81d3b86e70f49136c6db2cc04baf14d5b82d5dc0d87e17b8359a0257b",
+      "executable": false
+    },
+    {
+      "path": "apps/web/app/layout.tsx",
+      "sha256": "c70e1417a4050aae1635df0971e108d592feb708d1ec53e56d9f760581221cca",
+      "executable": false
+    },
+    {
+      "path": "apps/web/app/page.tsx",
+      "sha256": "08501df1d8d922c94ea8fa732cfeb1ff36a24d3cd65807cf66a79742b2d6cabb",
+      "executable": false
+    },
+    {
+      "path": "apps/web/eslint.config.js",
+      "sha256": "7bff1f9e6c8c2e54bc99c2362eda876331a9fd2d63a1fb74e61215ccd374a674",
+      "executable": false
+    },
+    {
+      "path": "apps/web/next.config.js",
+      "sha256": "b9e284045939e964f32b37007eb743c9c9fdfa2eb51361cf24ecc63b3fa8c4e7",
+      "executable": false
+    },
+    {
+      "path": "apps/web/package.json",
+      "sha256": "a5b056e5116308b4bd8c5e9ee915d036fc7b0cab55d0eb18affed8d31e866231",
+      "executable": false
+    },
+    {
+      "path": "apps/web/postcss.config.mjs",
+      "sha256": "fe308d4b4f2c90e36ff2c4aa3488424ba55e98fdcbccc1db4261554779c20301",
+      "executable": false
+    },
+    {
+      "path": "apps/web/public/file-text.svg",
+      "sha256": "4a9282e2713aeebe76c6f9a98dd005e59621b1394e28b739a54a971611cdd7bc",
+      "executable": false
+    },
+    {
+      "path": "apps/web/public/globe.svg",
+      "sha256": "1359ef3f3212e7335d9f0213c13a50b99a89df4597d0e4b254289c53d37d921b",
+      "executable": false
+    },
+    {
+      "path": "apps/web/public/next.svg",
+      "sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc",
+      "executable": false
+    },
+    {
+      "path": "apps/web/public/turborepo-dark.svg",
+      "sha256": "34bf128f8d29eeda939b0c149099ae0ef7d94a468a8a35b714785939f39acc8e",
+      "executable": false
+    },
+    {
+      "path": "apps/web/public/turborepo-light.svg",
+      "sha256": "2afca88b9139f7f86195af3b30b5bcedc7bca028d07cb41bacab3ddff2e92c5e",
+      "executable": false
+    },
+    {
+      "path": "apps/web/public/vercel.svg",
+      "sha256": "90364018e584568db238b777e87790249cc58a55c1e921ae56ed4915662be582",
+      "executable": false
+    },
+    {
+      "path": "apps/web/public/window.svg",
+      "sha256": "3d6c388b3b3f3ad96ccd0ddc1c6b518dfbab51128fb2d163fe42403b2fb74e7e",
+      "executable": false
+    },
+    {
+      "path": "apps/web/tsconfig.json",
+      "sha256": "0d0237fc599470f8796e839e3ebc3643028acbded457a0a6bf9a02eb25dd95fd",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/README.md",
+      "sha256": "3dc79624550a936143aff75aa2bcc903d033f0928346e4efdf3a6dd768eec8b7",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/assets/multi-agent-review.svg",
+      "sha256": "8cd99a7d30892332ed6eb4cd51346d1ae2ad6693c3541da9d1ec90a467235dce",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/check-run-status.md",
+      "sha256": "71a4ae2ba550ced49ea1046066c709b86ef1f836c5f6bc1eaf6322b3fdd23c86",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/github-automation.md",
+      "sha256": "68d1a6e89395d4732e9bacc59ab01d180e33d8dbb70409812311c4f070e9c464",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/initialize-nextjs-gcp-postgres-project.md",
+      "sha256": "855296c1a1d40ed297c95956ac6be8972f839de203e89981dfa0e4e40de8e3e0",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/multi-agent-review.md",
+      "sha256": "c921cf96bbf9c4c939bd6c65131372293b7f46263297cf5ebc8321f1a9795758",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/plan-milestone.md",
+      "sha256": "8eb14b254cdf5231db4dac322f3fd815e3d0f4e08ff52d9744be02b19499c0ab",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/planning-and-optimized-slices.md",
+      "sha256": "71651e68684f76c1a229f82883427391b4de38e2417470b69db20f1dbcfe44e4",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/prepare-controller.md",
+      "sha256": "c2109d097832a56b3b5fa3109d409bab3326c104f6114c066b1f93b689371e70",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/robust-recovery.md",
+      "sha256": "95de3ba65b806d23cc19a155a9c9cfc3947341f8c945b6bf9afa0555383a278d",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/run-slice-worker.md",
+      "sha256": "95d84917ef7b867cecf654b7f98c3728b9ad67714179e55fbf2af2d200a7728d",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/run-sliced-plan.md",
+      "sha256": "1fb12328445a78c0d13dd2871b2bfe35f27addbc89f2b2ecaf8e3c91b9fc1d1a",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/using-claude-code.md",
+      "sha256": "99869052011613abbfba13bef9f9190383918ff9a59e11e66ffd39a94c4eccad",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/using-codex.md",
+      "sha256": "8fc966313533798180f8bd62eb8a956d00fdf3ba5b60e5221d39348943bd342b",
+      "executable": false
+    },
+    {
+      "path": "docs/parallel-slices/using-cursor.md",
+      "sha256": "b913f3eb3cc36aab92a3119d66047936b9b6a3a2aa0a1e2691d38e80b940620b",
+      "executable": false
+    },
+    {
+      "path": "docs/plans/AGENTS.md",
+      "sha256": "42d45cf90445ed7459b429580dc8b12bb1f3e77c0c1572590360b25c1129b4f0",
+      "executable": false
+    },
+    {
+      "path": "docs/plans/_LOOP-STATE-TEMPLATE.json",
+      "sha256": "f99600085d8051130c424c38e221597b2c8a25cb8cd4e14d5e9e6bec09ba1333",
+      "executable": false
+    },
+    {
+      "path": "docs/plans/_PRODUCT-PLAN-TEMPLATE.md",
+      "sha256": "ceb914ac13329731839848da47676f9f96b306b13850fecb8dc0dff227c41aa6",
+      "executable": false
+    },
+    {
+      "path": "docs/plans/corrections/AGENTS.md",
+      "sha256": "b678a17c74cb35924ceeeabca428b8e47138b0d1516796bb3baa780bff50f4d1",
+      "executable": false
+    },
+    {
+      "path": "docs/plans/loop-state-template.md",
+      "sha256": "d3a4bde89ef19f187a56437bdd9ac61336c7e795ee329b1eab73112cdc0b164d",
+      "executable": false
+    },
+    {
+      "path": "docs/plans/reviews/AGENTS.md",
+      "sha256": "9a33921cf419aeb60894a8937f8778b0824c074d094bd9700fa4793888d43fd3",
+      "executable": false
+    },
+    {
+      "path": "docs/plans/scopes/_PLANNING-SCOPE-TEMPLATE.scope",
+      "sha256": "f0a93e0ed1e27bd4a1c2b2643a8cc92f68b7fa5f70b60720fc1ffd6b50e73253",
+      "executable": false
+    },
+    {
+      "path": "docs/plans/scopes/_SCOPE-TEMPLATE.scope",
+      "sha256": "53cead6b820cd19c894994bc5be3337929db38853fe6feaee616005278cae980",
+      "executable": false
+    },
+    {
+      "path": "docs/project/AGENTS.md",
+      "sha256": "6eb638a05b6910521c3323c15844927e1785e679bf608bd51432264bac85a89f",
+      "executable": false
+    },
+    {
+      "path": "docs/releases/AGENTS.md",
+      "sha256": "c4e0b2afcc98415d9e28d1f4654ebcfc391876e5738f9d42f0669cca71166977",
+      "executable": false
+    },
+    {
+      "path": "docs/releases/README.md",
+      "sha256": "01783f3a1813cab007b2a06b3d6a37f8626daa0a239958e96f50f7cc76fa099c",
+      "executable": false
+    },
+    {
+      "path": "docs/releases/templates/developer-fragment.md",
+      "sha256": "37965dba79132096633b38553250210339bbda1e93a78bd58d23d2bc7c99ef6b",
+      "executable": false
+    },
+    {
+      "path": "docs/testing/manual/AGENTS.md",
+      "sha256": "9bd42bf1c1c0629b163039c842850136b8b1119c5c2c89291d09aad91fa6f81f",
+      "executable": false
+    },
+    {
+      "path": "docs/testing/manual/_MANUAL-TEST-SCRIPT-TEMPLATE.md",
+      "sha256": "f2feaf07047d9727e5bb9bd1bb01c458d0ebe08e09971c9692d7f111fafec116",
+      "executable": false
+    },
+    {
+      "path": "docs/testing/manual/multi-agent-review-test-script.md",
+      "sha256": "5ddfa9416e947e88a3f04824d8c66927ef23ce01e5009469f39694e04a151616",
+      "executable": false
+    },
+    {
+      "path": "package.json",
+      "sha256": "1da36461e69703638ce60db81e6627be7faf5ed56248517a682f2bcc293ea0bd",
+      "executable": false
+    },
+    {
+      "path": "packages/eslint-config/README.md",
+      "sha256": "79b10d5a153da58a8109399f374356e1d07f8b9cb95c49fed19c39377186aa13",
+      "executable": false
+    },
+    {
+      "path": "packages/eslint-config/base.js",
+      "sha256": "d970b30dbd71a7ce9fa06bdd466a01797d3db2434e87c9a1281cbfb0b92e45a8",
+      "executable": false
+    },
+    {
+      "path": "packages/eslint-config/next.js",
+      "sha256": "7cc9e5895dcec2ebc3762555411dc49a8c523780d58601eb1fb0ea132a3639bf",
+      "executable": false
+    },
+    {
+      "path": "packages/eslint-config/package.json",
+      "sha256": "3ca160f9848bb0a794d770bd9ca740431848e008d06dcfaa5193fddd4fbd7661",
+      "executable": false
+    },
+    {
+      "path": "packages/eslint-config/react-internal.js",
+      "sha256": "6bbfc1ffdfd77eec61c4e2f921ab600e4fd56242c24ddf6cf8504c8bb1237831",
+      "executable": false
+    },
+    {
+      "path": "packages/typescript-config/base.json",
+      "sha256": "e992dc9749a7657f9f97d9d60c8d316245b267ecbd1d24743282843cba0644e0",
+      "executable": false
+    },
+    {
+      "path": "packages/typescript-config/nextjs.json",
+      "sha256": "9a9962cc65d4a0265b1dbbad0bdb17f99c5fc1f2ff739f5091b063fc750e7444",
+      "executable": false
+    },
+    {
+      "path": "packages/typescript-config/package.json",
+      "sha256": "1b052630b59910c9273f185b3dff166efd6c7f00cca006f34d93e358912eaf4b",
+      "executable": false
+    },
+    {
+      "path": "packages/typescript-config/react-library.json",
+      "sha256": "583d7792ec2991008fbaec247c4126f51a07c5d5c8f16450ca4877256fcbfa63",
+      "executable": false
+    },
+    {
+      "path": "packages/ui/eslint.config.mjs",
+      "sha256": "375396f3f5f7617f9f5fd4d34dabcf46b6afffb8c87b132ed311775fa6736301",
+      "executable": false
+    },
+    {
+      "path": "packages/ui/package.json",
+      "sha256": "d126d7ee47af973a3f6974ed50bfd7437bf6da6e15a3ee128918a8fb3903706d",
+      "executable": false
+    },
+    {
+      "path": "packages/ui/src/button.tsx",
+      "sha256": "5ca369fa23498a9ed442117df2e65fb2ff897dd794d1326b12cd0bc36f3dee89",
+      "executable": false
+    },
+    {
+      "path": "packages/ui/src/card.tsx",
+      "sha256": "41da7709a3b007d25d479f4b5ea2f9b3fbc13c2056f52d87c3b0b78461d6c260",
+      "executable": false
+    },
+    {
+      "path": "packages/ui/src/code.tsx",
+      "sha256": "a60950ed7b8e7a856a629877557f9786802a9bb3a5330e6fb5d9db04167f1e34",
+      "executable": false
+    },
+    {
+      "path": "packages/ui/tsconfig.json",
+      "sha256": "3b07399be16580570f1ddb99d7399cd4d2ebdec2f3de5ddcda962c157af5e7fc",
+      "executable": false
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "6a9e6e3df26698c339c48abed42a2bcee458728b7f84de9df7223145952b54b6",
+      "executable": false
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "sha256": "08d75840c97ab0e72d1d9b5b84a17e47a2e06cb159a5fbec5ee0a6a56682dad7",
+      "executable": false
+    },
+    {
+      "path": "scripts/architecture/nextjs-gcp-postgres/verify.mjs",
+      "sha256": "b53c74c439544a271dd1b45a7215abdb27ff17b75302b638ae21a4f3c2eee7ac",
+      "executable": true
+    },
+    {
+      "path": "scripts/database/postgres-migration-runner.ts",
+      "sha256": "f2e50f22a8e32537fedaa81a2c1821c0b2588254bccf4f808f99af78442d8d51",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/agent-profile.mjs",
+      "sha256": "a0c1f2aabab283d35b338366335fe8eaf6400309e716378b7bbdbb33b871d596",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/architecture-profile.mjs",
+      "sha256": "446a3e35ea43b05f6225c977d67a704284cb7b15d3e060b96608288d2dccf249",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/branch-policy.mjs",
+      "sha256": "f2accaf009e492928be5fc65eeee6447e9cefe08ee5684fd41935ec38c5c8d7e",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/content-safety.mjs",
+      "sha256": "4062131194997d66dd9faf23d87cbe7e5d19f3218c3937110cafa958a32cd4f9",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/corepack-runner.mjs",
+      "sha256": "7a3f9508f77d0fc79f375ff45e4203fe2071d93185e681745e2a354c4035dafa",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/doctor.mjs",
+      "sha256": "649ea77c32420c394b5e0d605ecec706e6012a38ec9db8780ec5aebccd904107",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/gate.mjs",
+      "sha256": "f0563b9c1ea2e53f4bc6a46f5168d8341a8e0c62924d5f61a0b8da0ca4a3548f",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/generated-baseline.mjs",
+      "sha256": "93195935144f8137b9d05465c2d1f4ca260cdb682be0a1ef76edfd7c9b7dd084",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/install-curated-skills.mjs",
+      "sha256": "29321a677680e459053ee5c62837b8ae1371f00471293377693a6e7138c7f8dd",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/planning-review.mjs",
+      "sha256": "def0d5ac74fe2ae1a97bb20cd8d2c68e3eb02ac130eafebe63190377e8a748b2",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/project-quality.mjs",
+      "sha256": "0a894128c140add60c0e46729c664dadb60208ae4662fcbd771b9bf010789328",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/project-state.mjs",
+      "sha256": "c0a5b76d92d7c050b8c33bdf776588e31d070a4914eac5e095a858f9c3d5adb1",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/quality.mjs",
+      "sha256": "9cac98f43c64ad093c91e8681ac565b1992ec0508adfa157ae7a92cb519654cf",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/repository-profile.mjs",
+      "sha256": "498cba773f630e4bbe0a5d5eefdb1a048519f708875c0778cacad84d52bfb0ec",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/review-artifact.mjs",
+      "sha256": "f95d5c491cbed989380b6c84ceb77e44dba9f4cac80986e8a0f30c10a5ffa9aa",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/review-config.mjs",
+      "sha256": "6d89c054969d4f40dfa0ee89c4313dff8b3b5ff67cb42c33fbc27becd4d5fb04",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/review-contract.mjs",
+      "sha256": "fbbec7c3671171c5093ea1042fb85ad637627e8573a7217c6d446bc0750aa553",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/review-process.mjs",
+      "sha256": "460c4d68b396610796944057b429fe322b2cd7d8c0b2c5cb9c14ce538cb52880",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/review-providers.mjs",
+      "sha256": "27f982bd258628ee363c8b7ea66d975f9bf18d8fb0962c11f10679764dee9754",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/review-snapshot.mjs",
+      "sha256": "1c9cf5663ac943181c30588e620111a76a286ea0125c982dce03866b15cceb7f",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/review-state.mjs",
+      "sha256": "c14a00b06faf704660ef1687d318679b84263d2e0a04339c0ef29f9429d13fba",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/review.mjs",
+      "sha256": "ce96d67b130041e0b9ee026602b10e516fa7dbd291f091238edd94f0a4930f56",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/run-lock.mjs",
+      "sha256": "3b10d47338771f49c9b712c53d7a09ea1d20c40f0ae0277cb387361e1a52a8f3",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/run-state.mjs",
+      "sha256": "10aa9b13baa6c83c3a19a5887b35be950ca281a233a1a69c92e11fe664ea152c",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/run-status.mjs",
+      "sha256": "5eb12d8648cd1a1b6971555f456ea8093d9eea4e7a550cd878e0086612476c65",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/run-tracking.mjs",
+      "sha256": "f7296a66feecd67c72fa23fb202721d1fea91af09eba3184ab4a8b65a3d5dd90",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/scope-correction.mjs",
+      "sha256": "9f8b4ff85121d2c96b805caedcb8db64dc92f7899dc6d33ae205d5d5bf1273fe",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/scope-policy.mjs",
+      "sha256": "b145e48accf05485997c7a1d17a126023ae396bedc04642675ef21cabf653175",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/setup-husky.mjs",
+      "sha256": "9e58709e1690ef291f23bb7bd3444773fbcece880a878866c05a49c5c8f0bc5a",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/slice-compilation.mjs",
+      "sha256": "3cc1f08bbf70cdaaf489f1235ffb8fb32fc6f2a0d998cf217618accc4dc9050e",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/slice-graph.mjs",
+      "sha256": "be1af4f60b05dcc0ac78be6157b401057c712412a6423e976ef7b355a20e1eba",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/slice-worktree.mjs",
+      "sha256": "daddf4e3ae16a02ae955962fa86be01f1509314875fab00d86fdc5a3dca8acd9",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/switch-agent.mjs",
+      "sha256": "f2d6321faab33d519d351f0694dc86b18469c43da0d4c9a49232aeea8a4e6d0d",
+      "executable": false
+    },
+    {
+      "path": "scripts/security/sql-security-scanner.ts",
+      "sha256": "f3c5c92b9b869341250eef652ba664f6d877a3bcc5d06731e29b3a3351d88466",
+      "executable": false
+    },
+    {
+      "path": "scripts/security/trivy-security-scanner.mjs",
+      "sha256": "838cc3ff60771f3ab875ae69a874c5a324f55200b47108cb1331fc78c495b387",
+      "executable": false
+    },
+    {
+      "path": "trivy.yaml",
+      "sha256": "6990006583515c91f96b28322fe4cfa01b6d794077c8d973dc0d52b1a8874402",
+      "executable": false
+    },
+    {
+      "path": "turbo.json",
+      "sha256": "9333e232d58bedd28dbaeb714fc6c6f91e70d9f9466f43eb3669b730f2c4f88a",
+      "executable": false
+    }
+  ]
+}

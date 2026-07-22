@@ -1,0 +1,17 @@
+version=1
+plan=docs/plans/2026-01-01-example.md
+state=docs/plans/loop-runs/example-state.json
+slice=planning
+requirements=R1
+observable=Independent AI reviewers approve the complete execution map before any worker starts.
+minimum_stage=contract-ready
+release_notes=none
+gate=core
+review=docs/plans/reviews/example/planning.json
+allow=.parallel-slices/review.json
+allow=docs/plans/2026-01-01-example.md
+allow=docs/plans/loop-runs/example-state.json
+allow=docs/plans/scopes/example/**
+allow=docs/plans/reviews/example/planning.json
+allow=docs/plans/reviews/example/planning.md
+allow=docs/plans/corrections/example/**

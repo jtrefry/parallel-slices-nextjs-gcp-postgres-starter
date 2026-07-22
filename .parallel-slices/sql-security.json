@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "roots": ["apps", "packages", "scripts"],
+  "extensions": [".sql", ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs"],
+  "excludeDirectories": [
+    ".git",
+    ".next",
+    ".turbo",
+    "build",
+    "coverage",
+    "dist",
+    "node_modules",
+    "playwright-report",
+    "test-results"
+  ],
+  "maximumFileBytes": 2000000
+}

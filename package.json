@@ -1,0 +1,33 @@
+{
+  "name": "parallel-slices-nextjs-gcp-postgres-starter",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "9.1.7",
+    "prettier": "3.9.6",
+    "turbo": "2.10.5",
+    "typescript": "6.0.3"
+  },
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=18"
+  },
+  "overrides": {
+    "postcss": "8.5.21"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss": "8.5.21"
+    }
+  },
+  "resolutions": {
+    "postcss": "8.5.21"
+  }
+}
