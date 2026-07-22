@@ -1,0 +1,33 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    # Routine version updates stay dormant until initialization installs the
+    # complete quality foundation. Dependabot security updates remain eligible.
+    open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "@eslint/js"
+        versions:
+          - ">=10.0.0"
+      - dependency-name: "@types/node"
+        versions:
+          - ">=25.0.0"
+      - dependency-name: eslint
+        versions:
+          - ">=10.0.0"
+      - dependency-name: typescript
+        versions:
+          - ">=6.1.0"
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    labels:
+      - dependencies
+      - ci

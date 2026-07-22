@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Slices reviewer response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["verdict", "summary", "findings", "assessments"],
+  "properties": {
+    "verdict": { "enum": ["approve", "request_changes"] },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 4000 },
+    "findings": {
+      "type": "array",
+      "maxItems": 20,
+      "items": { "$ref": "#/$defs/finding" }
+    },
+    "assessments": {
+      "type": "array",
+      "maxItems": 200,
+      "items": { "$ref": "#/$defs/assessment" }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "verdict": { "const": "approve" } },
+        "required": ["verdict"]
+      },
+      "then": {
+        "properties": {
+          "findings": {
+            "items": {
+              "allOf": [
+                { "$ref": "#/$defs/finding" },
+                {
+                  "properties": {
+                    "severity": { "enum": ["medium", "low"] }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": { "verdict": { "const": "request_changes" } },
+        "required": ["verdict"]
+      },
+      "then": {
+        "anyOf": [
+          { "properties": { "findings": { "minItems": 1 } } },
+          {
+            "properties": {
+              "assessments": {
+                "contains": {
+                  "properties": { "disposition": { "const": "uphold" } },
+                  "required": ["disposition"]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "severity",
+        "category",
+        "title",
+        "description",
+        "evidence",
+        "recommendation"
+      ],
+      "properties": {
+        "severity": { "enum": ["critical", "high", "medium", "low"] },
+        "category": {
+          "enum": [
+            "security",
+            "correctness",
+            "testing",
+            "accessibility",
+            "performance",
+            "scalability",
+            "architecture",
+            "documentation",
+            "release",
+            "scope"
+          ]
+        },
+        "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": { "$ref": "#/$defs/evidence" }
+        },
+        "recommendation": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "line", "detail"],
+      "properties": {
+        "path": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "line": { "type": "integer", "minimum": 1 },
+        "detail": { "type": "string", "minLength": 1, "maxLength": 1000 }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["findingId", "disposition", "rationale"],
+      "properties": {
+        "findingId": {
+          "type": "string",
+          "pattern": "^F[0-9]{3,}$"
+        },
+        "disposition": { "enum": ["uphold", "dismiss"] },
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    }
+  }
+}

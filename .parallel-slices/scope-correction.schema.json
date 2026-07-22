@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Slices execution-map correction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "version",
+    "plan",
+    "planCommit",
+    "slice",
+    "previousManifest",
+    "replacementManifest",
+    "reason",
+    "discoveryEvidence",
+    "addedAllow",
+    "attestations"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "../../../../.parallel-slices/scope-correction.schema.json"
+    },
+    "version": { "const": 1 },
+    "plan": { "type": "string", "pattern": "^docs/plans/.+\\.md$" },
+    "planCommit": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "slice": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "previousManifest": {
+      "type": "string",
+      "pattern": "^docs/plans/scopes/[^/]+/[^/]+\\.scope$"
+    },
+    "replacementManifest": {
+      "type": "string",
+      "pattern": "^docs/plans/scopes/[^/]+/[^/]+\\.scope$"
+    },
+    "reason": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "discoveryEvidence": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1, "maxLength": 2000 }
+    },
+    "addedAllow": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?/)(?!.*[?*\\\\]).+$"
+      }
+    },
+    "attestations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirementsUnchanged",
+        "observableUnchanged",
+        "subsystemsUnchanged",
+        "nonGoalsPreserved",
+        "securityAndPrivacyPolicyUnchanged",
+        "migrationUnchanged",
+        "deploymentAndExternalActionsUnchanged"
+      ],
+      "properties": {
+        "requirementsUnchanged": { "const": true },
+        "observableUnchanged": { "const": true },
+        "subsystemsUnchanged": { "const": true },
+        "nonGoalsPreserved": { "const": true },
+        "securityAndPrivacyPolicyUnchanged": { "const": true },
+        "migrationUnchanged": { "const": true },
+        "deploymentAndExternalActionsUnchanged": { "const": true }
+      }
+    }
+  }
+}

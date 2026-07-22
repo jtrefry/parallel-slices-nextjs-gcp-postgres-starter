@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Parallel Slices Milestone"
+  short_description: "Create human-first plans and optimized slices"
+  default_prompt: "Use $parallel-slices-plan to plan this milestone as a human-readable contract and optimized slice graph."

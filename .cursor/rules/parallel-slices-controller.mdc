@@ -1,0 +1,18 @@
+---
+description: Enforce single-run ownership for universal Parallel Slices workflows
+alwaysApply: true
+---
+
+This repository supports Cursor, Codex, and Claude Code concurrently. The
+default convenience controller in `.parallel-slices/agent.json` is not an
+exclusive ownership switch. Verify Cursor support with:
+
+```bash
+node scripts/parallel-slices/agent-profile.mjs require-enabled cursor
+```
+
+Initialization may use any enabled controller. A sliced-plan run has exactly
+one owner recorded in its JSON state and ignored local run lease. Acquire that
+lease before lifecycle work, and never compete with another controller's run.
+The root `/loop` thread orchestrates fresh workers and must not implement slice
+code itself.

@@ -1,0 +1,156 @@
+{
+  "$schema": "./architecture.schema.json",
+  "version": 1,
+  "id": "nextjs-gcp-postgres",
+  "packageName": "@parallel-slices/architecture-nextjs-gcp-postgres",
+  "packageVersion": "0.3.1",
+  "manifestSha256": "2ae8e87ec27e6e40c5a28e989823acbe9fade99042ea337a7f74046485f4c147",
+  "components": [
+    {
+      "id": "web-application",
+      "kind": "application",
+      "technology": "Next.js App Router",
+      "optional": false,
+      "attributes": {
+        "formFactor": "web",
+        "language": "TypeScript"
+      }
+    },
+    {
+      "id": "workspace",
+      "kind": "workspace",
+      "technology": "Turborepo",
+      "optional": false,
+      "attributes": {
+        "packageScripts": true
+      }
+    },
+    {
+      "id": "component-system",
+      "kind": "ui",
+      "technology": "Mantine",
+      "optional": false,
+      "attributes": {
+        "tailwind": false
+      }
+    },
+    {
+      "id": "database",
+      "kind": "data",
+      "technology": "PostgreSQL",
+      "optional": false,
+      "attributes": {
+        "productionService": "Cloud SQL"
+      }
+    },
+    {
+      "id": "cloud-platform",
+      "kind": "deployment",
+      "technology": "Google Cloud",
+      "optional": false,
+      "attributes": {
+        "compute": [
+          "Cloud Run",
+          "Cloud Run Jobs"
+        ]
+      }
+    }
+  ],
+  "capabilities": [
+    "application:web",
+    "workspace:turborepo",
+    "frontend:nextjs",
+    "ui:mantine",
+    "database:postgresql",
+    "cloud:gcp",
+    "deployment:cloud-run"
+  ],
+  "options": {
+    "package-manager": "pnpm"
+  },
+  "entrypointCapabilityFloors": {
+    "generatedBaseline": [
+      "lint",
+      "types",
+      "build"
+    ],
+    "preCommit": [
+      "format",
+      "lint",
+      "types",
+      "security:sql",
+      "build",
+      "unit"
+    ],
+    "prePush": [
+      "format",
+      "lint",
+      "types",
+      "security:sql",
+      "build",
+      "unit",
+      "integration",
+      "e2e",
+      "security:trivy"
+    ],
+    "ci": [
+      "format",
+      "lint",
+      "types",
+      "security:sql",
+      "build",
+      "unit",
+      "integration",
+      "e2e",
+      "security:trivy"
+    ],
+    "loop": [
+      "format",
+      "lint",
+      "types",
+      "security:sql",
+      "build",
+      "unit"
+    ]
+  },
+  "projectDocuments": [
+    "docs/project/product-brief.md",
+    "docs/project/architecture.md",
+    "docs/project/security-and-privacy.md",
+    "docs/project/testing-strategy.md",
+    "docs/project/local-development.md",
+    "docs/project/gcp-operations.md",
+    "docs/project/decision-log.md"
+  ],
+  "installedFiles": [
+    ".agents/skills/parallel-slices-init/SKILL.md",
+    ".agents/skills/slices-init/SKILL.md",
+    ".claude/skills/parallel-slices-init/SKILL.md",
+    ".claude/skills/slices-init/SKILL.md",
+    ".cursor/commands/parallel-slices-init.md",
+    ".cursor/commands/slices-init.md",
+    ".cursor/skills/parallel-slices-init/SKILL.md",
+    ".github/dependabot.yml",
+    ".github/workflows/deploy-cloud-run.yml",
+    ".github/workflows/quality.yml",
+    ".parallel-slices/config.json",
+    ".parallel-slices/curated-skills.json",
+    ".parallel-slices/sql-security.json",
+    ".trivy-version",
+    "apps/backend/migrations/AGENTS.md",
+    "apps/backend/migrations/README.md",
+    "apps/backend/migrations/_MIGRATION_TEMPLATE.sql",
+    "docs/parallel-slices/initialize-nextjs-gcp-postgres-project.md",
+    "scripts/architecture/nextjs-gcp-postgres/verify.mjs",
+    "scripts/database/postgres-migration-runner.ts",
+    "scripts/security/sql-security-scanner.ts",
+    "scripts/security/trivy-security-scanner.mjs",
+    "trivy.yaml"
+  ],
+  "installedVerifier": "scripts/architecture/nextjs-gcp-postgres/verify.mjs",
+  "controllerCommands": {
+    "cursor": "/parallel-slices-init",
+    "codex": "$parallel-slices-init",
+    "claude-code": "/parallel-slices-init"
+  }
+}

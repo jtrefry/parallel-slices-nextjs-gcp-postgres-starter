@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Parallel Slices controller profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "version", "enabledControllers", "defaultController"],
+  "properties": {
+    "$schema": { "const": "./agent.schema.json" },
+    "version": { "const": 2 },
+    "enabledControllers": {
+      "const": ["cursor", "codex", "claude-code"]
+    },
+    "defaultController": {
+      "enum": ["cursor", "codex", "claude-code"]
+    }
+  }
+}

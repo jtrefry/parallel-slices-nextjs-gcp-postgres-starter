@@ -1,0 +1,99 @@
+{
+  "$schema": "./config.schema.json",
+  "version": 5,
+  "workspaceMode": "turbo",
+  "sliceCompilation": {
+    "sizingStrategy": "throughput-balanced"
+  },
+  "packageManager": "auto",
+  "protectedBranches": ["main", "master"],
+  "branchPolicy": {
+    "pattern": "^(?:feature|feat|fix|bugfix|hotfix|chore|release|docs|test|refactor|perf|ci|build)/[a-z0-9]+(?:-[a-z0-9]+)*$",
+    "example": "feature/add-account-settings",
+    "automationPatterns": ["^dependabot/", "^renovate/"]
+  },
+  "steps": {
+    "format": {
+      "name": "Prettier check",
+      "runner": "package-script",
+      "scripts": ["format:check", "prettier:check", "check:format"],
+      "timeoutSeconds": 300,
+      "provides": ["format"]
+    },
+    "lint": {
+      "name": "lint",
+      "runner": "package-script",
+      "scripts": ["lint"],
+      "timeoutSeconds": 600,
+      "provides": ["lint"]
+    },
+    "types": {
+      "name": "type check",
+      "runner": "package-script",
+      "scripts": ["typecheck", "type-check", "check-types"],
+      "timeoutSeconds": 900,
+      "provides": ["types"]
+    },
+    "sql-security": {
+      "name": "SQL security scan",
+      "runner": "package-script",
+      "scripts": ["security:sql"],
+      "timeoutSeconds": 300,
+      "provides": ["security:sql"]
+    },
+    "build": {
+      "name": "production build",
+      "runner": "package-script",
+      "scripts": ["build"],
+      "timeoutSeconds": 1200,
+      "provides": ["build"]
+    },
+    "unit": {
+      "name": "unit tests",
+      "runner": "package-script",
+      "scripts": ["test:unit", "test"],
+      "timeoutSeconds": 1200,
+      "provides": ["unit"]
+    },
+    "integration": {
+      "name": "integration tests",
+      "runner": "package-script",
+      "scripts": ["test:integration", "integration"],
+      "timeoutSeconds": 1800,
+      "provides": ["integration"]
+    },
+    "e2e": {
+      "name": "end-to-end tests",
+      "runner": "package-script",
+      "scripts": ["test:e2e", "e2e"],
+      "timeoutSeconds": 1800,
+      "provides": ["e2e"]
+    },
+    "trivy": {
+      "name": "Trivy repository scan",
+      "runner": "package-script",
+      "scripts": ["security:trivy"],
+      "timeoutSeconds": 900,
+      "provides": ["security:trivy"]
+    }
+  },
+  "pipelines": {
+    "generated-baseline": {
+      "steps": ["lint", "types", "build"]
+    },
+    "core": {
+      "steps": ["format", "lint", "types", "sql-security", "build", "unit"]
+    },
+    "full": {
+      "extends": "core",
+      "append": ["integration", "e2e", "trivy"]
+    }
+  },
+  "entrypoints": {
+    "generatedBaseline": { "pipeline": "generated-baseline" },
+    "preCommit": { "pipeline": "core" },
+    "prePush": { "pipeline": "full" },
+    "ci": { "pipeline": "full" },
+    "loop": { "pipelineFrom": "scopeManifest" }
+  }
+}

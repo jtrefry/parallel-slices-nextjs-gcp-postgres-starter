@@ -1,0 +1,84 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: postgres:17-alpine@sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193
+        env:
+          POSTGRES_USER: app
+          POSTGRES_PASSWORD: app
+          POSTGRES_DB: app_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U app -d app_test"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+
+      - name: Read pinned Trivy version
+        id: trivy-version
+        shell: bash
+        run: |
+          version="$(tr -d '[:space:]' < .trivy-version)"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "invalid .trivy-version: $version" >&2
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Set up pinned Trivy
+        uses: aquasecurity/setup-trivy@81e514348e19b6112ce2a7e3ecbafe19c1e1f567 # v0.3.1
+        with:
+          version: v${{ steps.trivy-version.outputs.version }}
+          cache: true
+
+      - name: Detect package manager
+        id: package-manager
+        shell: bash
+        run: |
+          echo "name=$(node scripts/parallel-slices/quality.mjs package-manager)" >> "$GITHUB_OUTPUT"
+          echo "spec=$(node scripts/parallel-slices/quality.mjs package-manager-spec)" >> "$GITHUB_OUTPUT"
+
+      - name: Activate pinned npm
+        if: steps.package-manager.outputs.name == 'npm'
+        env:
+          PACKAGE_MANAGER_SPEC: ${{ steps.package-manager.outputs.spec }}
+        run: npm install --global "$PACKAGE_MANAGER_SPEC"
+
+      - name: Set up Bun
+        if: steps.package-manager.outputs.name == 'bun'
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+
+      - name: Install locked dependencies
+        run: node scripts/parallel-slices/quality.mjs ci-install
+
+      - name: Run configured CI entry point
+        run: node scripts/parallel-slices/quality.mjs entrypoint ci

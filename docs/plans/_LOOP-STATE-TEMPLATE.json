@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../.parallel-slices/loop-state.schema.json",
+  "version": 4,
+  "plan": "docs/plans/2026-01-01-example.md",
+  "planCommit": "0000000000000000000000000000000000000000",
+  "compilation": {
+    "sizingStrategy": "throughput-balanced",
+    "configSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "architectureManifestSha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "planningReview": {
+      "scope": "docs/plans/scopes/example/_planning.scope",
+      "artifact": "docs/plans/reviews/example/planning.json"
+    },
+    "sizingRationale": [
+      "Replace this example with the concrete split and merge decisions for this execution map."
+    ]
+  },
+  "milestone": "Deliver the approved example milestone",
+  "goalBranch": "feature/example-milestone",
+  "controller": "codex",
+  "runId": "00000000-0000-4000-8000-000000000000",
+  "status": "not_started",
+  "slices": {
+    "1.1": {
+      "manifest": "docs/plans/scopes/example/1.1.scope",
+      "status": "not_started",
+      "candidateCommit": null,
+      "gateEvidence": [],
+      "reviewEvidence": [],
+      "reviewArtifact": "docs/plans/reviews/example/1.1.json"
+    }
+  },
+  "findings": [],
+  "finalAudit": null
+}
