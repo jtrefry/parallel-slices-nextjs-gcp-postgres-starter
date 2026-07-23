@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { existsSync, lstatSync, readFileSync, realpathSync } from "node:fs";
-import { isAbsolute, resolve } from "node:path";
+import { isAbsolute, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const profileRelativePath = ".parallel-slices/architecture.json";
@@ -168,7 +168,7 @@ function runCli(argv) {
     const root = parseRoot(value);
     const profile = readArchitectureProfile(root);
     const verifier = resolve(root, profile.installedVerifier);
-    if (!verifier.startsWith(`${root}/`) || !existsSync(verifier)) {
+    if (!verifier.startsWith(`${root}${sep}`) || !existsSync(verifier)) {
       fail(
         `installed architecture verifier is missing: ${profile.installedVerifier}`,
       );

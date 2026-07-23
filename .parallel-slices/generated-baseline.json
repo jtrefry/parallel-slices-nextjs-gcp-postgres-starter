@@ -2,8 +2,8 @@
   "version": 1,
   "architecture": {
     "id": "nextjs-gcp-postgres",
-    "packageVersion": "0.4.2",
-    "manifestSha256": "2e8c73b92b45b9b1ff98f6120add118c0dab9ecd89abe59a43a9969b6ca481fc"
+    "packageVersion": "0.4.3",
+    "manifestSha256": "88d108f8b5a48a2baa2bfefe083749cc58f52492e1b05f99adfcde0820e77544"
   },
   "files": [
     {
@@ -1638,7 +1638,7 @@
     },
     {
       "path": ".parallel-slices/architecture.json",
-      "sha256": "79b569e089a2731ba0d4c69e70a9be94c1acbbcea956aca13d2a1c1697c5b15e",
+      "sha256": "15d8a00bd2d0d4808d25e66dd604b1fe10422cdfd9120984e39122cd42226a18",
       "executable": false
     },
     {
@@ -2108,7 +2108,7 @@
     },
     {
       "path": "scripts/parallel-slices/architecture-profile.mjs",
-      "sha256": "446a3e35ea43b05f6225c977d67a704284cb7b15d3e060b96608288d2dccf249",
+      "sha256": "9237d5c9ae98e42d4b69ee35e8be94c7b8b381e0081e2c781c0ae91438b572db",
       "executable": false
     },
     {
@@ -2123,7 +2123,7 @@
     },
     {
       "path": "scripts/parallel-slices/corepack-runner.mjs",
-      "sha256": "7a3f9508f77d0fc79f375ff45e4203fe2071d93185e681745e2a354c4035dafa",
+      "sha256": "8a057ce1dd39fe31ae38a6276515fe134730a3d8672cb0feeb895e8e80a9eefe",
       "executable": false
     },
     {
@@ -2133,7 +2133,7 @@
     },
     {
       "path": "scripts/parallel-slices/doctor.mjs",
-      "sha256": "649ea77c32420c394b5e0d605ecec706e6012a38ec9db8780ec5aebccd904107",
+      "sha256": "93f8e7637f71c407a8a962b5fbf27cfd126e1cd902d14300024daeed4ef78999",
       "executable": false
     },
     {

@@ -2,7 +2,7 @@
 
 import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, lstatSync, readFileSync, realpathSync } from "node:fs";
-import { resolve } from "node:path";
+import { resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
@@ -60,8 +60,9 @@ function commandResult(command, args, root) {
 
 function architectureVerification(root, foundationReady) {
   const profile = readArchitectureProfile(root);
-  const verifier = resolve(root, profile.installedVerifier);
-  if (!verifier.startsWith(`${resolve(root)}/`) || !existsSync(verifier)) {
+  const resolvedRoot = resolve(root);
+  const verifier = resolve(resolvedRoot, profile.installedVerifier);
+  if (!verifier.startsWith(`${resolvedRoot}${sep}`) || !existsSync(verifier)) {
     throw new Error(
       `installed architecture verifier is missing: ${profile.installedVerifier}`,
     );
