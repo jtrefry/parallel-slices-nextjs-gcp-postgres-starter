@@ -20,6 +20,28 @@ function assertCommandSucceeded(result, label) {
   }
 }
 
+export function corepackExecutable(platform = process.platform) {
+  return platform === "win32" ? "corepack.cmd" : "corepack";
+}
+
+export function spawnCorepack(
+  execute,
+  args,
+  options,
+  platform = process.platform,
+  environment = process.env,
+) {
+  const executable = corepackExecutable(platform);
+  if (platform === "win32") {
+    return execute(
+      environment.ComSpec || "cmd.exe",
+      ["/d", "/s", "/c", executable, ...args],
+      options,
+    );
+  }
+  return execute(executable, args, options);
+}
+
 export function runWithCorepackShim(manager, args, options = {}) {
   if (!supportedManagers.has(manager)) {
     fail("Corepack manager must be pnpm or yarn");
@@ -29,6 +51,7 @@ export function runWithCorepackShim(manager, args, options = {}) {
   }
   const execute = options.runCommand || spawnSync;
   const environment = options.environment || process.env;
+  const platform = options.platform || process.platform;
   const cwd = options.cwd || process.cwd();
   const shimDirectory = mkdtempSync(
     join(options.temporaryDirectory || tmpdir(), "parallel-slices-corepack-"),
@@ -40,19 +63,27 @@ export function runWithCorepackShim(manager, args, options = {}) {
   };
 
   try {
-    const enabled = execute(
-      "corepack",
+    const enabled = spawnCorepack(
+      execute,
       ["enable", manager, "--install-directory", shimDirectory],
       commandOptions,
+      platform,
+      environment,
     );
     assertCommandSucceeded(enabled, "Corepack shim setup");
     const path = environment.PATH
       ? `${shimDirectory}${delimiter}${environment.PATH}`
       : shimDirectory;
-    const result = execute("corepack", [manager, ...args], {
-      ...commandOptions,
-      env: { ...environment, PATH: path },
-    });
+    const result = spawnCorepack(
+      execute,
+      [manager, ...args],
+      {
+        ...commandOptions,
+        env: { ...environment, PATH: path },
+      },
+      platform,
+      environment,
+    );
     assertCommandSucceeded(result, `${manager} command`);
     return result.status;
   } finally {
