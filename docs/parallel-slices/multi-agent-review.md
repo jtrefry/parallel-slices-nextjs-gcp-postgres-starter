@@ -14,8 +14,8 @@ never edit the ledger or the live working tree.
 ## Configure reviewers
 
 Edit `.parallel-slices/review.json` before approving the plan contract. This
-example uses the signed-in Codex, Claude Code, and Antigravity CLIs in that
-order:
+Cursor-led example keeps Cursor as the `/loop` controller while two independent
+Cursor SDK reviewers use different explicit models:
 
 ```json
 {
@@ -28,22 +28,26 @@ order:
   "overallTimeoutSeconds": 3600,
   "authWaitSeconds": 900,
   "reviewers": [
-    { "id": "codex-review", "provider": "codex", "effort": "high" },
     {
-      "id": "claude-review",
-      "provider": "claude-code",
-      "effort": "high"
+      "id": "cursor-review-a",
+      "provider": "cursor",
+      "model": "<cursor-model-id>"
     },
-    { "id": "antigravity-review", "provider": "antigravity" }
+    {
+      "id": "cursor-review-b",
+      "provider": "cursor",
+      "model": "<different-cursor-model-id>"
+    }
   ]
 }
 ```
 
-Reviewer IDs must be unique lowercase kebab-case names. A reviewer may name a
-provider model, but omitting `model` lets the signed-in CLI use its configured
-default. Repeating a provider with a different reviewer ID is supported. The
-configuration permits one to five reconciliation rounds and at most ten
-reviewers.
+Reviewer IDs must be unique lowercase kebab-case names. Cursor reviewers require
+an explicit `model`; the Codex, Claude Code, and Antigravity CLIs may use their
+configured default when `model` is omitted. `effort` is unsupported for Cursor
+and Antigravity. Repeating any provider with a different reviewer ID is
+supported. The configuration permits one to five reconciliation rounds and at
+most ten reviewers.
 
 At least one reviewer and `enabled=true` are required before a new execution
 map can be committed. This is independent AI review, not another human approval
@@ -52,11 +56,32 @@ all configured reviewers must agree.
 
 `billingPolicy=subscription-only` refuses known API-key and cloud-credential
 overrides and refuses Codex or Claude authentication that reports API billing.
-It is a safety check, not a guarantee about a provider's current plan, quota,
-limits, or billing rules. `provider-managed` delegates authentication and
-billing choice to authentication already stored by each CLI. Review artifacts
-record provider versions and a coarse authentication mode, never an account
-identity, token, or raw login output.
+Cursor SDK authentication always requires `CURSOR_API_KEY`; under this policy
+the key must be a user API key, whose SDK use Cursor bills to that user's plan.
+The runner refuses a service-account key because Cursor bills it to the owning
+team. `provider-managed` permits either Cursor key type and delegates the
+resulting plan or team billing to Cursor. These are safety checks, not
+guarantees about a provider's current plan, quota, limits, or billing rules.
+Review artifacts record provider versions and a coarse authentication mode,
+never an account identity, token, or raw login output.
+
+Fresh `nextjs-gcp-postgres` scaffolds include an exact root development
+dependency on `@cursor/sdk`. For an adopted or other architecture repository,
+add an exact reviewed `@cursor/sdk` development dependency at the repository
+root before selecting a Cursor reviewer. The
+[Cursor TypeScript SDK](https://cursor.com/docs/sdk/typescript) requires Node.js
+22.13 or newer. Create a user API key in the
+[Cursor Dashboard](https://cursor.com/dashboard/api), export it as
+`CURSOR_API_KEY` in the environment that starts review, and list the model ids
+available to that key:
+
+```bash
+node --input-type=module -e \
+  'import { Cursor } from "@cursor/sdk"; console.log((await Cursor.models.list()).map(({ id }) => id).join("\n"))'
+```
+
+Do not put the key in `review.json`, shell history, a committed environment
+file, or a review artifact.
 
 Validate configuration without contacting a provider:
 
@@ -127,22 +152,36 @@ node scripts/parallel-slices/review.mjs run \
 ```
 
 The runner performs non-billing authentication checks before creating an
-attempt. It then copies tracked and non-ignored untracked repository files into
-a temporary directory, adds the authorized Git patch and review packet, and
-runs reviewers sequentially with read-only tool restrictions. The live source
-fingerprint is checked after every reviewer. A concurrent edit stops the review
-as stale instead of combining evidence from different revisions.
+attempt. Cursor preflight imports the local SDK, checks the API key, and resolves
+every configured model through `Cursor.models.list()`. The runner then copies
+tracked and non-ignored untracked repository files into a temporary directory,
+adds the authorized Git patch and review packet, and runs reviewers sequentially
+with read-only tool restrictions. The live source fingerprint is checked after
+every reviewer. A concurrent edit stops the review as stale instead of
+combining evidence from different revisions.
 
-Provider processes receive a small environment allowlist needed for the CLI,
-local account cache, locale, certificates, and temporary files. Project,
+Provider processes receive a small environment allowlist needed for the CLI or
+SDK, local account cache, locale, certificates, and temporary files. Project,
 database, cloud, and arbitrary shell environment variables are not inherited.
-The provider CLI still owns its local authentication files and sandbox, so use
-only official CLIs and keep their versions current.
+Only the Cursor runner receives `CURSOR_API_KEY`; it consumes the value for the
+explicit SDK `apiKey` option and removes the environment variable before the
+review agent starts, so agent shell tools do not inherit it. Unrelated provider
+credentials remain stripped. The provider CLI or SDK still owns its
+authentication and sandbox behavior, so use only official packages and keep
+their versions current.
 
-`provider-managed` can use authentication already stored by a provider CLI, but
-the runner still does not forward API-key or cloud-credential environment
-variables to review workers. This protects the review boundary; use a
-separately governed integration if environment-based API billing is required.
+`provider-managed` can use authentication already stored by a provider CLI.
+The runner still does not forward API-key or cloud-credential environment
+variables to those CLI workers. Cursor is the narrow exception because the SDK
+requires `CURSOR_API_KEY`; the Cursor child receives that key and no arbitrary
+project environment.
+
+Every Cursor turn launches a separate Node.js child process and calls
+`Agent.prompt()` once with the review packet, selected model, sandbox enabled,
+and the disposable snapshot as local `cwd`. The one-shot agent is disposed when
+the turn completes. No reviewer resumes the Cursor `/loop` controller session,
+another reviewer, or its own earlier round, so two reviewer entries may safely
+select different model ids.
 
 Each response must match the installed structured schema. The first reviewer
 records findings; every later reviewer receives all prior summaries and must
@@ -164,12 +203,13 @@ never guesses that another writer's file is safe to delete.
 
 ## Authentication pauses
 
-If a CLI is missing, signed out, or needs interactive onboarding, an
-interactive review prints an exact recovery command and pauses. Open a separate
-terminal, complete the provider's login or workspace trust flow there, return
-to the original terminal, and press Enter. Never paste a token into the review
-terminal. The runner checks readiness and verifies that the source fingerprint
-did not change before continuing.
+If a CLI or the Cursor SDK is missing, authentication is unavailable, or a
+provider needs interactive onboarding, an interactive review prints an exact
+recovery instruction and pauses. Open a separate terminal, install or complete
+the provider's authentication flow there, return to the original terminal, and
+press Enter. Never paste a token into the review terminal. The runner checks
+readiness and verifies that the source fingerprint did not change before
+continuing.
 
 The wait is bounded by `authWaitSeconds` and retries at most three times. In a
 non-interactive terminal or with `--non-interactive`, the runner exits

@@ -2,8 +2,8 @@
   "version": 1,
   "architecture": {
     "id": "nextjs-gcp-postgres",
-    "packageVersion": "0.3.1",
-    "manifestSha256": "2ae8e87ec27e6e40c5a28e989823acbe9fade99042ea337a7f74046485f4c147"
+    "packageVersion": "0.4.2",
+    "manifestSha256": "2e8c73b92b45b9b1ff98f6120add118c0dab9ecd89abe59a43a9969b6ca481fc"
   },
   "files": [
     {
@@ -1617,6 +1617,11 @@
       "executable": true
     },
     {
+      "path": ".node-version",
+      "sha256": "68ca3fba3b7e864770cb61aeb306d4bd4354b68ab4dd38450860c5d823e42a53",
+      "executable": false
+    },
+    {
       "path": ".npmrc",
       "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "executable": false
@@ -1633,7 +1638,7 @@
     },
     {
       "path": ".parallel-slices/architecture.json",
-      "sha256": "3bc4dee2fa75a61904ee0fb796a247195e99011ef4bd8de66ec2b50d17eef3fa",
+      "sha256": "79b569e089a2731ba0d4c69e70a9be94c1acbbcea956aca13d2a1c1697c5b15e",
       "executable": false
     },
     {
@@ -1688,7 +1693,7 @@
     },
     {
       "path": ".parallel-slices/review.schema.json",
-      "sha256": "e5c4deea21186a355a6307e5cbdce30f8c7b7092e252e2bbbb879593cebd63e9",
+      "sha256": "778ac809f3e1c9d27c63945aaf6bd54823e98f6f4d6f2ec8d1ecbe2a352ee861",
       "executable": false
     },
     {
@@ -1698,7 +1703,7 @@
     },
     {
       "path": ".parallel-slices/scaffold-profile.json",
-      "sha256": "c60622863713053a68f5d94b746fb05ca338c7b173d3920e4aba9413869193b0",
+      "sha256": "3cb6d9d5e962f05394a201b826661a8a4cd65e42c7943876d09f9fe5ca92c1ce",
       "executable": false
     },
     {
@@ -1723,7 +1728,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "06903356962129d989eea63b374397e27b75723c6b0c7e691da1c73613787db2",
+      "sha256": "8ce803116009f1111704db3fe92579164b72a421895f7eb85085656ac5407c42",
       "executable": false
     },
     {
@@ -1739,106 +1744,6 @@
     {
       "path": "apps/backend/migrations/_MIGRATION_TEMPLATE.sql",
       "sha256": "aa1d1185e8639d5692afbeb7c9dc0b02aeea96c96558089e7976567cead1d4de",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/.gitignore",
-      "sha256": "aff8a8f64634f90d6fa196be9e5441e7fc293285902dd1dd2170583ace77a45e",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/README.md",
-      "sha256": "a672b2d0eff4d5620899a1c5085b1f8f9a33f2ec5c38fca2090290922c768205",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/app/favicon.ico",
-      "sha256": "2b8ad2d33455a8f736fc3a8ebf8f0bdea8848ad4c0db48a2833bd0f9cd775932",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/app/fonts/GeistMonoVF.woff",
-      "sha256": "e8b65928f551b17e3d67c3f709721b952c39842d14b00701f9232057fde73608",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/app/fonts/GeistVF.woff",
-      "sha256": "296fafafd41304f7c992079054b8af914dbbd865f32de97c66d0f613b55755d6",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/app/globals.css",
-      "sha256": "771dade81d3b86e70f49136c6db2cc04baf14d5b82d5dc0d87e17b8359a0257b",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/app/layout.tsx",
-      "sha256": "c70e1417a4050aae1635df0971e108d592feb708d1ec53e56d9f760581221cca",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/app/page.tsx",
-      "sha256": "08501df1d8d922c94ea8fa732cfeb1ff36a24d3cd65807cf66a79742b2d6cabb",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/eslint.config.js",
-      "sha256": "7bff1f9e6c8c2e54bc99c2362eda876331a9fd2d63a1fb74e61215ccd374a674",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/next.config.js",
-      "sha256": "b9e284045939e964f32b37007eb743c9c9fdfa2eb51361cf24ecc63b3fa8c4e7",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/package.json",
-      "sha256": "312ca16e0d570b325fa16cd1c8979e80360fac46930fc5790b99435c7127bf75",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/postcss.config.mjs",
-      "sha256": "fe308d4b4f2c90e36ff2c4aa3488424ba55e98fdcbccc1db4261554779c20301",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/public/file-text.svg",
-      "sha256": "4a9282e2713aeebe76c6f9a98dd005e59621b1394e28b739a54a971611cdd7bc",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/public/globe.svg",
-      "sha256": "1359ef3f3212e7335d9f0213c13a50b99a89df4597d0e4b254289c53d37d921b",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/public/next.svg",
-      "sha256": "55995dfad6ecb4945a1e856ddca03c5e16aa5bf13fd21b4df6a74ae79357bcfc",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/public/turborepo-dark.svg",
-      "sha256": "34bf128f8d29eeda939b0c149099ae0ef7d94a468a8a35b714785939f39acc8e",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/public/turborepo-light.svg",
-      "sha256": "2afca88b9139f7f86195af3b30b5bcedc7bca028d07cb41bacab3ddff2e92c5e",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/public/vercel.svg",
-      "sha256": "90364018e584568db238b777e87790249cc58a55c1e921ae56ed4915662be582",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/public/window.svg",
-      "sha256": "3d6c388b3b3f3ad96ccd0ddc1c6b518dfbab51128fb2d163fe42403b2fb74e7e",
-      "executable": false
-    },
-    {
-      "path": "apps/docs/tsconfig.json",
-      "sha256": "0d0237fc599470f8796e839e3ebc3643028acbded457a0a6bf9a02eb25dd95fd",
       "executable": false
     },
     {
@@ -1893,7 +1798,7 @@
     },
     {
       "path": "apps/web/package.json",
-      "sha256": "a5b056e5116308b4bd8c5e9ee915d036fc7b0cab55d0eb18affed8d31e866231",
+      "sha256": "50625b27a55c8fa7ce2294b180305ec4ae2379daa2869d6441ae6bf2dc9a4c47",
       "executable": false
     },
     {
@@ -1942,8 +1847,13 @@
       "executable": false
     },
     {
+      "path": "docs/AGENTS.md",
+      "sha256": "75c30821b7d9e11624eaf6b5f50a4ee7c28d5328bbf31a0428f4c3839c751ffa",
+      "executable": false
+    },
+    {
       "path": "docs/parallel-slices/README.md",
-      "sha256": "3dc79624550a936143aff75aa2bcc903d033f0928346e4efdf3a6dd768eec8b7",
+      "sha256": "5fc769844fb056148a6ee7cbf286174b58f89347daed983d84d8503bb50caae9",
       "executable": false
     },
     {
@@ -1963,12 +1873,12 @@
     },
     {
       "path": "docs/parallel-slices/initialize-nextjs-gcp-postgres-project.md",
-      "sha256": "855296c1a1d40ed297c95956ac6be8972f839de203e89981dfa0e4e40de8e3e0",
+      "sha256": "79734b4aed4d48f5f990b0a38c2ca8c8d92a23f1a16d3bf99cdd26068d20b576",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/multi-agent-review.md",
-      "sha256": "c921cf96bbf9c4c939bd6c65131372293b7f46263297cf5ebc8321f1a9795758",
+      "sha256": "a2ffad5599db9b85b9fd6050ade9dda747e856ad8e4ccad15b527672e3fe9f29",
       "executable": false
     },
     {
@@ -2013,7 +1923,7 @@
     },
     {
       "path": "docs/parallel-slices/using-cursor.md",
-      "sha256": "b913f3eb3cc36aab92a3119d66047936b9b6a3a2aa0a1e2691d38e80b940620b",
+      "sha256": "40b5769dceb49ad208bb357d2c0997e395b226ddfdb8bb479dc1dd862eb9069a",
       "executable": false
     },
     {
@@ -2088,12 +1998,12 @@
     },
     {
       "path": "docs/testing/manual/multi-agent-review-test-script.md",
-      "sha256": "5ddfa9416e947e88a3f04824d8c66927ef23ce01e5009469f39694e04a151616",
+      "sha256": "8cf0ca6cbd98d79bc1cbe2b8e8f32e611084a0ac5cbf466ade9060ba3aedcd96",
       "executable": false
     },
     {
       "path": "package.json",
-      "sha256": "1da36461e69703638ce60db81e6627be7faf5ed56248517a682f2bcc293ea0bd",
+      "sha256": "0bdb8d08866950d7d3fef6e8dde37a44d5c16b135930f82eeae71b654319f9d3",
       "executable": false
     },
     {
@@ -2173,7 +2083,7 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "6a9e6e3df26698c339c48abed42a2bcee458728b7f84de9df7223145952b54b6",
+      "sha256": "eddd3a1e0037a69b110694b0e6d3750534153c0139730ddb36cfa19b329e2623",
       "executable": false
     },
     {
@@ -2183,7 +2093,7 @@
     },
     {
       "path": "scripts/architecture/nextjs-gcp-postgres/verify.mjs",
-      "sha256": "b53c74c439544a271dd1b45a7215abdb27ff17b75302b638ae21a4f3c2eee7ac",
+      "sha256": "90f63744c68678615ba1f5213c928443ae955611e9efbfb80b973f485a958af2",
       "executable": true
     },
     {
@@ -2214,6 +2124,11 @@
     {
       "path": "scripts/parallel-slices/corepack-runner.mjs",
       "sha256": "7a3f9508f77d0fc79f375ff45e4203fe2071d93185e681745e2a354c4035dafa",
+      "executable": false
+    },
+    {
+      "path": "scripts/parallel-slices/cursor-review-provider.mjs",
+      "sha256": "6ad5d4597c955b3fd1736425edcad4778c19d601204f2a829860d0888525605d",
       "executable": false
     },
     {
@@ -2253,7 +2168,7 @@
     },
     {
       "path": "scripts/parallel-slices/quality.mjs",
-      "sha256": "9cac98f43c64ad093c91e8681ac565b1992ec0508adfa157ae7a92cb519654cf",
+      "sha256": "586c0e0deca0f67c807ef44de8dc0265039ee6a42217d461456565fc5163a17e",
       "executable": false
     },
     {
@@ -2268,7 +2183,7 @@
     },
     {
       "path": "scripts/parallel-slices/review-config.mjs",
-      "sha256": "6d89c054969d4f40dfa0ee89c4313dff8b3b5ff67cb42c33fbc27becd4d5fb04",
+      "sha256": "204d73ab29925d3c663951169e73b0423def42a7c7f883836f4a29630d573870",
       "executable": false
     },
     {
@@ -2283,7 +2198,7 @@
     },
     {
       "path": "scripts/parallel-slices/review-providers.mjs",
-      "sha256": "27f982bd258628ee363c8b7ea66d975f9bf18d8fb0962c11f10679764dee9754",
+      "sha256": "2bf614128688fa61675fb79915cf1ae3bb0d3248002cacef344075f9bed7aaf9",
       "executable": false
     },
     {
@@ -2298,7 +2213,7 @@
     },
     {
       "path": "scripts/parallel-slices/review.mjs",
-      "sha256": "ce96d67b130041e0b9ee026602b10e516fa7dbd291f091238edd94f0a4930f56",
+      "sha256": "5a6e881a5e3100f7991d5041063e322877abb85f728af2563ba459efb7d686cf",
       "executable": false
     },
     {

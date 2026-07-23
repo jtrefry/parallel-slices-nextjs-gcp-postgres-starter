@@ -4,12 +4,13 @@ import { resolve } from "node:path";
 import { containsUnsafeTextControl } from "./content-safety.mjs";
 
 const reviewerIdPattern = /^[a-z][a-z0-9-]*$/;
-const providers = new Set(["codex", "claude-code", "antigravity"]);
+const providers = new Set(["codex", "claude-code", "antigravity", "cursor"]);
 const billingPolicies = new Set(["subscription-only", "provider-managed"]);
 const effortByProvider = Object.freeze({
   codex: new Set(["low", "medium", "high", "xhigh"]),
   "claude-code": new Set(["low", "medium", "high", "xhigh", "max"]),
   antigravity: new Set(),
+  cursor: new Set(),
 });
 
 function fail(message) {
@@ -116,10 +117,15 @@ export function validateReviewConfig(config) {
     if (ids.has(reviewer.id)) fail(`duplicate reviewer id: ${reviewer.id}`);
     ids.add(reviewer.id);
     if (!providers.has(reviewer.provider)) {
-      fail(`${label}.provider must be codex, claude-code, or antigravity`);
+      fail(
+        `${label}.provider must be codex, claude-code, antigravity, or cursor`,
+      );
     }
     if (reviewer.model !== undefined) {
       assertSafeText(reviewer.model, `${label}.model`, 100);
+    }
+    if (reviewer.provider === "cursor" && reviewer.model === undefined) {
+      fail(`${label}.model is required by cursor`);
     }
     if (reviewer.effort !== undefined) {
       if (!effortByProvider[reviewer.provider].has(reviewer.effort)) {

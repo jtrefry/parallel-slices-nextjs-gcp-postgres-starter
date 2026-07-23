@@ -1,5 +1,6 @@
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import {
   containsMachineSpecificPath,
@@ -16,12 +17,18 @@ const providerCommands = Object.freeze({
   codex: "codex",
   "claude-code": "claude",
   antigravity: "agy",
+  cursor: process.execPath,
 });
+
+const cursorRunnerPath = fileURLToPath(
+  new URL("./cursor-review-provider.mjs", import.meta.url),
+);
 
 const providerLabels = Object.freeze({
   codex: "Codex",
   "claude-code": "Claude Code",
   antigravity: "Antigravity",
+  cursor: "Cursor SDK",
 });
 
 const subscriptionConflicts = Object.freeze({
@@ -40,6 +47,7 @@ const subscriptionConflicts = Object.freeze({
     "GOOGLE_APPLICATION_CREDENTIALS",
     "GOOGLE_GENAI_USE_VERTEXAI",
   ],
+  cursor: [],
 });
 
 const baseEnvironmentNames = Object.freeze([
@@ -66,6 +74,7 @@ function providerEnvironment(provider) {
   const names = [...baseEnvironmentNames];
   if (provider === "codex") names.push("CODEX_HOME");
   if (provider === "claude-code") names.push("CLAUDE_CONFIG_DIR");
+  if (provider === "cursor") names.push("CURSOR_API_KEY");
   return Object.fromEntries(
     names
       .filter((name) => process.env[name] !== undefined)
@@ -97,6 +106,9 @@ function loginInstructions(provider) {
     antigravity: [
       "Run `agy`, complete Google sign-in, accept required terms, and trust the repository when prompted.",
     ],
+    cursor: [
+      "Create a Cursor user API key at https://cursor.com/dashboard/api and export it as CURSOR_API_KEY before starting review.",
+    ],
   }[provider];
 }
 
@@ -108,6 +120,10 @@ function installInstructions(provider) {
     ],
     antigravity: [
       "Install the official Antigravity CLI from https://antigravity.google/docs/cli-getting-started, then run `agy`.",
+    ],
+    cursor: [
+      "Add @cursor/sdk to the repository root devDependencies with the selected package manager, install dependencies, then retry.",
+      "The Cursor SDK requires Node.js 22.13 or newer.",
     ],
   }[provider];
 }
@@ -158,12 +174,44 @@ function processProblem(result, provider, phase) {
   return null;
 }
 
+function providerArguments(provider, args) {
+  return provider === "cursor" ? [cursorRunnerPath, ...args] : args;
+}
+
 function classifyFailure(result, provider, phase) {
   const processFailure = processProblem(result, provider, phase);
   if (processFailure) return processFailure;
   const detail = `${result.stdout}\n${result.stderr}`;
+  if (/CURSOR_SDK_NOT_INSTALLED/i.test(detail)) {
+    return problem(
+      "SDK_NOT_INSTALLED",
+      provider,
+      "Cursor SDK is not installed in the repository root.",
+      installInstructions(provider),
+    );
+  }
+  if (/CURSOR_RUNTIME_UNSUPPORTED/i.test(detail)) {
+    return problem(
+      "SDK_RUNTIME_UNSUPPORTED",
+      provider,
+      "Cursor SDK requires Node.js 22.13 or newer.",
+      [
+        "Select a supported Node.js version, reinstall dependencies, and retry.",
+      ],
+    );
+  }
+  if (/CURSOR_MODEL_NOT_AVAILABLE/i.test(detail)) {
+    return problem(
+      "MODEL_NOT_AVAILABLE",
+      provider,
+      `${providerLabels[provider]} cannot resolve every configured model id for this account.`,
+      [
+        "Choose model ids returned by Cursor.models.list() for the CURSOR_API_KEY account, then update .parallel-slices/review.json.",
+      ],
+    );
+  }
   if (
-    /not signed in|sign[ -]?in required|unauthorized|authentication required|login required|log in/i.test(
+    /CURSOR_AUTH_REQUIRED|not signed in|sign[ -]?in required|unauthorized|authentication required|login required|log in/i.test(
       detail,
     )
   ) {
@@ -205,9 +253,10 @@ function classifyFailure(result, provider, phase) {
 }
 
 async function commandVersion(provider, options) {
+  const versionArguments = provider === "cursor" ? ["version"] : ["--version"];
   const result = await options.runProcess({
     command: providerCommands[provider],
-    args: ["--version"],
+    args: providerArguments(provider, versionArguments),
     cwd: options.root,
     timeoutMs: 10_000,
     outputLimitBytes: 32 * 1024,
@@ -257,12 +306,16 @@ export async function preflightProvider(provider, options = {}) {
     codex: ["login", "status"],
     "claude-code": ["auth", "status"],
     antigravity: ["models"],
+    cursor: [
+      "preflight",
+      ...(options.models || []).flatMap((model) => ["--model", model]),
+    ],
   }[provider];
   const result = await runProcess({
     command: providerCommands[provider],
-    args: authCommand,
+    args: providerArguments(provider, authCommand),
     cwd: root,
-    timeoutMs: provider === "antigravity" ? 20_000 : 10_000,
+    timeoutMs: ["antigravity", "cursor"].includes(provider) ? 20_000 : 10_000,
     outputLimitBytes: 128 * 1024,
     ...providerProcessEnvironment(provider),
   });
@@ -318,15 +371,46 @@ export async function preflightProvider(provider, options = {}) {
       authKind = "provider-credential";
       billingMode = "api";
     }
-  } else {
+  } else if (provider === "antigravity") {
     authKind = "cached-google-login";
     billingMode = "provider-account";
+  } else {
+    let status;
+    try {
+      status = JSON.parse(result.stdout);
+    } catch {
+      return problem(
+        "AUTH_STATUS_UNKNOWN",
+        provider,
+        "Cursor SDK authentication status was not valid JSON.",
+      );
+    }
+    if (
+      !["user-api-key", "service-account-api-key"].includes(status.authKind) ||
+      !["subscription", "provider-account"].includes(status.billingMode)
+    ) {
+      return problem(
+        "AUTH_STATUS_UNKNOWN",
+        provider,
+        "Cursor SDK authentication status was not recognized.",
+      );
+    }
+    authKind = status.authKind;
+    billingMode = status.billingMode;
   }
-  if (options.billingPolicy === "subscription-only" && billingMode === "api") {
+  if (
+    options.billingPolicy === "subscription-only" &&
+    (billingMode === "api" ||
+      (provider === "cursor" && billingMode === "provider-account"))
+  ) {
+    const message =
+      provider === "cursor"
+        ? "Cursor is authenticated with a service-account API key that bills the owning team rather than the reviewer's Cursor subscription."
+        : `${providerLabels[provider]} is authenticated for usage-based API billing rather than subscription access.`;
     return problem(
       "BILLING_MISMATCH",
       provider,
-      `${providerLabels[provider]} is authenticated for usage-based API billing rather than subscription access.`,
+      message,
       loginInstructions(provider),
     );
   }
@@ -344,7 +428,7 @@ function reviewerPrompt(packetRelativePath) {
   return `Read ${packetRelativePath} completely, inspect the authorized source snapshot, and perform the requested review. Return only the structured reviewer response.`;
 }
 
-function antigravityPrompt(packetRelativePath, schema) {
+function markedJsonPrompt(packetRelativePath, schema) {
   return `${reviewerPrompt(packetRelativePath)}
 
 Your final output must contain exactly these markers and one JSON object that
@@ -425,10 +509,13 @@ export async function invokeProvider(options) {
     if (reviewer.model) args.push("--model", reviewer.model);
     if (reviewer.effort) args.push("--effort", reviewer.effort);
     args.push(reviewerPrompt(packetRelativePath));
-  } else {
+  } else if (reviewer.provider === "antigravity") {
     args = ["--sandbox"];
     if (reviewer.model) args.push("--model", reviewer.model);
-    args.push("-p", antigravityPrompt(packetRelativePath, responseSchema));
+    args.push("-p", markedJsonPrompt(packetRelativePath, responseSchema));
+  } else {
+    args = providerArguments("cursor", ["review", "--model", reviewer.model]);
+    input = markedJsonPrompt(packetRelativePath, responseSchema);
   }
 
   const result = await runProcess({

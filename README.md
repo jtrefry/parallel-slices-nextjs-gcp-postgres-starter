@@ -40,11 +40,14 @@ system and the local controller guides below to operate this checkout.
 
 Before initialization or use after a fresh clone, provide:
 
-- macOS or Linux, Git, and Node.js 22 LTS or 24 LTS;
+- macOS or Linux, Git, and Node.js 22 LTS or 24 LTS; Cursor SDK review requires
+  Node.js 22.13 or newer;
 - the package manager pinned by the root `package.json`;
 - Cursor, Codex, or Claude Code installed and signed in;
-- at least one configured independent review provider CLI—Codex, Claude Code,
-  or Antigravity—installed and signed in before its first review;
+- at least one configured independent review provider: Codex, Claude Code, or
+  Antigravity CLI, or the root `@cursor/sdk` package already included by this
+  scaffold. Cursor reviewers also require `CURSOR_API_KEY` and an explicit model
+  id before their first review;
 - Docker Desktop for the later container-backed integration and E2E foundation;
   Rancher Desktop with `dockerd (moby)` is a free, best-effort alternative;
 - GitHub CLI only when initialization is authorized to create or publish a
@@ -94,7 +97,7 @@ node scripts/parallel-slices/corepack-runner.mjs pnpm run check-types
 node scripts/parallel-slices/corepack-runner.mjs pnpm run build
 ```
 
-Start both Next.js applications:
+Start the Next.js application:
 
 ```bash
 node scripts/parallel-slices/corepack-runner.mjs pnpm run dev
@@ -107,11 +110,9 @@ before product slices may run.
 
 ## Repository layout
 
-- `apps/docs/` is a starter Next.js application with the workspace package
-  name `docs`.
-- `apps/web/` is the other starter Next.js application.
-- `docs/` is the root for repository documentation. It is separate from
-  `apps/docs/`.
+- `apps/web/` is the starter Next.js application.
+- `docs/` is the root for repository documentation and contains no Next.js
+  application.
 - `docs/project/` holds the unique application-specific contracts created
   during initialization.
 - `docs/plans/` holds human-approved Product Plans, compiled scope manifests,
@@ -119,8 +120,7 @@ before product slices may run.
 - `docs/parallel-slices/` holds the version-matched procedures used by this
   checkout's agents and runtime.
 
-All paths are relative to the repository root. The Next.js application at
-`apps/docs/` is not the documentation directory at `docs/`.
+All paths are relative to the repository root.
 
 ## Ownership and safety
 

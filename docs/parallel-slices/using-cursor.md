@@ -36,6 +36,45 @@ non-overlapping worker paths, logical resource locks, and explicit parallel
 policy. The prose plan remains the review surface; the manifests are the
 machine execution boundary.
 
+## Keep Cursor as controller while Cursor models review
+
+Cursor is both a supported lifecycle controller and an independent review
+provider. These roles do not share an agent. The foreground `/loop` conversation
+continues to own orchestration, while each configured Cursor reviewer turn
+starts a separate child process and a fresh one-shot `@cursor/sdk`
+`Agent.prompt()` context against the disposable review snapshot. A later round
+starts fresh again; the runner never resumes `/loop` or an earlier reviewer.
+
+To use two Cursor models, keep the run state's `controller` set to `cursor` and
+configure reviewers like this in `.parallel-slices/review.json`:
+
+```json
+{
+  "enabled": true,
+  "billingPolicy": "subscription-only",
+  "maxRounds": 3,
+  "reviewers": [
+    {
+      "id": "cursor-review-a",
+      "provider": "cursor",
+      "model": "<cursor-model-id>"
+    },
+    {
+      "id": "cursor-review-b",
+      "provider": "cursor",
+      "model": "<different-cursor-model-id>"
+    }
+  ]
+}
+```
+
+Retain the other required timeout and schema fields from the installed file.
+Cursor reviewers require explicit model ids and do not accept `effort`. The
+repository must have `@cursor/sdk` installed at the root and the review runner
+environment must provide `CURSOR_API_KEY`; never store the key in the JSON file.
+See [Multi-agent review](multi-agent-review.md) for model discovery, billing
+policy, preflight, timeouts, and the complete configuration.
+
 ## Plan a later milestone
 
 For every later feature or fix, run:
