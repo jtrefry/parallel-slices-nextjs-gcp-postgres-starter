@@ -26,10 +26,10 @@ plan alone. Claude Code then commits it, applies the configured slice-sizing
 strategy, and AI-compiles version 2 scope manifests plus version 4 JSON run
 state in a separate commit before implementation begins. Each new manifest
 includes machine-validated impact coverage derived from a forward and reverse
-repository trace and a read-only worker rehearsal. Claude Code then invokes the
-existing multi-agent engine for an independent planning review and records its
-approval in a separate commit; this is an AI checkpoint, not another human
-review.
+repository trace and a read-only worker rehearsal. When multi-agent review is
+enabled, Claude Code then invokes the independent planning review and records
+its approval in a separate commit. With the installed disabled default, it
+omits that target and needs no review-provider credential.
 
 Read [Planning and optimized slices](planning-and-optimized-slices.md) for the
 planning contract. Ready Slices are derived from committed dependencies,
@@ -48,8 +48,8 @@ The short alias is `/slices-plan`.
 
 That dedicated planning skill stops at `PRODUCT_PLAN_READY` for approval, then
 commits the Product Plan and compiles the optimized execution files separately.
-It stops at `MILESTONE_PLAN_READY`; prepare `/goal` only after compilation and
-independent AI planning review are complete.
+It stops at `MILESTONE_PLAN_READY`; prepare `/goal` after compilation and, when
+enabled, independent AI planning review are complete.
 
 ## Prepare and start a run
 

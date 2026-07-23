@@ -7,10 +7,6 @@
     "sizingStrategy": "throughput-balanced",
     "configSha256": "0000000000000000000000000000000000000000000000000000000000000000",
     "architectureManifestSha256": "0000000000000000000000000000000000000000000000000000000000000000",
-    "planningReview": {
-      "scope": "docs/plans/scopes/example/_planning.scope",
-      "artifact": "docs/plans/reviews/example/planning.json"
-    },
     "sizingRationale": [
       "Replace this example with the concrete split and merge decisions for this execution map."
     ]

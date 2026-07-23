@@ -6,16 +6,17 @@
 
 Multi-agent review runs configured AI reviewers in order against one
 disposable, read-only snapshot and maintains one permanent JSON ledger plus a
-generated Markdown view. Goal-level planning review is mandatory before any
-worker starts for a newly compiled version 4 run. Slice review remains
-configuration-driven after a slice passes its declared quality gate. Reviewers
-never edit the ledger or the live working tree.
+generated Markdown view. It is optional: the installed configuration defaults
+to `enabled=false` with no reviewers. When enabled, goal-level planning review
+must approve the compiled version 4 run before any worker starts, and slice
+review runs after each slice passes its declared quality gate. Reviewers never
+edit the ledger or the live working tree.
 
 ## Configure reviewers
 
 Edit `.parallel-slices/review.json` before approving the plan contract. This
 Cursor-led example keeps Cursor as the `/loop` controller while two independent
-Cursor SDK reviewers use different explicit models:
+Cursor Agent CLI reviewers use different explicit models:
 
 ```json
 {
@@ -49,39 +50,31 @@ and Antigravity. Repeating any provider with a different reviewer ID is
 supported. The configuration permits one to five reconciliation rounds and at
 most ten reviewers.
 
-At least one reviewer and `enabled=true` are required before a new execution
-map can be committed. This is independent AI review, not another human approval
-surface. Using multiple providers or reviewer identities increases diversity;
-all configured reviewers must agree.
+Leave `enabled=false` and `reviewers=[]` to compile and execute without the
+multi-agent planning-review target or its provider preflight. Set
+`enabled=true` only when the project wants independent multi-agent planning and
+slice review; at least one reviewer is then required. This is an AI checkpoint,
+not another human approval surface. Using multiple providers or reviewer
+identities increases diversity; all configured reviewers must agree.
 
 `billingPolicy=subscription-only` refuses known API-key and cloud-credential
-overrides and refuses Codex or Claude authentication that reports API billing.
-Cursor SDK authentication always requires `CURSOR_API_KEY`; under this policy
-the key must be a user API key, whose SDK use Cursor bills to that user's plan.
-The runner refuses a service-account key because Cursor bills it to the owning
-team. `provider-managed` permits either Cursor key type and delegates the
-resulting plan or team billing to Cursor. These are safety checks, not
-guarantees about a provider's current plan, quota, limits, or billing rules.
-Review artifacts record provider versions and a coarse authentication mode,
-never an account identity, token, or raw login output.
-
-Fresh `nextjs-gcp-postgres` scaffolds include an exact root development
-dependency on `@cursor/sdk`. For an adopted or other architecture repository,
-add an exact reviewed `@cursor/sdk` development dependency at the repository
-root before selecting a Cursor reviewer. The
-[Cursor TypeScript SDK](https://cursor.com/docs/sdk/typescript) requires Node.js
-22.13 or newer. Create a user API key in the
-[Cursor Dashboard](https://cursor.com/dashboard/api), export it as
-`CURSOR_API_KEY` in the environment that starts review, and list the model ids
-available to that key:
+overrides and refuses authentication that reports API billing. Cursor review
+uses the Cursor Agent CLI's cached browser login, so it does not require or
+forward `CURSOR_API_KEY`. Authenticate once with the same Cursor account used
+by the controller:
 
 ```bash
-node --input-type=module -e \
-  'import { Cursor } from "@cursor/sdk"; console.log((await Cursor.models.list()).map(({ id }) => id).join("\n"))'
+cursor-agent login
+cursor-agent status
+cursor-agent --list-models
 ```
 
-Do not put the key in `review.json`, shell history, a committed environment
-file, or a review artifact.
+Cursor Agent CLI access, supported model IDs, plan quotas, and billing remain
+owned by Cursor. `provider-managed` may forward `CURSOR_API_KEY` for an account
+that deliberately uses API billing. Never put a key in `review.json`, shell
+history, a committed environment file, or a review artifact. Review artifacts
+record only provider versions and a coarse authentication mode, never an
+account identity, token, or raw login output.
 
 Validate configuration without contacting a provider:
 
@@ -91,7 +84,8 @@ node scripts/parallel-slices/review.mjs validate
 
 ## Declare the artifact
 
-The version 4 run state declares a goal-level planning target:
+When review is enabled, the version 4 run state declares a goal-level planning
+target:
 
 ```json
 {
@@ -102,7 +96,9 @@ The version 4 run state declares a goal-level planning target:
 }
 ```
 
-The version 1 `_planning.scope` allows only the approved Product Plan, run
+When review is disabled, omit `planningReview` and do not create a
+`_planning.scope` or planning artifact. When enabled, the version 1
+`_planning.scope` allows only the approved Product Plan, run
 state, review configuration, compiled-manifest namespace, correction-record
 namespace, and planning JSON/Markdown pair. Commit the compiled map and
 planning scope before invoking review; commit the generated pair separately
@@ -123,8 +119,8 @@ failed findings and their eventual resolution remain auditable.
 
 ## Run a review
 
-Run the goal-level planning review after the compiled-execution commit and
-before creating any worker:
+When review is enabled, run the goal-level planning review after the
+compiled-execution commit and before creating any worker:
 
 ```bash
 node scripts/parallel-slices/review.mjs planning \
@@ -152,36 +148,30 @@ node scripts/parallel-slices/review.mjs run \
 ```
 
 The runner performs non-billing authentication checks before creating an
-attempt. Cursor preflight imports the local SDK, checks the API key, and resolves
-every configured model through `Cursor.models.list()`. The runner then copies
+attempt. Cursor preflight checks `cursor-agent --version`,
+`cursor-agent status`, and every configured model ID against
+`cursor-agent --list-models`. The runner then copies
 tracked and non-ignored untracked repository files into a temporary directory,
 adds the authorized Git patch and review packet, and runs reviewers sequentially
 with read-only tool restrictions. The live source fingerprint is checked after
 every reviewer. A concurrent edit stops the review as stale instead of
 combining evidence from different revisions.
 
-Provider processes receive a small environment allowlist needed for the CLI or
-SDK, local account cache, locale, certificates, and temporary files. Project,
+Provider processes receive a small environment allowlist needed for the CLI,
+local account cache, locale, certificates, and temporary files. Project,
 database, cloud, and arbitrary shell environment variables are not inherited.
-Only the Cursor runner receives `CURSOR_API_KEY`; it consumes the value for the
-explicit SDK `apiKey` option and removes the environment variable before the
-review agent starts, so agent shell tools do not inherit it. Unrelated provider
-credentials remain stripped. The provider CLI or SDK still owns its
+In `subscription-only` mode the Cursor child never receives `CURSOR_API_KEY`.
+In `provider-managed` mode only the Cursor child may receive that key. Unrelated
+provider credentials remain stripped. The provider CLI still owns its
 authentication and sandbox behavior, so use only official packages and keep
 their versions current.
 
-`provider-managed` can use authentication already stored by a provider CLI.
-The runner still does not forward API-key or cloud-credential environment
-variables to those CLI workers. Cursor is the narrow exception because the SDK
-requires `CURSOR_API_KEY`; the Cursor child receives that key and no arbitrary
-project environment.
-
-Every Cursor turn launches a separate Node.js child process and calls
-`Agent.prompt()` once with the review packet, selected model, sandbox enabled,
-and the disposable snapshot as local `cwd`. The one-shot agent is disposed when
-the turn completes. No reviewer resumes the Cursor `/loop` controller session,
-another reviewer, or its own earlier round, so two reviewer entries may safely
-select different model ids.
+Every Cursor turn launches a separate `cursor-agent --print` process with the
+review packet, explicit model, JSON output, and disposable snapshot as its
+working directory. It does not pass `--resume`, so it uses the current cached
+Cursor account login but never reuses the `/loop` controller conversation,
+another reviewer, or its own earlier round. Two reviewer entries may therefore
+select different model IDs while Cursor remains the controller.
 
 Each response must match the installed structured schema. The first reviewer
 records findings; every later reviewer receives all prior summaries and must
@@ -203,7 +193,7 @@ never guesses that another writer's file is safe to delete.
 
 ## Authentication pauses
 
-If a CLI or the Cursor SDK is missing, authentication is unavailable, or a
+If a provider CLI is missing, authentication is unavailable, or a
 provider needs interactive onboarding, an interactive review prints an exact
 recovery instruction and pauses. Open a separate terminal, install or complete
 the provider's authentication flow there, return to the original terminal, and

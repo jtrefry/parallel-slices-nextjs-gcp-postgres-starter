@@ -81,7 +81,16 @@ function manifestForMetadata(root, metadata) {
 export function createSliceWorktree(root, options) {
   assertRunLock(root, options.controller, options.state);
   const state = readRunState(root, options.state);
-  if (state.compilation?.planningReview) {
+  const reviewConfig = loadReviewConfig(root);
+  if (reviewConfig.enabled && !state.compilation?.planningReview) {
+    fail("enabled multi-agent review requires planningReview in run state");
+  }
+  if (!reviewConfig.enabled && state.compilation?.planningReview) {
+    fail(
+      "disabled multi-agent review requires run state to omit planningReview",
+    );
+  }
+  if (reviewConfig.enabled) {
     validatePlanningReviewEvidence(root, options.state);
   }
   if (state.status !== "not_started" && state.status !== "in_progress") {

@@ -82,7 +82,7 @@ function assertExactRootDependency(manifest, name, section) {
 }
 
 function verifyProfileShape(profile) {
-  if (profile.schemaVersion !== 2) fail("unsupported scaffold profile version");
+  if (profile.schemaVersion !== 3) fail("unsupported scaffold profile version");
   if (profile.ui?.library !== "mantine" || profile.ui?.tailwind !== false) {
     fail("scaffold profile must select Mantine and prohibit Tailwind");
   }
@@ -92,8 +92,8 @@ function verifyProfileShape(profile) {
   if (!/^\d+\.\d+\.\d+$/.test(profile.ui?.version || "")) {
     fail("scaffold profile must pin an exact Mantine version");
   }
-  if (!/^\d+\.\d+\.\d+$/.test(profile.review?.cursorSdkVersion || "")) {
-    fail("scaffold profile must pin an exact Cursor SDK version");
+  if (profile.review?.cursorProvider !== "cursor-agent") {
+    fail("scaffold profile must select the Cursor Agent CLI review provider");
   }
   if (
     profile.node?.engines !== supportedNodeEngineRange ||
@@ -236,13 +236,8 @@ function verifyRootPackage(root, profile) {
       `package.json must declare packageManager ${profile.packageManager}; found ${manifest.packageManager || "missing"}`,
     );
   }
-  if (
-    manifest.devDependencies?.["@cursor/sdk"] !==
-    profile.review.cursorSdkVersion
-  ) {
-    fail(
-      `package.json must declare @cursor/sdk@${profile.review.cursorSdkVersion} in devDependencies`,
-    );
+  if (manifest.devDependencies?.["@cursor/sdk"] !== undefined) {
+    fail("package.json must not require @cursor/sdk for Cursor CLI review");
   }
   const postcss = profile.securityOverrides.postcss;
   if (
@@ -296,13 +291,25 @@ function verifyGeneratedReadme(root) {
       "docs/parallel-slices/using-claude-code.md",
     ],
     ["supported Node.js prerequisites", "Node.js 22 LTS or 24 LTS"],
-    ["independent reviewer prerequisite", "independent review provider"],
+    [
+      "optional independent reviewer prerequisite",
+      "review provider only when multi-agent review is enabled",
+    ],
+    ["disabled multi-agent review default", '"enabled": false'],
     ["container prerequisite", "Docker Desktop"],
   ];
   for (const [label, marker] of requiredMarkers) {
     if (!readme.includes(marker)) {
       fail(`generated README.md must preserve ${label}`);
     }
+  }
+  if (
+    readme.indexOf('"enabled": false') >
+    readme.indexOf("## Understand the complete workflow")
+  ) {
+    fail(
+      "generated README.md must show the multi-agent review default before the workflow guide",
+    );
   }
 }
 

@@ -254,40 +254,42 @@ function validateCompiledExecutionCommit(root, entries, config) {
       `compiled run state does not reference Product Plan: ${plan}`,
     );
   }
-  if (!state.compilation.planningReview) {
-    throw new Error(
-      "new compiled execution requires a declared independent planning review",
-    );
-  }
   const reviewConfig = loadReviewConfig(root);
-  if (!reviewConfig.enabled || reviewConfig.reviewers.length === 0) {
+  let planningTarget = null;
+  if (reviewConfig.enabled) {
+    if (!state.compilation.planningReview) {
+      throw new Error(
+        "enabled multi-agent review requires a declared planningReview in the compiled run state",
+      );
+    }
+    planningTarget = readPlanningReviewTarget(root, statePath);
+    if (
+      !entries.some(
+        (entry) =>
+          entry.status === "A" && entry.path === planningTarget.scopeFile,
+      )
+    ) {
+      throw new Error(
+        `compiled execution commit must add its planning-review scope: ${planningTarget.scopeFile}`,
+      );
+    }
+    if (
+      staged.has(planningTarget.artifact) ||
+      staged.has(planningTarget.artifactMarkdown)
+    ) {
+      throw new Error(
+        "planning-review evidence must be generated and committed after the compiled execution map",
+      );
+    }
+  } else if (state.compilation.planningReview) {
     throw new Error(
-      "new compiled execution requires enabled independent reviewers in .parallel-slices/review.json",
-    );
-  }
-  const planningTarget = readPlanningReviewTarget(root, statePath);
-  if (
-    !entries.some(
-      (entry) =>
-        entry.status === "A" && entry.path === planningTarget.scopeFile,
-    )
-  ) {
-    throw new Error(
-      `compiled execution commit must add its planning-review scope: ${planningTarget.scopeFile}`,
-    );
-  }
-  if (
-    staged.has(planningTarget.artifact) ||
-    staged.has(planningTarget.artifactMarkdown)
-  ) {
-    throw new Error(
-      "planning-review evidence must be generated and committed after the compiled execution map",
+      "disabled multi-agent review requires the compiled run state to omit planningReview",
     );
   }
   const compiledContractPaths = new Set([
     ...manifestPaths,
     statePath,
-    planningTarget.scopeFile,
+    ...(planningTarget ? [planningTarget.scopeFile] : []),
   ]);
   const unrelated = entries.filter(
     (entry) => !compiledContractPaths.has(entry.path),

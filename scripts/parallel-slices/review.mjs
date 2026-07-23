@@ -52,7 +52,6 @@ import {
 const recoverableAuthCodes = new Set([
   "AUTH_REQUIRED",
   "CLI_NOT_INSTALLED",
-  "SDK_NOT_INSTALLED",
   "INTERACTIVE_SETUP_REQUIRED",
 ]);
 
@@ -61,8 +60,6 @@ const exitCodes = Object.freeze({
   CHANGES_REQUESTED: 10,
   AUTH_REQUIRED: 20,
   CLI_NOT_INSTALLED: 20,
-  SDK_NOT_INSTALLED: 20,
-  SDK_RUNTIME_UNSUPPORTED: 20,
   INTERACTIVE_SETUP_REQUIRED: 20,
   BILLING_MISMATCH: 20,
   QUOTA_EXHAUSTED: 21,
@@ -303,6 +300,7 @@ async function executeReviewLoop(context) {
             context.config.turnTimeoutSeconds * 1000,
             remainingMs,
           ),
+          billingPolicy: context.config.billingPolicy,
           expectedFindingIds,
           runProcess: context.runProcess,
         });

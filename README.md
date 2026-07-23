@@ -10,6 +10,22 @@ evidence, and safe Git controls.
 - Architecture: `nextjs-gcp-postgres`
 - Package manager: `pnpm`
 
+## Multi-agent review
+
+Multi-agent planning and integrated slice/code review is optional and disabled
+by default in `.parallel-slices/review.json`:
+
+```json
+{
+  "enabled": false,
+  "reviewers": []
+}
+```
+
+Set `enabled` to `true` and configure one or more reviewers to require those
+review stages. The controller's built-in independent slice review still applies
+when configured multi-agent review is disabled.
+
 > The Parallel Slices bootstrap has already run. Do not run `create-turbo` again
 > in this repository.
 
@@ -40,14 +56,13 @@ system and the local controller guides below to operate this checkout.
 
 Before initialization or use after a fresh clone, provide:
 
-- macOS or Linux, Git, and Node.js 22 LTS or 24 LTS; Cursor SDK review requires
-  Node.js 22.13 or newer;
+- macOS or Linux, Git, and Node.js 22 LTS or 24 LTS;
 - the package manager pinned by the root `package.json`;
 - Cursor, Codex, or Claude Code installed and signed in;
-- at least one configured independent review provider: Codex, Claude Code, or
-  Antigravity CLI, or the root `@cursor/sdk` package already included by this
-  scaffold. Cursor reviewers also require `CURSOR_API_KEY` and an explicit model
-  id before their first review;
+- one signed-in review provider only when multi-agent review is enabled: Codex,
+  Claude Code, Antigravity CLI, or Cursor Agent CLI. Cursor subscription review
+  uses `cursor-agent login` plus an explicit model ID and does not require
+  `CURSOR_API_KEY` or a project SDK dependency;
 - Docker Desktop for the later container-backed integration and E2E foundation;
   Rancher Desktop with `dockerd (moby)` is a free, best-effort alternative;
 - GitHub CLI only when initialization is authorized to create or publish a
@@ -78,8 +93,9 @@ Run these steps from the repository root:
 4. Describe the product, answer the consequential questions, and review the
    generated Product Plan.
 5. Approve the Product Plan when it accurately captures the product. AI then
-   commits it, compiles the optimized execution map separately, and obtains
-   independent AI planning approval before implementation can begin.
+   commits it and compiles the optimized execution map separately. When
+   multi-agent review is enabled, it also obtains independent AI planning
+   approval before implementation can begin.
 6. Use the same controller guide's preparation command to review and start the
    exact `/loop` or `/goal` invocation.
 

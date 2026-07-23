@@ -10,7 +10,8 @@ One approved goal owns:
 - one convention-compliant branch;
 - one human-approved Product Plan commit;
 - one separate AI-compiled execution commit;
-- one separate independent AI planning-review commit;
+- when multi-agent review is enabled, one separate independent AI
+  planning-review commit;
 - one separate logical commit for every accepted slice; and
 - one pull request containing the complete goal.
 
