@@ -44,7 +44,8 @@ then approve that map before any application worker can start.
 - [GitHub publication](github-automation.md) explains optional repository
   authorization, the goal-level pull request, and actions that remain forbidden.
 - [Multi-agent review](multi-agent-review.md) explains required planning-review
-  evidence, integrated slice review, and provider failure behavior.
+  evidence, integrated slice review, provider failure behavior, and how Cursor
+  can remain the `/loop` controller while separate Cursor SDK agents review.
 
 ## Contracts used by controllers and workers
 

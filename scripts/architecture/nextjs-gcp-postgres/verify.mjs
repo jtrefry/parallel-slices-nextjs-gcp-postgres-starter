@@ -26,6 +26,9 @@ const dependencySections = [
   "peerDependencies",
 ];
 const tailwindConfigPattern = /^tailwind\.config\.(cjs|js|mjs|ts)$/;
+const generatedApplicationPath = "apps/web";
+const supportedNodeEngineRange = "^22.0.0 || ^24.0.0";
+const generatedNodePin = "24";
 
 function fail(message) {
   throw new Error(message);
@@ -79,7 +82,7 @@ function assertExactRootDependency(manifest, name, section) {
 }
 
 function verifyProfileShape(profile) {
-  if (profile.schemaVersion !== 1) fail("unsupported scaffold profile version");
+  if (profile.schemaVersion !== 2) fail("unsupported scaffold profile version");
   if (profile.ui?.library !== "mantine" || profile.ui?.tailwind !== false) {
     fail("scaffold profile must select Mantine and prohibit Tailwind");
   }
@@ -89,11 +92,23 @@ function verifyProfileShape(profile) {
   if (!/^\d+\.\d+\.\d+$/.test(profile.ui?.version || "")) {
     fail("scaffold profile must pin an exact Mantine version");
   }
+  if (!/^\d+\.\d+\.\d+$/.test(profile.review?.cursorSdkVersion || "")) {
+    fail("scaffold profile must pin an exact Cursor SDK version");
+  }
+  if (
+    profile.node?.engines !== supportedNodeEngineRange ||
+    profile.node?.pin !== generatedNodePin
+  ) {
+    fail(
+      `scaffold profile must support ${supportedNodeEngineRange} and pin Node.js ${generatedNodePin}`,
+    );
+  }
   if (
     !Array.isArray(profile.applications) ||
-    profile.applications.length === 0
+    profile.applications.length !== 1 ||
+    profile.applications[0] !== generatedApplicationPath
   ) {
-    fail("scaffold profile must list at least one Next.js application");
+    fail(`scaffold profile must list only ${generatedApplicationPath}`);
   }
   if (
     !/^(npm|pnpm|yarn|bun)@\d+\.\d+\.\d+$/.test(profile.packageManager || "")
@@ -221,6 +236,14 @@ function verifyRootPackage(root, profile) {
       `package.json must declare packageManager ${profile.packageManager}; found ${manifest.packageManager || "missing"}`,
     );
   }
+  if (
+    manifest.devDependencies?.["@cursor/sdk"] !==
+    profile.review.cursorSdkVersion
+  ) {
+    fail(
+      `package.json must declare @cursor/sdk@${profile.review.cursorSdkVersion} in devDependencies`,
+    );
+  }
   const postcss = profile.securityOverrides.postcss;
   if (
     manifest.overrides?.postcss !== postcss ||
@@ -230,6 +253,19 @@ function verifyRootPackage(root, profile) {
     fail(
       `package.json must preserve the PostCSS ${postcss} security overrides`,
     );
+  }
+  if (manifest.engines?.node !== profile.node.engines) {
+    fail(`package.json must declare Node.js engines ${profile.node.engines}`);
+  }
+  const nodeVersionPath = join(root, ".node-version");
+  if (!existsSync(nodeVersionPath)) {
+    fail("generated scaffold is missing .node-version");
+  }
+  if (lstatSync(nodeVersionPath).isSymbolicLink()) {
+    fail("refusing symlinked generated .node-version");
+  }
+  if (readFileSync(nodeVersionPath, "utf8").trim() !== profile.node.pin) {
+    fail(`.node-version must pin Node.js ${profile.node.pin}`);
   }
 }
 
@@ -260,7 +296,7 @@ function verifyGeneratedReadme(root) {
       "docs/parallel-slices/using-claude-code.md",
     ],
     ["supported Node.js prerequisites", "Node.js 22 LTS or 24 LTS"],
-    ["independent reviewer prerequisite", "independent review provider CLI"],
+    ["independent reviewer prerequisite", "independent review provider"],
     ["container prerequisite", "Docker Desktop"],
   ];
   for (const [label, marker] of requiredMarkers) {

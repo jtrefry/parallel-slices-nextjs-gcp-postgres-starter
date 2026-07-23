@@ -129,6 +129,24 @@ function stagedFiles(root) {
   return output.split("\0").filter(Boolean);
 }
 
+function indexedFiles(root) {
+  const output = execFileSync("git", ["ls-files", "--cached", "-z", "--"], {
+    cwd: root,
+    encoding: "utf8",
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  return output.split("\0").filter(Boolean).sort();
+}
+
+function unstagedFiles(root) {
+  const output = execFileSync(
+    "git",
+    ["diff", "--name-only", "--diff-filter=ACMRD", "-z", "--"],
+    { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] },
+  );
+  return output.split("\0").filter(Boolean);
+}
+
 function stagedEntries(root) {
   const output = execFileSync(
     "git",
@@ -594,6 +612,7 @@ function isAdoptionContractPath(path, installedArchitectureFiles) {
     "package.json",
     "pnpm-lock.yaml",
     "yarn.lock",
+    "docs/AGENTS.md",
   ]);
   const prefixes = [
     ".agents/",
@@ -727,18 +746,32 @@ function runGeneratedBaselineEntrypoint(
   const baseline = verifyGeneratedBaseline(root);
   if (entrypointId === "preCommit") {
     const changed = stagedFiles(root);
-    const expected = new Set([
-      ...baseline.files.map((file) => file.path),
-      generatedBaselinePath,
-    ]);
-    const missing = [...expected].filter((path) => !changed.includes(path));
-    const unexpected = changed.filter((path) => !expected.has(path));
-    if (missing.length || unexpected.length) {
+    if (!changed.includes(generatedBaselinePath)) {
       throw new Error(
-        `the pristine generated-baseline commit must stage the exact generated tree${missing.length ? `; missing: ${missing.join(", ")}` : ""}${unexpected.length ? `; unexpected: ${unexpected.join(", ")}` : ""}`,
+        `the generated-baseline commit must stage ${generatedBaselinePath}`,
       );
     }
-    assertNoPotentialSecretsAtRevision(root, changed, "", "staged file");
+    const unstaged = unstagedFiles(root);
+    if (unstaged.length) {
+      throw new Error(
+        `the generated-baseline commit must not leave unstaged tracked changes: ${unstaged.join(", ")}`,
+      );
+    }
+    const expected = [
+      ...baseline.files.map((file) => file.path),
+      generatedBaselinePath,
+    ].sort();
+    const indexed = indexedFiles(root);
+    const expectedSet = new Set(expected);
+    const indexedSet = new Set(indexed);
+    const missing = expected.filter((path) => !indexedSet.has(path));
+    const unexpected = indexed.filter((path) => !expectedSet.has(path));
+    if (missing.length || unexpected.length) {
+      throw new Error(
+        `the generated-baseline commit must produce the exact generated tree in the index${missing.length ? `; missing: ${missing.join(", ")}` : ""}${unexpected.length ? `; unexpected: ${unexpected.join(", ")}` : ""}`,
+      );
+    }
+    assertNoPotentialSecretsAtRevision(root, expected, "", "staged file");
   }
   if (entrypointId === "prePush" || entrypointId === "ci") {
     if (entrypointId === "prePush") {

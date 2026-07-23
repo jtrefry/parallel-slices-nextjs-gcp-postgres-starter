@@ -55,7 +55,7 @@
           "maxLength": 40
         },
         "provider": {
-          "enum": ["codex", "claude-code", "antigravity"]
+          "enum": ["codex", "claude-code", "antigravity", "cursor"]
         },
         "model": {
           "type": "string",
@@ -97,6 +97,16 @@
             "required": ["provider"]
           },
           "then": { "not": { "required": ["effort"] } }
+        },
+        {
+          "if": {
+            "properties": { "provider": { "const": "cursor" } },
+            "required": ["provider"]
+          },
+          "then": {
+            "required": ["model"],
+            "not": { "required": ["effort"] }
+          }
         }
       ]
     }

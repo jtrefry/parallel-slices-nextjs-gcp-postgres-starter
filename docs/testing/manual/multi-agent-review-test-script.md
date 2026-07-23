@@ -1,7 +1,7 @@
 # Multi-agent review provider manual test script
 
 Use this script to verify the installed Codex, Claude Code, and Antigravity CLI
-integration with non-production repository content.
+or Cursor SDK integration with non-production repository content.
 
 ## Conventions
 
@@ -22,7 +22,7 @@ integration with non-production repository content.
 | Review artifact          | `docs/plans/reviews/<feature>/<slice>.json`       |
 | Planning state           | `docs/plans/loop-runs/<feature>-state.json`       |
 | Planning review artifact | `docs/plans/reviews/<feature>/planning.json`      |
-| Configured provider CLIs | `<provider names and versions, no account names>` |
+| Configured providers     | `<provider names and versions, no account names>` |
 | Build or commit          | `<safe commit identifier>`                        |
 
 ## Shared setup
@@ -30,15 +30,17 @@ integration with non-production repository content.
 1. Use a disposable or non-production slice with a committed plan and scope
    manifest, one in-scope implementation change, and a green declared gate.
 2. Configure the intended ordered reviewers in `.parallel-slices/review.json`.
-3. Install only official provider CLIs. Complete authentication in each
-   provider's own terminal flow and never copy a token into this script.
+3. Install only official provider CLIs or `@cursor/sdk`. Complete
+   authentication in each provider's own terminal flow; supply
+   `CURSOR_API_KEY` only through the review runner environment, never this
+   script or a committed file.
 4. Confirm no other controller or review process owns the checkout.
 
 ## Progress summary
 
 **Already passed:** None.
 
-**Not yet passed:** 2.1, 2.2, 2.3, 2.4
+**Not yet passed:** 2.1, 2.2, 2.3, 2.4, 2.5
 
 **Tester:**
 
@@ -159,6 +161,32 @@ creation, and requires a new unanimous planning-review attempt.
    `slice-worktree.mjs create` refuses to start a worker.
 6. Run the planning review again, confirm every reviewer runs again, and confirm
    verification succeeds with a different planning fingerprint.
+
+**Actual result:**
+
+**Status:**
+
+**Notes:**
+
+### 2.5 Cursor controller and reviewers remain independent
+
+**Scope:** DEV/QA
+
+**Expected result:** Cursor remains the `/loop` controller while two configured
+Cursor reviewer ids run in order with different model ids. Neither review turn
+continues the controller conversation or an earlier reviewer context.
+
+1. Use a disposable run state whose `controller` is `cursor`.
+2. Configure two `provider: "cursor"` reviewers with unique ids and different
+   model ids returned by `Cursor.models.list()`; omit `effort`.
+3. Keep the Cursor `/loop` conversation open, then run the planning or slice
+   review command from a separate terminal.
+4. Confirm the ledger configuration records both reviewer ids and their exact
+   model ids, and the round records one turn for each id in order.
+5. Confirm the `/loop` conversation received no reviewer prompt or response and
+   can continue orchestration from its prior controller context.
+6. If a second round is required, confirm each reviewer starts without chat
+   history from its earlier turn.
 
 **Actual result:**
 

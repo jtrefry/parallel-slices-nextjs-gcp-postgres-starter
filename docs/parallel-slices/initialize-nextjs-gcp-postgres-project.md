@@ -86,12 +86,16 @@ default when evidence supports one. Cover every applicable area:
     the developer to authenticate the GitHub CLI with the intended account and
     verify the active username before recording the profile.
 13. Independent multi-agent review. Require an enabled ordered Codex, Claude
-    Code, or Antigravity reviewer list for planning and integrated slice review;
-    ask for optional model and effort choices, maximum rounds, and whether
-    `subscription-only` or provider-managed authentication is intended. Explain
-    that this is an AI checkpoint rather than another human approval, while
-    provider plans, quotas, and billing remain external and the CLIs must be
-    signed in.
+    Code, Antigravity, or Cursor reviewer list for planning and integrated slice
+    review; ask for model and supported effort choices, maximum rounds, and
+    whether `subscription-only` or provider-managed authentication is intended.
+    Cursor reviewers require an explicit model id, do not accept `effort`, and
+    run as fresh `@cursor/sdk` agents rather than the Cursor controller session.
+    Explain that a Cursor user API key in `CURSOR_API_KEY` bills to the user's
+    plan and is accepted by `subscription-only`, while a service-account key
+    bills to its team and requires `provider-managed`. This is an AI checkpoint
+    rather than another human approval; provider plans, quotas, and billing
+    remain external, and the selected CLIs or SDK must be ready before review.
 
 Do not ask the developer to choose low-level implementation details that the AI
 can derive safely from the approved requirements.
