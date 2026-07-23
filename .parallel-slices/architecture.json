@@ -1,10 +1,16 @@
 {
   "$schema": "./architecture.schema.json",
-  "version": 1,
+  "version": 2,
   "id": "nextjs-gcp-postgres",
   "packageName": "@parallel-slices/architecture-nextjs-gcp-postgres",
-  "packageVersion": "0.4.4",
-  "manifestSha256": "0d16d9ddb48d0e78570b9f45ca6740d5381958b15a092f3efdb74826e3d11769",
+  "packageVersion": "0.5.0",
+  "manifestSha256": "144ae66c47ab2d3dd96b79af38246ab3a82d52a4356d5f4b32b479a56c9813c8",
+  "packageSha256": "c5000a5fc55a8c3a9bdd041f95e36ec00b04037ba2d7f2986f235915f3ff7bd1",
+  "profile": "postgres",
+  "source": {
+    "id": "nextjs-gcp-postgres",
+    "type": "bundled"
+  },
   "components": [
     {
       "id": "web-application",

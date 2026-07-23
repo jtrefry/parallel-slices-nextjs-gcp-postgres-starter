@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "generator": {
     "name": "create-turbo",
     "version": "2.10.5"
@@ -29,5 +29,6 @@
   },
   "applications": [
     "apps/web"
-  ]
+  ],
+  "dataLayer": "postgres"
 }

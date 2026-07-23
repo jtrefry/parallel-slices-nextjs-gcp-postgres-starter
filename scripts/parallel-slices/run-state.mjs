@@ -151,6 +151,7 @@ export function validateCompilationSource(state, root) {
     "configSha256",
     "architectureManifestSha256",
     "sizingRationale",
+    "parallelism",
     "planningReview",
   ]);
   const unknown = Object.keys(compilation).filter((key) => !allowed.has(key));
@@ -180,6 +181,62 @@ export function validateCompilationSource(state, root) {
     fail(
       "run-state compilation sizingRationale must contain unique non-empty explanations",
     );
+  }
+  if (state.version === 5) {
+    const parallelism = compilation.parallelism;
+    if (
+      !parallelism ||
+      typeof parallelism !== "object" ||
+      Array.isArray(parallelism) ||
+      Object.keys(parallelism).sort().join(",") !==
+        "dependencyRationale,serialOnlyJustification"
+    ) {
+      fail(
+        "version 5 run-state compilation parallelism must contain only dependencyRationale and serialOnlyJustification",
+      );
+    }
+    if (!Array.isArray(parallelism.dependencyRationale)) {
+      fail(
+        "run-state compilation parallelism dependencyRationale must be an array",
+      );
+    }
+    const dependencyPairs = new Set();
+    for (const rationale of parallelism.dependencyRationale) {
+      if (
+        !rationale ||
+        typeof rationale !== "object" ||
+        Array.isArray(rationale) ||
+        Object.keys(rationale).sort().join(",") !== "dependsOn,reason,slice" ||
+        !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(rationale.slice || "") ||
+        !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(rationale.dependsOn || "") ||
+        typeof rationale.reason !== "string" ||
+        rationale.reason.trim().length < 20 ||
+        rationale.reason.length > 1000
+      ) {
+        fail(
+          "run-state compilation dependencyRationale entries require slice, dependsOn, and a concrete 20-1000 character reason",
+        );
+      }
+      const pair = `${rationale.slice}\0${rationale.dependsOn}`;
+      if (dependencyPairs.has(pair)) {
+        fail(
+          `run-state compilation has duplicate dependency rationale: ${rationale.slice} -> ${rationale.dependsOn}`,
+        );
+      }
+      dependencyPairs.add(pair);
+    }
+    if (
+      parallelism.serialOnlyJustification !== null &&
+      (typeof parallelism.serialOnlyJustification !== "string" ||
+        parallelism.serialOnlyJustification.trim().length < 80 ||
+        parallelism.serialOnlyJustification.length > 2000)
+    ) {
+      fail(
+        "run-state compilation serialOnlyJustification must be null or a concrete 80-2000 character explanation",
+      );
+    }
+  } else if (compilation.parallelism !== undefined) {
+    fail("run-state compilation parallelism requires version 5");
   }
   if (compilation.planningReview !== undefined) {
     const planningReview = compilation.planningReview;
@@ -367,8 +424,8 @@ function validateFinalAudit(state, root) {
 }
 
 export function validateRunState(state, root) {
-  if (!state || ![3, 4].includes(state.version)) {
-    fail("run state version must be 3 or 4");
+  if (!state || ![3, 4, 5].includes(state.version)) {
+    fail("run state version must be 3, 4, or 5");
   }
   if (state.$schema !== "../../../.parallel-slices/loop-state.schema.json") {
     fail(
@@ -383,7 +440,7 @@ export function validateRunState(state, root) {
     fail(`run-state plan does not exist: ${state.plan}`);
   }
   validateApprovedPlanSource(state, root);
-  if (state.version === 4) {
+  if ([4, 5].includes(state.version)) {
     validateCompilationSource(state, root);
   } else if (Object.hasOwn(state, "compilation")) {
     fail("legacy version 3 run state must not contain compilation metadata");

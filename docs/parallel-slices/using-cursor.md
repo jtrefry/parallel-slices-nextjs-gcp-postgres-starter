@@ -22,7 +22,7 @@ The architecture-provided command verifies that Cursor is enabled and loads the
 installed initialization skill. Describe the product, answer the interview
 questions, and review the generated Product Plan. Approve that human-readable
 plan alone. Cursor then commits it, applies the configured slice-sizing
-strategy, and AI-compiles version 2 scope manifests plus version 4 JSON run
+strategy, and AI-compiles version 2 scope manifests plus version 5 JSON run
 state in a separate commit before implementation begins. Each new manifest
 includes machine-validated impact coverage derived from a forward and reverse
 repository trace and a read-only worker rehearsal. When

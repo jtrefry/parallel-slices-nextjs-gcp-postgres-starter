@@ -23,7 +23,7 @@ The architecture-provided skill verifies that Claude Code is enabled, then
 follows its initialization workflow. Describe the product, answer the interview
 questions, and review the generated Product Plan. Approve that human-readable
 plan alone. Claude Code then commits it, applies the configured slice-sizing
-strategy, and AI-compiles version 2 scope manifests plus version 4 JSON run
+strategy, and AI-compiles version 2 scope manifests plus version 5 JSON run
 state in a separate commit before implementation begins. Each new manifest
 includes machine-validated impact coverage derived from a forward and reverse
 repository trace and a read-only worker rehearsal. When multi-agent review is

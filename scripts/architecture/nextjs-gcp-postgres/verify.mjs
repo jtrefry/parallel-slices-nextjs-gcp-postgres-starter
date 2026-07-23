@@ -82,7 +82,7 @@ function assertExactRootDependency(manifest, name, section) {
 }
 
 function verifyProfileShape(profile) {
-  if (profile.schemaVersion !== 3) fail("unsupported scaffold profile version");
+  if (profile.schemaVersion !== 4) fail("unsupported scaffold profile version");
   if (profile.ui?.library !== "mantine" || profile.ui?.tailwind !== false) {
     fail("scaffold profile must select Mantine and prohibit Tailwind");
   }
@@ -114,6 +114,9 @@ function verifyProfileShape(profile) {
     !/^(npm|pnpm|yarn|bun)@\d+\.\d+\.\d+$/.test(profile.packageManager || "")
   ) {
     fail("scaffold profile must pin an exact supported package manager");
+  }
+  if (!["postgres", "external-api-only"].includes(profile.dataLayer)) {
+    fail("scaffold profile must select a supported data layer");
   }
   if (!/^\d+\.\d+\.\d+$/.test(profile.securityOverrides?.postcss || "")) {
     fail("scaffold profile must pin the PostCSS security override");
@@ -322,10 +325,15 @@ export function readScaffoldProfile(root) {
   return readJsonFile(profilePath, ".parallel-slices/scaffold-profile.json");
 }
 
-export function verifyScaffoldProfile(root) {
+export function verifyScaffoldProfile(root, expectedDataLayer) {
   const profile = readScaffoldProfile(root);
   if (!profile) return { status: "not-generated" };
   verifyProfileShape(profile);
+  if (expectedDataLayer && profile.dataLayer !== expectedDataLayer) {
+    fail(
+      `scaffold data layer ${profile.dataLayer} does not match architecture profile ${expectedDataLayer}`,
+    );
+  }
   verifyRootPackage(root, profile);
   verifyGeneratedReadme(root);
   for (const application of profile.applications) {
@@ -338,7 +346,40 @@ export function verifyScaffoldProfile(root) {
   return { applications: profile.applications, status: "verified" };
 }
 
+function verifyNoDatabaseFeatures(root) {
+  const prohibitedPaths = [
+    ".parallel-slices/sql-security.json",
+    "apps/backend/migrations",
+    "scripts/database/postgres-migration-runner.ts",
+    "scripts/security/sql-security-scanner.ts",
+  ];
+  for (const path of prohibitedPaths) {
+    if (existsSync(join(root, path))) {
+      fail(`external-api-only profile prohibits database artifact: ${path}`);
+    }
+  }
+  for (const [packagePath, manifest] of repositoryPackageManifests(root)) {
+    for (const dependency of ["pg", "@types/pg"]) {
+      if (dependencyVersion(manifest, dependency)) {
+        fail(
+          `external-api-only profile prohibits ${dependency} in ${packagePath}`,
+        );
+      }
+    }
+  }
+}
+
+function installedProfile(root) {
+  const path = join(root, ".parallel-slices/architecture.json");
+  if (!existsSync(path)) return undefined;
+  return readJsonFile(path, ".parallel-slices/architecture.json").profile;
+}
+
 export function inspectArchitecture(root, options = {}) {
+  const profile = options.profile || installedProfile(root) || "postgres";
+  if (!["postgres", "external-api-only"].includes(profile)) {
+    fail(`unsupported nextjs-gcp-postgres profile: ${profile}`);
+  }
   const packagePath = join(root, "package.json");
   if (!existsSync(packagePath)) {
     fail(
@@ -365,11 +406,14 @@ export function inspectArchitecture(root, options = {}) {
       "the Next.js GCP PostgreSQL architecture requires at least one Next.js package",
     );
   }
-  const scaffold = verifyScaffoldProfile(root);
+  const scaffold = verifyScaffoldProfile(root, profile);
+  if (profile === "external-api-only") verifyNoDatabaseFeatures(root);
   if (options.foundationReady) {
-    assertExactRootDependency(rootPackage, "pg", "dependencies");
-    assertExactRootDependency(rootPackage, "tsx", "dependencies");
-    assertExactRootDependency(rootPackage, "@types/pg", "devDependencies");
+    if (profile === "postgres") {
+      assertExactRootDependency(rootPackage, "pg", "dependencies");
+      assertExactRootDependency(rootPackage, "tsx", "dependencies");
+      assertExactRootDependency(rootPackage, "@types/pg", "devDependencies");
+    }
     verifyDependencyUpdatesEnabled(root);
   }
   return {
@@ -387,6 +431,7 @@ if (isMain) {
   try {
     const command = process.argv[2];
     const target = process.argv[3] ? resolve(process.argv[3]) : process.cwd();
+    const profile = process.argv[4];
     if (!["inspect", "foundation", "verify-scaffold"].includes(command)) {
       fail(
         "usage: verify.mjs <inspect|foundation|verify-scaffold> [/absolute/path/to/repository]",
@@ -394,9 +439,10 @@ if (isMain) {
     }
     const result =
       command === "verify-scaffold"
-        ? verifyScaffoldProfile(target)
+        ? verifyScaffoldProfile(target, profile)
         : inspectArchitecture(target, {
             foundationReady: command === "foundation",
+            profile,
           });
     const scaffold = result.scaffold || result;
     if (scaffold.status === "not-generated") {

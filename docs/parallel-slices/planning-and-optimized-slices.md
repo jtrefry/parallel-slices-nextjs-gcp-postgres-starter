@@ -5,12 +5,12 @@ Parallel Slices planning has a human source and a compiled execution form:
 1. The Markdown goal plan is written for people. It owns requirements, source
    traceability, decisions, preservation invariants, non-goals, architecture,
    risks, acceptance scenarios, rollout, and the milestone definition of done.
-2. Version 2 scope manifests and version 4 JSON run state are optimized for
+2. Version 2 scope manifests and version 5 JSON run state are optimized for
    controllers. They project the plan into bounded work, dependencies, path
    ownership, resource locks, gates, review artifacts, and durable progress.
-3. A goal-level planning scope and review ledger let fresh AI reviewers audit
-   that projection against the Product Plan and repository before any worker
-   starts.
+3. When configured multi-agent review is enabled, a goal-level planning scope
+   and review ledger let fresh AI reviewers audit that projection against the
+   Product Plan and repository before any worker starts.
 
 The execution files never replace or weaken the Product Plan. They reference
 its stable requirement IDs instead of paraphrasing requirements. The human
@@ -30,27 +30,33 @@ Use this order:
 5. Commit the approved Product Plan and record its full commit SHA.
 6. Read the committed `sliceCompilation.sizingStrategy` and capture the
    compilation-input snapshot.
-7. Identify coherent vertical outcomes, then apply the configured sizing
-   strategy without weakening their evidence or safety boundaries.
+7. Identify the smallest coherent vertical outcomes, perform an explicit
+   pairwise concurrency-discovery pass, and draft a dependency-minimal graph
+   before applying the configured sizing strategy.
 8. Trace each outcome forward through entry points, contracts, consumers, data
    side effects, tests, and operations, then reverse-trace proposed paths through
    references, importers, fixtures, generated outputs, and relevant history.
 9. Record exact `coverage` dispositions and perform a separate read-only worker
    challenge proving the outcome does not require writes outside `allow`.
-10. Add dependency edges only where a slice genuinely requires an earlier
-    accepted outcome.
+10. Add dependency edges only where a slice genuinely consumes an earlier
+    accepted outcome and cannot implement and verify against an already
+    committed contract, fixture, test double, or narrower prerequisite.
 11. Separate worker-owned `allow` paths from root-owned `coordinate` paths.
 12. Add logical locks for semantic resources that path matching cannot see.
 13. Mark the exceptional slice that must run alone as `parallel=forbidden` and
     state the exact reason.
-14. Generate version 4 JSON state covering every manifest, record the Product
+14. Run the serial-chain challenge against every dependency and inspect the
+    computed graph analysis. A non-trivial all-serial first draft must be
+    repartitioned whenever safe independence exists.
+15. Generate version 5 JSON state covering every manifest, record the Product
     Plan approval SHA as `planCommit`, and preserve the strategy, input hashes,
-    and sizing rationale under `compilation`.
-15. Add the goal-level `_planning.scope`, validate, and commit the compiled
-    execution files separately.
-16. Run the configured independent AI reviewers, commit their generated
-    planning ledger separately, and verify its execution-map fingerprint before
-    presenting the graph and initial Ready Slices.
+    sizing rationale, exact dependency rationale, and any evidence-backed
+    serial-only exception under `compilation`.
+16. Add the goal-level `_planning.scope` when configured review is enabled,
+    then validate and commit the compiled execution files separately.
+17. Run the configured independent AI reviewers when enabled, commit their
+    generated planning ledger separately, and verify its execution-map
+    fingerprint before presenting the graph and initial Ready Slices.
 
 Do not split work by file count alone. A good slice is a small, meaningful,
 independently verifiable outcome. Keep tightly coupled frontend, backend, and
@@ -103,6 +109,23 @@ Neither setting changes gates, scope enforcement, locks, serialized
 integration ownership, review, or final audit. The compiler must explain material
 partitioning decisions in durable state rather than relying on chat memory or
 invented timing estimates.
+
+Both settings require useful safe concurrency, not merely several manifest
+files. Before coalescing, the compiler compares outcomes pairwise and identifies
+which can start from the same accepted base. Path overlap and shared locks may
+serialize scheduler admission, but they do not establish a dependency edge.
+“Implement the backend first,” “finish the data layer,” or another preferred
+work order is not a dependency unless the downstream outcome cannot be built
+and verified against committed contracts, fixtures, or test doubles.
+
+After drafting the graph, the compiler challenges every dependency and runs
+`slice-graph.mjs analyze`. A multi-slice graph with maximum parallel width one
+must be decomposed again. It is accepted only when repository evidence proves
+that every possible pair shares an unavoidable accepted-output constraint; the
+version 5 state must record that exception as `serialOnlyJustification`.
+Otherwise the field is `null`. Every remaining edge has a matching
+`dependencyRationale` entry, and validation rejects missing, invented, or stale
+edge evidence.
 
 Sizing is performed by the AI planning workflow, not by the runtime scheduler.
 The strategy is therefore a documented decision rubric rather than an automatic

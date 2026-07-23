@@ -8,7 +8,7 @@ Multi-agent review runs configured AI reviewers in order against one
 disposable, read-only snapshot and maintains one permanent JSON ledger plus a
 generated Markdown view. It is optional: the installed configuration defaults
 to `enabled=false` with no reviewers. When enabled, goal-level planning review
-must approve the compiled version 4 run before any worker starts, and slice
+must approve the compiled version 5 run before any worker starts, and slice
 review runs after each slice passes its declared quality gate. Reviewers never
 edit the ledger or the live working tree.
 
@@ -84,7 +84,7 @@ node scripts/parallel-slices/review.mjs validate
 
 ## Declare the artifact
 
-When review is enabled, the version 4 run state declares a goal-level planning
+When review is enabled, the version 5 run state declares a goal-level planning
 target:
 
 ```json
