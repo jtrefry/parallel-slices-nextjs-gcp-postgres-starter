@@ -1,5 +1,5 @@
 {
-  "name": "generated",
+  "name": "starter",
   "private": true,
   "scripts": {
     "build": "turbo run build",

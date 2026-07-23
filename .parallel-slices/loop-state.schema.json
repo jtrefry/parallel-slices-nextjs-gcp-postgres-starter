@@ -21,7 +21,7 @@
     "$schema": {
       "const": "../../../.parallel-slices/loop-state.schema.json"
     },
-    "version": { "enum": [3, 4] },
+    "version": { "enum": [3, 4, 5] },
     "plan": {
       "type": "string",
       "pattern": "^docs/plans/.+\\.md$"
@@ -56,6 +56,42 @@
           "minItems": 1,
           "uniqueItems": true,
           "items": { "type": "string", "minLength": 1, "maxLength": 1000 }
+        },
+        "parallelism": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["dependencyRationale", "serialOnlyJustification"],
+          "properties": {
+            "dependencyRationale": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["slice", "dependsOn", "reason"],
+                "properties": {
+                  "slice": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+                  },
+                  "dependsOn": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 20,
+                    "maxLength": 1000
+                  }
+                }
+              }
+            },
+            "serialOnlyJustification": {
+              "type": ["string", "null"],
+              "minLength": 80,
+              "maxLength": 2000
+            }
+          }
         },
         "planningReview": {
           "type": "object",
@@ -108,10 +144,21 @@
   "allOf": [
     {
       "if": {
-        "properties": { "version": { "const": 4 } },
+        "properties": { "version": { "enum": [4, 5] } },
         "required": ["version"]
       },
       "then": { "required": ["compilation"] }
+    },
+    {
+      "if": {
+        "properties": { "version": { "const": 5 } },
+        "required": ["version"]
+      },
+      "then": {
+        "properties": {
+          "compilation": { "required": ["parallelism"] }
+        }
+      }
     },
     {
       "if": {

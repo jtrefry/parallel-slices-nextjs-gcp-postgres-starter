@@ -22,7 +22,7 @@ The architecture-provided skill first verifies that Codex is enabled, then
 follows that package's initialization workflow. Describe the product, answer
 the interview questions, and review the generated Product Plan. Approve that
 human-readable plan alone. Codex then commits it, applies the configured
-slice-sizing strategy, and AI-compiles version 2 scope manifests plus version 4
+slice-sizing strategy, and AI-compiles version 2 scope manifests plus version 5
 JSON run state in a separate commit before implementation begins. Each new
 manifest includes machine-validated impact coverage derived from a forward and
 reverse repository trace and a read-only worker rehearsal. When multi-agent

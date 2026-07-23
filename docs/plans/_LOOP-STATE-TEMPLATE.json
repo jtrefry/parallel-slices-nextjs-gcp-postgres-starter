@@ -1,6 +1,6 @@
 {
   "$schema": "../../../.parallel-slices/loop-state.schema.json",
-  "version": 4,
+  "version": 5,
   "plan": "docs/plans/2026-01-01-example.md",
   "planCommit": "0000000000000000000000000000000000000000",
   "compilation": {
@@ -9,7 +9,11 @@
     "architectureManifestSha256": "0000000000000000000000000000000000000000000000000000000000000000",
     "sizingRationale": [
       "Replace this example with the concrete split and merge decisions for this execution map."
-    ]
+    ],
+    "parallelism": {
+      "dependencyRationale": [],
+      "serialOnlyJustification": null
+    }
   },
   "milestone": "Deliver the approved example milestone",
   "goalBranch": "feature/example-milestone",

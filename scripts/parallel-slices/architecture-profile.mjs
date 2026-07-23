@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const profileRelativePath = ".parallel-slices/architecture.json";
 const idPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const packageNamePattern = /^(?:@[a-z0-9][a-z0-9._-]*\/)?[a-z0-9][a-z0-9._-]*$/;
 const capabilityPattern = /^[a-z][a-z0-9]*(?::[a-z0-9]+(?:-[a-z0-9]+)*)*$/;
 const safePathPattern =
   /^(?!\/)(?!.*(?:^|\/)\.{1,2}(?:\/|$))(?!.*\/\/)(?!.*\/$)[A-Za-z0-9._/-]+$/;
@@ -48,6 +49,9 @@ export function validateArchitectureProfile(profile) {
     "packageName",
     "packageVersion",
     "manifestSha256",
+    "packageSha256",
+    "profile",
+    "source",
     "components",
     "capabilities",
     "options",
@@ -62,13 +66,43 @@ export function validateArchitectureProfile(profile) {
     fail(`architecture profile has unknown fields: ${unknown.join(", ")}`);
   if (
     profile.$schema !== "./architecture.schema.json" ||
-    profile.version !== 1 ||
+    ![1, 2].includes(profile.version) ||
     !idPattern.test(profile.id || "") ||
-    profile.packageName !== `@parallel-slices/architecture-${profile.id}` ||
+    !packageNamePattern.test(profile.packageName || "") ||
     !/^\d+\.\d+\.\d+$/.test(profile.packageVersion || "") ||
     !/^[a-f0-9]{64}$/.test(profile.manifestSha256 || "")
   ) {
     fail("architecture profile identity is invalid");
+  }
+  if (profile.version === 2) {
+    if (!/^[a-f0-9]{64}$/.test(profile.packageSha256 || "")) {
+      fail("architecture package integrity is invalid");
+    }
+    if (!idPattern.test(profile.profile || "")) {
+      fail("architecture profile selection is invalid");
+    }
+    assertObject(profile.source, "architecture source");
+    const sourceKeys = Object.keys(profile.source);
+    const validBundled =
+      profile.source.type === "bundled" &&
+      sourceKeys.length === 2 &&
+      idPattern.test(profile.source.id || "");
+    const validLocal =
+      profile.source.type === "local" && sourceKeys.length === 1;
+    const validNpm =
+      profile.source.type === "npm" &&
+      sourceKeys.length === 3 &&
+      packageNamePattern.test(profile.source.package || "") &&
+      /^\d+\.\d+\.\d+$/.test(profile.source.version || "");
+    if (!validBundled && !validLocal && !validNpm) {
+      fail("architecture source is invalid");
+    }
+  } else if (
+    profile.profile !== undefined ||
+    profile.source !== undefined ||
+    profile.packageSha256 !== undefined
+  ) {
+    fail("legacy architecture profiles must not declare profile or source");
   }
   if (!Array.isArray(profile.components) || profile.components.length === 0) {
     fail("architecture profile must include components");
@@ -156,6 +190,10 @@ function runCli(argv) {
     console.log(readArchitectureProfile(parseRoot(value)).id);
     return;
   }
+  if (command === "profile" && argv.length <= 2) {
+    console.log(readArchitectureProfile(parseRoot(value)).profile || "default");
+    return;
+  }
   if (command === "installed-verifier" && argv.length <= 2) {
     console.log(readArchitectureProfile(parseRoot(value)).installedVerifier);
     return;
@@ -179,7 +217,7 @@ function runCli(argv) {
     return;
   }
   fail(
-    "usage: architecture-profile.mjs show|id|installed-verifier|verify [absolute-target] | " +
+    "usage: architecture-profile.mjs show|id|profile|installed-verifier|verify [absolute-target] | " +
       "initialize-command <controller> [absolute-target]",
   );
 }

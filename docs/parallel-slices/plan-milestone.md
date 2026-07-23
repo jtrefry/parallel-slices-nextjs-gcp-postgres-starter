@@ -11,14 +11,18 @@ Read root and nested instructions, `docs/plans/AGENTS.md`, all canonical
 `planning-and-optimized-slices.md`. Search the repository for requested behavior
 and existing tests before asking questions.
 
-Before Product Plan approval, configure and commit at least one independent AI
-reviewer in `.parallel-slices/review.json`, then validate the configuration:
+Before Product Plan approval, explicitly choose and commit whether configured
+multi-agent review is enabled in `.parallel-slices/review.json`, then validate
+the configuration:
 
 ```bash
 node scripts/parallel-slices/review.mjs validate
 ```
 
-This reviewer is a fresh AI context, not an additional human approval step.
+When enabled, configure at least one reviewer. Each reviewer is a fresh AI
+context, not an additional human approval step. When disabled, leave
+`reviewers` empty; compilation and worker creation must not request provider
+authentication.
 
 ## Establish the bounded goal
 
@@ -89,11 +93,29 @@ node scripts/parallel-slices/slice-compilation.mjs snapshot
 
 The command reports the effective sizing strategy plus the config and
 Architecture Package hashes. They must match the Product Plan approval commit;
-copy them into the version 4 run state's `compilation` object. If they do not,
+copy them into the version 5 run state's `compilation` object. If they do not,
 stop and commit the intended configuration before creating a new Product Plan.
 
-First project the stable requirements into coherent, independently verifiable
-vertical outcomes. Then apply the configured sizing strategy:
+Before considering dependencies or merge costs, perform a concurrency-discovery
+pass:
+
+1. Project the stable requirements and acceptance scenarios into the smallest
+   coherent, independently verifiable vertical outcomes.
+2. Compare every pair of outcomes and identify those that can be implemented
+   and tested from the same accepted base without consuming the other outcome.
+3. If several outcomes appear to need one broad foundation slice, extract only
+   the smallest shared contract that truly must be accepted first. Keep
+   independent UI journeys, API behaviors, persistence behaviors, operations,
+   and test evidence separate when they do not consume one another.
+4. Treat path overlap, a shared lock, convenient implementation order, and
+   “build the backend first” as scheduling constraints or preferences—not
+   dependency evidence. Add a dependency only when the downstream worker cannot
+   implement and verify its outcome against committed contracts, fixtures, or
+   test doubles until the upstream outcome is accepted.
+5. Draft the dependency-minimal graph and inspect its execution sets before
+   applying any throughput coalescing.
+
+Then apply the configured sizing strategy:
 
 - `isolation-first` keeps the smallest meaningful outcomes separate whenever
   they can be implemented, tested, reviewed, and retried independently.
@@ -105,8 +127,28 @@ vertical outcomes. Then apply the configured sizing strategy:
 Both strategies use identical quality and safety boundaries. Never split by
 file count, and never merge work if it would hide acceptance evidence, delay a
 meaningful prerequisite, reduce safe concurrency, make review ambiguous, or
-make a failure discard a disproportionate amount of work. Record concrete
-split, merge, and critical-path reasoning in `compilation.sizingRationale`.
+make a failure discard a disproportionate amount of work. A
+`throughput-balanced` merge that reduces the graph's maximum parallel width
+must name the concrete gate/review cost that outweighs the lost concurrency.
+Record concrete split, merge, and critical-path reasoning in
+`compilation.sizingRationale`.
+
+After the first complete graph, run a serial-chain challenge. For every
+dependency, ask what accepted artifact or behavior the downstream slice
+actually consumes and whether a committed interface, fixture, test double, or
+narrower prerequisite would let it start independently. Re-run the graph
+analysis after removing non-causal edges and splitting oversized prerequisites.
+A multi-slice first draft whose every execution set has width one is not an
+acceptable stopping point.
+
+The version 5 state's `compilation.parallelism.dependencyRationale` must contain
+exactly one concrete entry for every remaining dependency edge. Run
+`slice-graph.mjs analyze` and ensure `maxParallelWidth` is greater than one for
+non-trivial work whenever safe independence exists. If the challenged graph is
+still inherently serial, set `serialOnlyJustification` to the exact shared
+contract, migration, external state, or other accepted-output constraint that
+prevents every candidate pair from running concurrently. Otherwise it must be
+`null`. The graph validator enforces this contract.
 
 Before assigning paths, perform an impact-closure pass for every outcome:
 
@@ -147,9 +189,10 @@ For each resulting slice:
    reason dependencies, paths, or locks cannot express;
 9. declare the exact gate, review path, release classification, and conventional
    commit subject; and
-10. create one version 4 JSON state file from
+10. create one version 5 JSON state file from
     `docs/plans/_LOOP-STATE-TEMPLATE.json`, setting `planCommit` to the Product
-    Plan approval commit; and
+    Plan approval commit and recording exact dependency rationale plus the
+    serial-only result of the graph challenge; and
 11. when `.parallel-slices/review.json` has `enabled=true`, copy
     `docs/plans/scopes/_PLANNING-SCOPE-TEMPLATE.scope` to
     `docs/plans/scopes/<feature>/_planning.scope`, replace every example, and
@@ -177,15 +220,20 @@ node scripts/parallel-slices/slice-graph.mjs validate \
   --plan docs/plans/<plan>.md
 node scripts/parallel-slices/slice-graph.mjs sets \
   --plan docs/plans/<plan>.md
+node scripts/parallel-slices/slice-graph.mjs analyze \
+  --plan docs/plans/<plan>.md
 ```
 
 Inspect every reported group of ready slices. Confirm that concurrent slices
 have disjoint worker paths and locks, and that each dependency reflects a
-causal prerequisite. Inspect the coverage records as the durable result of the
-read-only worker challenge. Fix compilation mechanics rather than weakening
-validation.
+causal prerequisite. For a multi-slice plan, treat `maxParallelWidth: 1` as a
+failed decomposition and repeat the serial-chain challenge unless the
+repository evidence proves the whole graph is inherently serial and the state
+records that exact justification. Inspect the coverage records as the durable
+result of the read-only worker challenge. Fix compilation mechanics rather than
+weakening validation.
 
-Stage only the compiled version 2 scope manifests, initial version 4 JSON state,
+Stage only the compiled version 2 scope manifests, initial version 5 JSON state,
 and, when review is enabled, the version 1 `_planning.scope`. The Product Plan
 must not be staged. Run the configured pre-commit entry point and create a
 separate local compiled-execution commit.
@@ -233,7 +281,8 @@ Present the compiled result for traceability, not approval:
 2. initial Ready Slices and every serial reason;
 3. worker, coordinator, and logical-lock ownership;
 4. scope coverage and any `preserve` or `not-applicable` dispositions;
-5. effective sizing strategy, compilation-input hashes, and sizing rationale;
+5. effective sizing strategy, compilation-input hashes, sizing rationale, graph
+   analysis, and dependency rationale;
 6. Product Plan approval commit recorded by `planCommit`; and
 7. exact compiled files and their commit; and
 8. when enabled, independent reviewer IDs, planning-review artifact paths, and

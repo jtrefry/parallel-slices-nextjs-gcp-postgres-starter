@@ -244,9 +244,9 @@ function validateCompiledExecutionCommit(root, entries, config) {
     );
   }
   const state = readRunState(root, statePath);
-  if (state.version !== 4) {
+  if (state.version !== 5) {
     throw new Error(
-      "new compiled execution requires version 4 run state with pinned sizing inputs",
+      "new compiled execution requires version 5 run state with parallelism evidence",
     );
   }
   if (state.plan !== plan) {

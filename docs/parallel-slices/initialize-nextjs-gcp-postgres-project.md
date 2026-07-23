@@ -1,5 +1,15 @@
 # Initialize a Next.js GCP PostgreSQL project
 
+Use this procedure only when `.parallel-slices/architecture.json` selects the
+`postgres` profile. Confirm it before discovery:
+
+```bash
+node scripts/parallel-slices/architecture-profile.mjs profile "$(pwd)"
+```
+
+If the command prints another profile, use that profile's installed
+initialization guide instead.
+
 ## Promise
 
 The operating promise is:
@@ -279,14 +289,14 @@ human approval checkpoint.
 
 Use the approved Product Plan as source and the installed `nextjs-gcp-postgres`
 Architecture Package as target configuration. Compile version 2 scope
-manifests, one version 1 `_planning.scope`, the dependency DAG, and one version
-4 JSON run-state file from
+manifests, the dependency DAG, and one version 5 JSON run-state file from
 `docs/plans/_LOOP-STATE-TEMPLATE.json`. The state must name the controller,
 reference every executable manifest, and record the Product Plan approval SHA
 as `planCommit`. Run
 `node scripts/parallel-slices/slice-compilation.mjs snapshot` and copy its
 effective strategy and input hashes into `compilation`, then add concrete
-sizing rationale.
+sizing rationale. Add the version 1 `_planning.scope` only when
+`.parallel-slices/review.json` enables configured multi-agent review.
 
 The smallest vertical foundation outcome must result in a running, tested page
 through the production-like local container path. Later slices may add selected
@@ -305,13 +315,33 @@ would require another write.
 
 The installed Next.js/GCP default is `throughput-balanced` because its full
 pipeline includes builds, integration tests, E2E tests, and repository security
-scanning. Begin with coherent vertical outcomes, then combine compatible small
-outcomes only when another complete candidate and integrated pipeline, review,
-evidence record, and commit would cost more than the split gains through safe
+scanning. Begin with the smallest coherent vertical outcomes and explicitly
+compare which user journeys, API behaviors, persistence changes, operations,
+and test evidence can start from the same accepted base. Draft and inspect that
+dependency-minimal graph before combining compatible small outcomes. Combine
+only when another complete candidate and integrated pipeline, review, evidence
+record, and commit would cost more than the split gains through safe
 concurrency, earlier dependency release, or retry isolation. If the committed
 project config selects `isolation-first`, retain the smallest coherent outcomes
 instead. Both strategies preserve identical gates, evidence, locks, review,
 exclusive serial integration, streaming dependency release, and final audit.
+
+Challenge every dependency before accepting the map. A path overlap, shared
+lock, preferred technical-layer order, or desire to finish the backend first is
+not a dependency; the downstream slice must consume an accepted upstream
+outcome that cannot be represented by a committed contract, fixture, test
+double, or narrower prerequisite. Record one
+`compilation.parallelism.dependencyRationale` entry for every surviving edge,
+then run:
+
+```bash
+node scripts/parallel-slices/slice-graph.mjs analyze \
+  --plan docs/plans/<plan>.md
+```
+
+A non-trivial result with `maxParallelWidth` equal to `1` must be repartitioned
+and analyzed again. Use `serialOnlyJustification` only when repository evidence
+proves no safe pair can run concurrently; otherwise set it to `null`.
 
 For every compiled slice, define:
 
@@ -338,12 +368,12 @@ Compilation must not add or reinterpret product scope. If it exposes an
 unresolved decision, new behavior, broader subsystem, or changed policy, return
 to `INITIALIZATION_PRODUCT_PLAN_READY` for revision and approval.
 
-Validate run state and graph, inspect the scope coverage and Ready Slices for
-omissions, overlapping paths, or locks, and fix compilation mechanics without
-weakening gates. Stage the compiled manifests and initial state, plus the
-planning scope only when `.parallel-slices/review.json` has `enabled=true`. Run
-the initialization pre-commit gate and create a separate local AI-compiled
-execution commit.
+Validate run state and graph, inspect the graph analysis, scope coverage, and
+Ready Slices for unnecessary dependencies, omissions, overlapping paths, or
+locks, and fix compilation mechanics without weakening gates. Stage the
+compiled manifests and initial state, plus the planning scope only when
+`.parallel-slices/review.json` has `enabled=true`. Run the initialization
+pre-commit gate and create a separate local AI-compiled execution commit.
 
 When multi-agent review is enabled, run the installed goal-level review against
 that committed map:

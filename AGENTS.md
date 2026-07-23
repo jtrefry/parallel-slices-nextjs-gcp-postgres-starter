@@ -2,9 +2,10 @@
 
 Status: INITIALIZATION_REQUIRED
 
-This repository selects the versioned `nextjs-gcp-postgres` architecture in
-`.parallel-slices/architecture.json`. Treat that profile as immutable during normal
-setup; changing architectures requires an explicit, reviewed migration.
+This repository selects the versioned `nextjs-gcp-postgres` architecture with
+the `postgres` profile in `.parallel-slices/architecture.json`. Treat that
+selection as immutable during normal setup; changing architectures or profiles
+requires an explicit, reviewed migration.
 
 This repository follows a human-directed, AI-built development workflow. The
 developer describes the application, answers product questions, and approves
@@ -131,10 +132,13 @@ or production systems under forbidden actions.
 - Preserve unrelated changes in a dirty worktree.
 - Human approval applies only to the Product Plan and authorizes its local
   commit. AI then compiles optimized manifests, the dependency graph, and
-  version 4 JSON state into a separate commit using the sizing strategy already
-  committed in `.parallel-slices/config.json`. Those derived files are not a
-  second approval surface. The completed planning sequence authorizes
-  subsequent accepted slice commits on the named goal branch.
+  version 5 JSON state with dependency and parallelism evidence into a separate
+  commit using the sizing strategy already committed in
+  `.parallel-slices/config.json`. The compiler must challenge an all-serial
+  first draft and create safe parallel slices whenever approved outcomes can
+  run independently. Those derived files are not a second approval surface.
+  The completed planning sequence authorizes subsequent accepted slice commits
+  on the named goal branch.
   `.parallel-slices/repository.json` is the durable publication authorization:
   `local-only` forbids remote contact; `github` authorizes only the named
   repository, remote, goal-branch push, one goal-level pull request, and CI

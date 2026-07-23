@@ -19,13 +19,65 @@
     "installedVerifier",
     "controllerCommands"
   ],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "version": { "const": 2 } },
+        "required": ["version"]
+      },
+      "then": { "required": ["profile", "source", "packageSha256"] },
+      "else": {
+        "not": {
+          "anyOf": [
+            { "required": ["profile"] },
+            { "required": ["source"] },
+            { "required": ["packageSha256"] }
+          ]
+        }
+      }
+    }
+  ],
   "properties": {
     "$schema": { "const": "./architecture.schema.json" },
-    "version": { "const": 1 },
+    "version": { "enum": [1, 2] },
     "id": { "$ref": "#/$defs/id" },
     "packageName": { "type": "string", "minLength": 1 },
     "packageVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
     "manifestSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "packageSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "profile": { "$ref": "#/$defs/id" },
+    "source": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "id"],
+          "properties": {
+            "type": { "const": "bundled" },
+            "id": { "$ref": "#/$defs/id" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type"],
+          "properties": { "type": { "const": "local" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "package", "version"],
+          "properties": {
+            "type": { "const": "npm" },
+            "package": { "type": "string", "minLength": 1 },
+            "version": {
+              "type": "string",
+              "pattern": "^\\d+\\.\\d+\\.\\d+$"
+            }
+          }
+        }
+      ]
+    },
     "components": {
       "type": "array",
       "minItems": 1,

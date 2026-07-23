@@ -140,7 +140,7 @@ without regard to its Cursor, Codex, or Claude Code controller. A valid
 replacement-manifest correction makes that approval stale, blocks worker
 creation, and requires a new unanimous planning-review attempt.
 
-1. Use a disposable approved Product Plan with a committed version 4 run state,
+1. Use a disposable approved Product Plan with a committed version 5 run state,
    version 2 slice manifests, and version 1 `_planning.scope`. Do not use an
    in-progress application milestone.
 2. Run:

@@ -83,7 +83,7 @@ installed contracts, and quality floors to this compilation step.
 
 Compilation must:
 
-- create version 2 scope manifests and one version 4 JSON run state;
+- create version 2 scope manifests and one version 5 JSON run state;
 - when `.parallel-slices/review.json` has `enabled=true`, create one version 1
   `_planning.scope` that owns only the plan, state, review configuration,
   compiled-manifest namespace, correction-record namespace, and permanent
@@ -94,6 +94,8 @@ Compilation must:
   `.parallel-slices/config.json` and record its compilation-input snapshot;
 - record concrete sizing rationale explaining the material split, merge, and
   prerequisite-unlock decisions;
+- begin with a concurrency-discovery pass across the smallest coherent vertical
+  outcomes before adding dependencies or coalescing work;
 - map only requirement IDs and behavior already present in the Product Plan;
 - trace every outcome forward from its entry point through contracts, consumers,
   data side effects, tests, and operations, then reverse-trace proposed files
@@ -101,6 +103,16 @@ Compilation must:
   and relevant history;
 - derive dependencies, worker paths, coordinator paths, logical locks, gates,
   review artifacts, release classifications, and commit subjects;
+- treat a dependency as a causal accepted-output prerequisite, not a path
+  overlap, shared lock, preferred work order, or assumption that one technical
+  layer should be completed before another;
+- challenge every dependency against committed interfaces, fixtures, test
+  doubles, and smaller shared prerequisites, then record exactly one
+  `compilation.parallelism.dependencyRationale` entry for every surviving edge;
+- run the graph analysis and reject a non-trivial all-serial first draft. Create
+  safe parallel slices whenever the approved outcomes permit them; use
+  `serialOnlyJustification` only after repository evidence proves that no pair
+  can run concurrently, and otherwise set it to `null`;
 - record machine-validated scope coverage for every slice and challenge whether
   a fresh worker could complete it without an out-of-scope write;
 - validate the graph and inspect the expected ready slices; and
@@ -134,6 +146,23 @@ retry contracts:
   dependency release, or retry isolation. Never combine work when doing so
   hides acceptance evidence, delays a meaningful prerequisite, enlarges the
   retry blast radius disproportionately, or makes review ambiguous.
+
+Do not interpret `throughput-balanced` as permission to build a technical-layer
+waterfall. Draft and inspect the dependency-minimal graph first. A merge that
+reduces maximum parallel width must identify a concrete pipeline, review, or
+integration cost that outweighs the lost concurrency. For a multi-slice graph,
+run:
+
+```bash
+node scripts/parallel-slices/slice-graph.mjs analyze \
+  --plan docs/plans/<plan>.md
+```
+
+If `maxParallelWidth` is `1`, repeat the serial-chain challenge before
+committing. For each edge, name the accepted artifact or behavior consumed by
+the downstream slice and attempt to replace the edge with a committed contract,
+fixture, test double, narrower prerequisite, or independent vertical outcome.
+Do not stop at the first valid serial graph.
 
 Do not invent timing measurements. Prefer committed project evidence when it
 exists and otherwise use the architecture's configured default plus concrete

@@ -25,9 +25,17 @@ documented clean-boundary handoff.
 commit. Verification requires that commit to introduce the plan and requires
 the committed and working copies of the plan to remain identical to it.
 
-The version 4 `compilation` object records the effective slice-sizing strategy,
+The version 5 `compilation` object records the effective slice-sizing strategy,
 the exact config and Architecture Package hashes at Product Plan approval, and
-concrete sizing rationale. When `.parallel-slices/review.json` has
+concrete sizing rationale. Its `parallelism.dependencyRationale` contains one
+entry for every declared dependency edge and explains why the downstream slice
+requires an accepted upstream outcome rather than merely benefiting from an
+implementation order. `parallelism.serialOnlyJustification` must be `null`
+whenever any execution set can run concurrently. A multi-slice graph whose
+maximum parallel width is one must instead record a concrete justification
+after the required serial-chain challenge.
+
+When `.parallel-slices/review.json` has
 `enabled=true`, its `planningReview` object declares the immutable goal-level
 review scope and permanent JSON artifact that must receive an independent AI
 approval before any worker starts. When review is disabled, omit that object.
@@ -46,8 +54,8 @@ no planning-review target or provider preflight.
 
 Both strategies retain identical quality and safety rules. The snapshot keeps
 an active run pinned even if a later, separate goal changes repository policy.
-The runtime can finish an existing version 3 run after an upgrade, but the
-planning commit gate requires version 4 for every newly compiled goal.
+The runtime can finish an existing version 3 or version 4 run after an upgrade,
+but the planning commit gate requires version 5 for every newly compiled goal.
 
 Each `slices` entry maps one compiled manifest to its status, candidate commit,
 gate evidence, review evidence, and declared permanent multi-agent review

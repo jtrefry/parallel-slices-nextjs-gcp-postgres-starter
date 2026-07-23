@@ -55,7 +55,14 @@ export function loadPlanManifests(root, planPath) {
     manifests.push({ ...manifest, path });
   }
   if (!manifests.length) fail(`plan has no version 2 manifests: ${planPath}`);
-  return validateSliceGraph(resolveActiveManifestRevisions(manifests));
+  const active = validateSliceGraph(resolveActiveManifestRevisions(manifests));
+  const statePaths = [...new Set(active.map((manifest) => manifest.state))];
+  if (statePaths.length !== 1) {
+    fail("parallel slice graph must reference exactly one run state");
+  }
+  const state = readRunState(root, statePaths[0]);
+  validateParallelismEvidence(active, state);
+  return active;
 }
 
 export function resolveActiveManifestRevisions(manifests) {
@@ -181,6 +188,81 @@ export function computeExecutionSets(manifests) {
   return executionSets;
 }
 
+export function analyzeExecutionGraph(manifests) {
+  const ordered = validateSliceGraph(manifests);
+  const executionSets = computeExecutionSets(ordered);
+  const dependencyEdges = ordered
+    .flatMap((manifest) =>
+      dependencies(manifest).map((dependency) => ({
+        slice: manifest.slice,
+        dependsOn: dependency,
+      })),
+    )
+    .sort((left, right) => {
+      const sliceOrder = left.slice.localeCompare(right.slice, "en", {
+        numeric: true,
+      });
+      return (
+        sliceOrder ||
+        left.dependsOn.localeCompare(right.dependsOn, "en", { numeric: true })
+      );
+    });
+  const maxParallelWidth = Math.max(
+    ...executionSets.map((executionSet) => executionSet.length),
+  );
+  return {
+    sliceCount: ordered.length,
+    dependencyCount: dependencyEdges.length,
+    executionSetCount: executionSets.length,
+    maxParallelWidth,
+    fullySerial: ordered.length > 1 && maxParallelWidth === 1,
+    initialReadySlices: executionSets[0],
+    dependencyEdges,
+    executionSets,
+  };
+}
+
+export function validateParallelismEvidence(manifests, state) {
+  const analysis = analyzeExecutionGraph(manifests);
+  if (state.version !== 5) return analysis;
+  const parallelism = state.compilation?.parallelism;
+  if (!parallelism) {
+    fail("version 5 run state is missing compilation parallelism evidence");
+  }
+  const expected = new Set(
+    analysis.dependencyEdges.map(
+      ({ slice, dependsOn }) => `${slice}\0${dependsOn}`,
+    ),
+  );
+  const actual = new Set(
+    parallelism.dependencyRationale.map(
+      ({ slice, dependsOn }) => `${slice}\0${dependsOn}`,
+    ),
+  );
+  const missing = analysis.dependencyEdges.filter(
+    ({ slice, dependsOn }) => !actual.has(`${slice}\0${dependsOn}`),
+  );
+  const unexpected = parallelism.dependencyRationale.filter(
+    ({ slice, dependsOn }) => !expected.has(`${slice}\0${dependsOn}`),
+  );
+  if (missing.length || unexpected.length) {
+    fail(
+      `parallelism evidence must justify every and only declared dependency edge${missing.length ? `; missing: ${missing.map(({ slice, dependsOn }) => `${slice} -> ${dependsOn}`).join(", ")}` : ""}${unexpected.length ? `; unexpected: ${unexpected.map(({ slice, dependsOn }) => `${slice} -> ${dependsOn}`).join(", ")}` : ""}`,
+    );
+  }
+  if (analysis.fullySerial && parallelism.serialOnlyJustification === null) {
+    fail(
+      "all execution sets are serial; rerun the serial-chain challenge and create safe parallel slices, or record a concrete serialOnlyJustification",
+    );
+  }
+  if (!analysis.fullySerial && parallelism.serialOnlyJustification !== null) {
+    fail(
+      "serialOnlyJustification must be null because the execution graph contains parallel slices",
+    );
+  }
+  return analysis;
+}
+
 export function computeReadySlices(manifests, state) {
   const ordered = validateSliceGraph(manifests);
   if (state.plan !== ordered[0].plan) {
@@ -243,9 +325,12 @@ function parseArgs(argv) {
     options[flag.slice(2)] = value;
     index += 1;
   }
-  if (!["validate", "sets", "ready"].includes(command) || !options.plan) {
+  if (
+    !["validate", "sets", "analyze", "ready"].includes(command) ||
+    !options.plan
+  ) {
     fail(
-      "usage: slice-graph.mjs validate|sets --plan <plan> | ready --plan <plan> --state <state>",
+      "usage: slice-graph.mjs validate|sets|analyze --plan <plan> | ready --plan <plan> --state <state>",
     );
   }
   if (command === "ready" && !options.state) fail("ready requires --state");
@@ -257,9 +342,14 @@ function runCli(argv) {
   const root = repositoryRoot();
   const manifests = loadPlanManifests(root, options.plan);
   if (options.command === "validate") {
-    console.log(`slice graph valid: ${manifests.length} slices`);
+    const analysis = analyzeExecutionGraph(manifests);
+    console.log(
+      `slice graph valid: ${manifests.length} slices; max parallel width ${analysis.maxParallelWidth}`,
+    );
   } else if (options.command === "sets") {
     console.log(JSON.stringify(computeExecutionSets(manifests)));
+  } else if (options.command === "analyze") {
+    console.log(JSON.stringify(analyzeExecutionGraph(manifests), null, 2));
   } else {
     const state = readRunState(root, options.state);
     console.log(

@@ -2,8 +2,8 @@
   "version": 1,
   "architecture": {
     "id": "nextjs-gcp-postgres",
-    "packageVersion": "0.4.4",
-    "manifestSha256": "0d16d9ddb48d0e78570b9f45ca6740d5381958b15a092f3efdb74826e3d11769"
+    "packageVersion": "0.5.0",
+    "manifestSha256": "144ae66c47ab2d3dd96b79af38246ab3a82d52a4356d5f4b32b479a56c9813c8"
   },
   "files": [
     {
@@ -13,7 +13,7 @@
     },
     {
       "path": ".agents/skills/parallel-slices-init/SKILL.md",
-      "sha256": "1b6f7b8bd38bc92594fc90d17696fbe83b994131e9def023ec9ce35f37cf960a",
+      "sha256": "d4f2c91c3b9fb8659bfeaab01eb6bfcba42570955dacfc543ccac2f8c2beb144",
       "executable": false
     },
     {
@@ -538,7 +538,7 @@
     },
     {
       "path": ".claude/skills/parallel-slices-init/SKILL.md",
-      "sha256": "d82d47991ceb62a0976eba4d3376ffe7dfb933be5e0548c1064560376d577142",
+      "sha256": "99930ef05e8d9521bbb6ab601804c4a814596882389929c32aaa0c49b9240d2d",
       "executable": false
     },
     {
@@ -1108,7 +1108,7 @@
     },
     {
       "path": ".cursor/skills/parallel-slices-init/SKILL.md",
-      "sha256": "e8c41963cdc85ffd1e4418ca9eb88856a22d6d6f37134e76e7ac2fadc8da9975",
+      "sha256": "a853f17dccbe653b7d42033b4b5728594f427bf3bcd9c2ae738541053fd6f03d",
       "executable": false
     },
     {
@@ -1638,12 +1638,12 @@
     },
     {
       "path": ".parallel-slices/architecture.json",
-      "sha256": "a554fda0bbd796394db8bd7844e713377a41de6af4b50bae0e53dbcbcba213c0",
+      "sha256": "b58f1b4fb24099c3f8d16d0803252a8f031ea6f161f1bfee24059cf8e0a9b571",
       "executable": false
     },
     {
       "path": ".parallel-slices/architecture.schema.json",
-      "sha256": "1baef05020574abea6314f9944f968384e90cf47ea535b156f44694d1be13ffc",
+      "sha256": "e5823a65181294fda163742c83caea1db28c9fbec7ff757f9b93a39abe04415f",
       "executable": false
     },
     {
@@ -1663,7 +1663,7 @@
     },
     {
       "path": ".parallel-slices/loop-state.schema.json",
-      "sha256": "dded678e4fc5c57999f559ad80e325b3b649c915057c4762a6dbdfb638e63e3e",
+      "sha256": "d36a274608bce9b5462e3bbb8b3f47a99514ad460b102a191b630ee81c24f7e2",
       "executable": false
     },
     {
@@ -1703,7 +1703,7 @@
     },
     {
       "path": ".parallel-slices/scaffold-profile.json",
-      "sha256": "6511279f76aeddfcac0ece12e5a4573e7361ae7c6204976f82ccd8c13fc0ae0f",
+      "sha256": "c983b0a2da7fd3fb85b166067e51e3b15daf8204e8979ddd630ac08432a907b4",
       "executable": false
     },
     {
@@ -1723,12 +1723,12 @@
     },
     {
       "path": "AGENTS.md",
-      "sha256": "fcc70d53fdfad23424229fe8516547e0dde0aaadeabeae6682b2fbe451899146",
+      "sha256": "d64bd2cf03da58698e07665a74bd8044438afbaef92beea9aa08084d4fda588e",
       "executable": false
     },
     {
       "path": "README.md",
-      "sha256": "6ac2a6fb265708c70f1f65d0195af1d42c9c9ecefe7b8b874486bb984a607bb4",
+      "sha256": "42b1d116bde03e2a8a646b39b68df35c9ad0265ba45dfa7759b132043f86ae89",
       "executable": false
     },
     {
@@ -1873,22 +1873,22 @@
     },
     {
       "path": "docs/parallel-slices/initialize-nextjs-gcp-postgres-project.md",
-      "sha256": "e0989ffbbbfd0405f9d2588063aa512da933f0ba7142b41bff9eb801e2348c60",
+      "sha256": "acb33765746aeebcb4ccf8cfbf7b47597d3463f8929c4d2e0c66380001989e07",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/multi-agent-review.md",
-      "sha256": "9f6663b974fa1474e20cf47b104e3ba1309fdf2226f787fa9359d25f71948b31",
+      "sha256": "dba4b90401d59c37d393985c0e1c542de946b274b60683b1a061448ca363eb7d",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/plan-milestone.md",
-      "sha256": "c2aecf748ce57cfc0c24c53ed82345b417194be3bc5b8e4e8da1915674c48fa4",
+      "sha256": "b71e12d9a208b63af83dfa8e54420106fa2f636b019ea410ef9ad52cb5afc6bb",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/planning-and-optimized-slices.md",
-      "sha256": "71651e68684f76c1a229f82883427391b4de38e2417470b69db20f1dbcfe44e4",
+      "sha256": "d56ced0a88bca842987e237f8258e2723559498d28af05f7fd60e82217f0615b",
       "executable": false
     },
     {
@@ -1913,27 +1913,27 @@
     },
     {
       "path": "docs/parallel-slices/using-claude-code.md",
-      "sha256": "34ea8d0ebcd4d4bd7659bf4a3152152ccdb27d4a3f50cc86fd10416b992e332e",
+      "sha256": "2a003a4ade67ee554b6cc52f58986da23bc7cb311a5611384a4cd520cd860f17",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/using-codex.md",
-      "sha256": "bcf423e7ec7460431e79efa1d40f7f0c8ce7159c6612bed6470ee1803d6142d7",
+      "sha256": "549bfd87e4cb6b1e4e613c8dd7f8e1133c25b939dac1b23223f4a9e0fc9cf6da",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/using-cursor.md",
-      "sha256": "35fed762bf42d31b5386283df92baf3bd2c3e2484d7c23b6abf45aa28eb7d4bf",
+      "sha256": "6ab4028e88f46f16ff076775c85077f444641aea5baba7ae68d4c5c0637274c0",
       "executable": false
     },
     {
       "path": "docs/plans/AGENTS.md",
-      "sha256": "908cdcedfe55876776ec12262131851509ddd2fab0e41290e635c48cc2977609",
+      "sha256": "63dbc14772f6bcea3ea8578d9f83f3727f181243e2560cba5013772427855a00",
       "executable": false
     },
     {
       "path": "docs/plans/_LOOP-STATE-TEMPLATE.json",
-      "sha256": "8b9e7b49136ae20b7a803e44fc460892e18feb774419dd10ea2d501da343fe31",
+      "sha256": "032cb412d6db9e3fada2c2e136e8db7dc694cf9b2c8660be00cdf3f29cdf7e55",
       "executable": false
     },
     {
@@ -1948,7 +1948,7 @@
     },
     {
       "path": "docs/plans/loop-state-template.md",
-      "sha256": "d12d3101c06dd54249842c153145cc141152fd304298498505c07f10138d155c",
+      "sha256": "720054e2814c6a8b942aa9a2e08b5fd6d12df4a9172ecd80afe3ce6a34a118c0",
       "executable": false
     },
     {
@@ -1998,12 +1998,12 @@
     },
     {
       "path": "docs/testing/manual/multi-agent-review-test-script.md",
-      "sha256": "acbf51d3d259e13ad9021ad4be4fa4b40bf54e45c460156d3c4022705809e51f",
+      "sha256": "feae4b5e9cb5b8a97f3254499604623ac98c5579180145a1f29a931ea4f8e557",
       "executable": false
     },
     {
       "path": "package.json",
-      "sha256": "6df1b326de0656256e36639a5eec799f84a54bb11e4f8b730c9a63d6443abc09",
+      "sha256": "8ca52793b0906bfe6fa96530f4c3f1012017bfcc53cfab7d325b8c85ab096604",
       "executable": false
     },
     {
@@ -2093,7 +2093,7 @@
     },
     {
       "path": "scripts/architecture/nextjs-gcp-postgres/verify.mjs",
-      "sha256": "8afd7f349c8d803d46c06f353ffe1c3d9412e149b6fc751bd414dd863f163482",
+      "sha256": "bda456d542595d067d99a19da49b474e845ce9fe4c4315a222e9459a727bd021",
       "executable": true
     },
     {
@@ -2108,7 +2108,7 @@
     },
     {
       "path": "scripts/parallel-slices/architecture-profile.mjs",
-      "sha256": "9237d5c9ae98e42d4b69ee35e8be94c7b8b381e0081e2c781c0ae91438b572db",
+      "sha256": "bc94c86118cbfc057461690cf5a3ed7501c2631bc142a4cd0263b5b412d6cd20",
       "executable": false
     },
     {
@@ -2163,7 +2163,7 @@
     },
     {
       "path": "scripts/parallel-slices/quality.mjs",
-      "sha256": "0c199ec3977a16e6b4ba4c8b50769d3695fd9144fe8d0aad3b9eab3ca102fcc7",
+      "sha256": "5e1aa723f403e16014be8e45f3e496eb768ffee3cdc8a616e33c786300de7158",
       "executable": false
     },
     {
@@ -2218,7 +2218,7 @@
     },
     {
       "path": "scripts/parallel-slices/run-state.mjs",
-      "sha256": "10aa9b13baa6c83c3a19a5887b35be950ca281a233a1a69c92e11fe664ea152c",
+      "sha256": "33e04fdcacabf9f24225831b803b9810ece9d921b630060feaec596e023bdbbe",
       "executable": false
     },
     {
@@ -2253,7 +2253,7 @@
     },
     {
       "path": "scripts/parallel-slices/slice-graph.mjs",
-      "sha256": "be1af4f60b05dcc0ac78be6157b401057c712412a6423e976ef7b355a20e1eba",
+      "sha256": "91c2098f8f26bc7a0f10c0ff1357164243e125177ca38d29843e21b75b990d61",
       "executable": false
     },
     {
