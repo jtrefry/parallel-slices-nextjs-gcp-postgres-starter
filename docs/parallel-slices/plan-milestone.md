@@ -150,11 +150,11 @@ For each resulting slice:
 10. create one version 4 JSON state file from
     `docs/plans/_LOOP-STATE-TEMPLATE.json`, setting `planCommit` to the Product
     Plan approval commit; and
-11. copy `docs/plans/scopes/_PLANNING-SCOPE-TEMPLATE.scope` to
-    `docs/plans/scopes/<feature>/_planning.scope` and replace every example. The
-    version 1 scope allows only review configuration, immutable planning
-    contracts, the feature's manifest and correction-record namespaces, and
-    the `planning.json`/`planning.md` pair declared by state.
+11. when `.parallel-slices/review.json` has `enabled=true`, copy
+    `docs/plans/scopes/_PLANNING-SCOPE-TEMPLATE.scope` to
+    `docs/plans/scopes/<feature>/_planning.scope`, replace every example, and
+    declare its target in `compilation.planningReview`. When review is disabled,
+    omit both the scope and that state field.
 
 Optimize according to the selected policy, not the greatest slice count.
 Separate work only when it remains meaningful, testable, and safe in an
@@ -185,14 +185,16 @@ causal prerequisite. Inspect the coverage records as the durable result of the
 read-only worker challenge. Fix compilation mechanics rather than weakening
 validation.
 
-Stage only the compiled version 2 scope manifests, version 1 `_planning.scope`,
-and initial version 4 JSON state. The Product Plan must not be staged. Run the
-configured pre-commit entry point and create a separate local
-compiled-execution commit.
+Stage only the compiled version 2 scope manifests, initial version 4 JSON state,
+and, when review is enabled, the version 1 `_planning.scope`. The Product Plan
+must not be staged. Run the configured pre-commit entry point and create a
+separate local compiled-execution commit.
 
 ## Run the independent planning review
 
-After the compiled-execution commit, run from the repository root:
+Skip this section when `.parallel-slices/review.json` has `enabled=false`; no
+provider preflight, planning scope, or planning artifact is required. When it
+is enabled, run after the compiled-execution commit from the repository root:
 
 ```bash
 node scripts/parallel-slices/review.mjs planning \
@@ -221,9 +223,9 @@ node scripts/parallel-slices/planning-review.mjs verify \
   --state docs/plans/loop-runs/<feature>-state.json
 ```
 
-Any correction changes the planning-contract fingerprint, so the prior
-approval becomes stale and the same planning-review command must run again.
-Worker creation enforces this checkpoint automatically.
+When review is enabled, any correction changes the planning-contract
+fingerprint, so the prior approval becomes stale and the same planning-review
+command must run again. Worker creation enforces this checkpoint automatically.
 
 Present the compiled result for traceability, not approval:
 
@@ -234,8 +236,8 @@ Present the compiled result for traceability, not approval:
 5. effective sizing strategy, compilation-input hashes, and sizing rationale;
 6. Product Plan approval commit recorded by `planCommit`; and
 7. exact compiled files and their commit; and
-8. independent reviewer IDs, planning-review artifact paths, and approval
-   fingerprint.
+8. when enabled, independent reviewer IDs, planning-review artifact paths, and
+   approval fingerprint; otherwise state that multi-agent review is disabled.
 
 End with `MILESTONE_PLAN_READY`. Implementation begins later through the chosen
 tool's preparation workflow and sliced-plan orchestrator.

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "generator": {
     "name": "create-turbo",
     "version": "2.10.5"
@@ -12,7 +12,7 @@
     "version": "19.2.8"
   },
   "review": {
-    "cursorSdkVersion": "1.0.24"
+    "cursorProvider": "cursor-agent"
   },
   "node": {
     "engines": "^22.0.0 || ^24.0.0",

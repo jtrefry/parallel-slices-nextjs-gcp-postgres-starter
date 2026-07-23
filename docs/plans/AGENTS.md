@@ -13,8 +13,8 @@ One approved Product Plan owns one goal branch and, when GitHub publication is
 configured, one pull request. Each executable slice becomes a separate logical
 commit on that branch. Never create a branch or pull request per slice. Plan
 approval authorizes its own local commit, AI compilation of execution files,
-an independent AI planning review, audited execution-map corrections that stay
-inside the approved contract, and slice commits within its approved
+the configured independent AI planning review, audited execution-map
+corrections that stay inside the approved contract, and slice commits within its approved
 requirements and boundaries;
 the repository publication profile controls remote creation, push, pull-request
 creation, and CI monitoring.
@@ -84,9 +84,11 @@ installed contracts, and quality floors to this compilation step.
 Compilation must:
 
 - create version 2 scope manifests and one version 4 JSON run state;
-- create one version 1 `_planning.scope` that owns only the plan, state,
-  review configuration, compiled-manifest namespace, correction-record
-  namespace, and permanent planning-review pair;
+- when `.parallel-slices/review.json` has `enabled=true`, create one version 1
+  `_planning.scope` that owns only the plan, state, review configuration,
+  compiled-manifest namespace, correction-record namespace, and permanent
+  planning-review pair; otherwise omit both the scope and `planningReview` from
+  state;
 - record the exact Product Plan approval commit in `planCommit`;
 - read `sliceCompilation.sizingStrategy` from the committed
   `.parallel-slices/config.json` and record its compilation-input snapshot;
@@ -104,17 +106,18 @@ Compilation must:
 - validate the graph and inspect the expected ready slices; and
 - commit manifests and initial state separately from the Product Plan.
 
-Create the planning scope from
-`docs/plans/scopes/_PLANNING-SCOPE-TEMPLATE.scope` and replace every example;
+When review is enabled, create the planning scope from
+`docs/plans/scopes/_PLANNING-SCOPE-TEMPLATE.scope`, replace every example, and
 do not broaden its planning-only namespaces.
 
-Before Product Plan approval, configure and commit at least one independent AI
-reviewer in `.parallel-slices/review.json`. After the compiled-execution commit,
-run the goal-level planning review and commit its generated JSON and Markdown
-artifacts separately. No worker may start until the latest approval matches the
-active execution-map fingerprint. A later audited correction invalidates that
-approval automatically and requires a fresh planning-review attempt, not a
-human manifest review.
+Before Product Plan approval, explicitly choose and commit whether multi-agent
+review is enabled in `.parallel-slices/review.json`. Enabled review requires at
+least one independent AI reviewer. After the compiled-execution commit, run the
+goal-level planning review and commit its generated JSON and Markdown artifacts
+separately only when enabled. In that mode no worker may start until the latest
+approval matches the active execution-map fingerprint, and a later audited
+correction requires a fresh attempt. Disabled review requires no provider
+preflight, planning scope, planning artifact, or API credential.
 
 The architecture package supplies the installed sizing default. A developer may
 override it in `.parallel-slices/config.json`, but the override must be
@@ -264,8 +267,8 @@ Rules:
   Do not mark a surface `not-applicable` merely because the first proposed
   implementation does not mention it.
 - Include one exact JSON path under `docs/plans/reviews/` and its Markdown peer
-  as `coordinate` paths. Slice review may be disabled, but independent planning
-  review is mandatory for every newly compiled version 4 run.
+  as `coordinate` paths. Slice multi-agent review and independent planning
+  review run only when `.parallel-slices/review.json` enables them.
 - Include the exact manual test-script path when the slice creates or updates
   human verification steps. Follow `docs/testing/manual/AGENTS.md`.
 - An allowed path permits changes only for the listed requirement IDs.
@@ -333,7 +336,7 @@ controller may correct the compiled map without another human approval only by:
    slice, resetting it to `not_started` before any candidate or acceptance
    evidence exists; and
 5. committing those three files alone, then renewing the independent planning
-   review before worker creation.
+   review before worker creation when multi-agent review is enabled.
 
 The original manifest remains in history and the graph resolves only the
 unsuperseded revision. The commit gate refuses removed paths, removed locks,

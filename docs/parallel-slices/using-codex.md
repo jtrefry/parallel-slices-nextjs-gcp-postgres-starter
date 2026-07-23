@@ -25,10 +25,10 @@ human-readable plan alone. Codex then commits it, applies the configured
 slice-sizing strategy, and AI-compiles version 2 scope manifests plus version 4
 JSON run state in a separate commit before implementation begins. Each new
 manifest includes machine-validated impact coverage derived from a forward and
-reverse repository trace and a read-only worker rehearsal. Codex then invokes
-the existing multi-agent engine for an independent planning review and records
-its approval in a separate commit; this is an AI checkpoint, not another human
-review.
+reverse repository trace and a read-only worker rehearsal. When multi-agent
+review is enabled, Codex then invokes the independent planning review and
+records its approval in a separate commit. With the installed disabled default,
+it omits that target and needs no review-provider credential.
 
 Read [Planning and optimized slices](planning-and-optimized-slices.md) for the
 planning contract. In particular, a parallel set is computed from explicit
@@ -48,8 +48,8 @@ The short alias is `$slices-plan`.
 
 That dedicated planning skill stops at `PRODUCT_PLAN_READY` for approval, then
 commits the Product Plan and compiles the optimized execution files separately.
-It runs and records the independent AI planning review, then stops at
-`MILESTONE_PLAN_READY`; use the preparation skill only after that checkpoint.
+It runs and records the independent AI planning review only when enabled, then
+stops at `MILESTONE_PLAN_READY`; use the preparation skill after that checkpoint.
 
 ## Prepare and start a run
 

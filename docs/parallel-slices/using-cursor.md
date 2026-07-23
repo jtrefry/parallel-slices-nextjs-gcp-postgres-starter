@@ -25,10 +25,11 @@ plan alone. Cursor then commits it, applies the configured slice-sizing
 strategy, and AI-compiles version 2 scope manifests plus version 4 JSON run
 state in a separate commit before implementation begins. Each new manifest
 includes machine-validated impact coverage derived from a forward and reverse
-repository trace and a read-only worker rehearsal. Cursor then invokes the
-existing multi-agent engine for an independent planning review and records its
-approval in a separate commit; this is an AI checkpoint, not another human
-review.
+repository trace and a read-only worker rehearsal. When
+`.parallel-slices/review.json` has `enabled=true`, Cursor then invokes the
+multi-agent engine for an independent planning review and records its approval
+in a separate commit. With the default `enabled=false`, it omits that target and
+continues without provider credentials.
 
 Read [Planning and optimized slices](planning-and-optimized-slices.md) for the
 planning contract. Parallelism comes only from the manifest dependency graph,
@@ -41,9 +42,9 @@ machine execution boundary.
 Cursor is both a supported lifecycle controller and an independent review
 provider. These roles do not share an agent. The foreground `/loop` conversation
 continues to own orchestration, while each configured Cursor reviewer turn
-starts a separate child process and a fresh one-shot `@cursor/sdk`
-`Agent.prompt()` context against the disposable review snapshot. A later round
-starts fresh again; the runner never resumes `/loop` or an earlier reviewer.
+starts a separate `cursor-agent --print` process against the disposable review
+snapshot. A later round starts fresh again; the runner uses the cached Cursor
+account login but never resumes `/loop` or an earlier reviewer.
 
 To use two Cursor models, keep the run state's `controller` set to `cursor` and
 configure reviewers like this in `.parallel-slices/review.json`:
@@ -69,11 +70,13 @@ configure reviewers like this in `.parallel-slices/review.json`:
 ```
 
 Retain the other required timeout and schema fields from the installed file.
-Cursor reviewers require explicit model ids and do not accept `effort`. The
-repository must have `@cursor/sdk` installed at the root and the review runner
-environment must provide `CURSOR_API_KEY`; never store the key in the JSON file.
-See [Multi-agent review](multi-agent-review.md) for model discovery, billing
-policy, preflight, timeouts, and the complete configuration.
+Cursor reviewers require explicit model IDs and do not accept `effort`. Install
+the Cursor Agent CLI, run `cursor-agent login`, and verify the cached
+subscription login with `cursor-agent status`. Choose explicit model IDs from
+`cursor-agent --list-models`; no API key or project SDK dependency is required
+for `subscription-only`. See
+[Multi-agent review](multi-agent-review.md) for billing policy, preflight,
+timeouts, and the complete configuration.
 
 ## Plan a later milestone
 
@@ -86,9 +89,10 @@ For every later feature or fix, run:
 The short alias is `/slices-plan`.
 
 That command stops at `PRODUCT_PLAN_READY` for approval, then commits the
-Product Plan and compiles the optimized execution files separately. It stops at
-`MILESTONE_PLAN_READY` only after the independent AI planning approval; prepare
-`/loop` after that checkpoint.
+Product Plan and compiles the optimized execution files separately. When
+multi-agent review is enabled, it reaches `MILESTONE_PLAN_READY` only after the
+independent AI planning approval. When disabled, it reaches that checkpoint
+after the compiled execution commit.
 
 ## Prepare and start a run
 

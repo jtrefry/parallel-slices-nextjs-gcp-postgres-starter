@@ -1,7 +1,7 @@
 # Multi-agent review provider manual test script
 
-Use this script to verify the installed Codex, Claude Code, and Antigravity CLI
-or Cursor SDK integration with non-production repository content.
+Use this script to verify the installed Codex, Claude Code, Antigravity, or
+Cursor Agent CLI integration with non-production repository content.
 
 ## Conventions
 
@@ -30,10 +30,10 @@ or Cursor SDK integration with non-production repository content.
 1. Use a disposable or non-production slice with a committed plan and scope
    manifest, one in-scope implementation change, and a green declared gate.
 2. Configure the intended ordered reviewers in `.parallel-slices/review.json`.
-3. Install only official provider CLIs or `@cursor/sdk`. Complete
-   authentication in each provider's own terminal flow; supply
-   `CURSOR_API_KEY` only through the review runner environment, never this
-   script or a committed file.
+3. Install only official provider CLIs. Complete authentication in each
+   provider's own terminal flow. For Cursor subscription review, run
+   `cursor-agent login`, `cursor-agent status`, and
+   `cursor-agent --list-models`; do not supply `CURSOR_API_KEY`.
 4. Confirm no other controller or review process owns the checkout.
 
 ## Progress summary
@@ -178,7 +178,8 @@ continues the controller conversation or an earlier reviewer context.
 
 1. Use a disposable run state whose `controller` is `cursor`.
 2. Configure two `provider: "cursor"` reviewers with unique ids and different
-   model ids returned by `Cursor.models.list()`; omit `effort`.
+   model IDs accepted by `cursor-agent --model`; omit `effort`. Run
+   `cursor-agent status` to confirm the cached subscription login first.
 3. Keep the Cursor `/loop` conversation open, then run the planning or slice
    review command from a separate terminal.
 4. Confirm the ledger configuration records both reviewer ids and their exact

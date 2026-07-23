@@ -85,17 +85,16 @@ default when evidence supports one. Cover every applicable area:
     absent, remote name, and base branch. When GitHub mode is selected, require
     the developer to authenticate the GitHub CLI with the intended account and
     verify the active username before recording the profile.
-13. Independent multi-agent review. Require an enabled ordered Codex, Claude
-    Code, Antigravity, or Cursor reviewer list for planning and integrated slice
-    review; ask for model and supported effort choices, maximum rounds, and
-    whether `subscription-only` or provider-managed authentication is intended.
-    Cursor reviewers require an explicit model id, do not accept `effort`, and
-    run as fresh `@cursor/sdk` agents rather than the Cursor controller session.
-    Explain that a Cursor user API key in `CURSOR_API_KEY` bills to the user's
-    plan and is accepted by `subscription-only`, while a service-account key
-    bills to its team and requires `provider-managed`. This is an AI checkpoint
-    rather than another human approval; provider plans, quotas, and billing
-    remain external, and the selected CLIs or SDK must be ready before review.
+13. Optional independent multi-agent review. Ask whether to keep the installed
+    default (`enabled=false`) or enable an ordered Codex, Claude Code,
+    Antigravity, or Cursor reviewer list for planning and integrated slice
+    review. Only when enabled, ask for model and supported effort choices,
+    maximum rounds, and billing policy. Cursor reviewers require an explicit
+    model ID, do not accept `effort`, and run as fresh Cursor Agent CLI processes
+    rather than the Cursor controller conversation. For `subscription-only`,
+    instruct the developer to run `cursor-agent login` and `cursor-agent status`;
+    no `CURSOR_API_KEY` or project SDK dependency is required. Provider plans,
+    quotas, and billing remain external.
 
 Do not ask the developer to choose low-level implementation details that the AI
 can derive safely from the approved requirements.
@@ -341,30 +340,33 @@ to `INITIALIZATION_PRODUCT_PLAN_READY` for revision and approval.
 
 Validate run state and graph, inspect the scope coverage and Ready Slices for
 omissions, overlapping paths, or locks, and fix compilation mechanics without
-weakening gates. Require `.parallel-slices/review.json` to contain at least one
-enabled independent AI reviewer. Stage only the compiled manifests, planning
-scope, and initial state. Run the initialization pre-commit gate and create a
-separate local AI-compiled execution commit.
+weakening gates. Stage the compiled manifests and initial state, plus the
+planning scope only when `.parallel-slices/review.json` has `enabled=true`. Run
+the initialization pre-commit gate and create a separate local AI-compiled
+execution commit.
 
-Run the installed goal-level review against that committed map:
+When multi-agent review is enabled, run the installed goal-level review against
+that committed map:
 
 ```bash
 node scripts/parallel-slices/review.mjs planning \
   --state docs/plans/loop-runs/<feature>-state.json
 ```
 
-Resolve in-contract omissions only through the audited replacement-manifest
+When review is disabled, skip that command and create no planning artifact or
+provider credential. When enabled, resolve in-contract omissions only through the audited replacement-manifest
 procedure in `docs/plans/AGENTS.md`; return semantic, subsystem, policy,
 migration, deployment, external-action, or non-goal changes for Product Plan
 approval. After all configured AI reviewers approve, stage and commit only the
 generated `planning.json` and `planning.md`, then verify them with
-`planning-review.mjs verify --state <state-path>`. No worker may start before
-that fingerprinted approval.
+`planning-review.mjs verify --state <state-path>`. In enabled mode, no worker may
+start before that fingerprinted approval.
 
 Present the compiled map as informational traceability: its sizing strategy and
 rationale, slice DAG, initial Ready Slices, serial reasons, ownership and scope
 coverage boundaries, `planCommit`, and exact compiled files. End with
-`INITIALIZATION_PLAN_COMPILED` and the planning-review fingerprint.
+`INITIALIZATION_PLAN_COMPILED` and, when enabled, the planning-review
+fingerprint.
 
 Implementation begins only after both commits. Use the installed sliced-plan
 orchestrator rather than inventing a second continuation mechanism. Direct the

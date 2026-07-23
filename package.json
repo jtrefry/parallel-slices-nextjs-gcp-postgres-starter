@@ -10,7 +10,6 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@cursor/sdk": "1.0.24",
     "husky": "9.1.7",
     "prettier": "3.9.6",
     "turbo": "2.10.5",

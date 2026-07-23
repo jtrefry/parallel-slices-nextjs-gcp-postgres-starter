@@ -64,11 +64,15 @@ Validate the durable sources rather than trusting chat memory:
 ```bash
 node scripts/parallel-slices/run-state.mjs verify --state <state-path>
 node scripts/parallel-slices/slice-graph.mjs validate --plan <plan-path>
-node scripts/parallel-slices/planning-review.mjs verify --state <state-path>
 node scripts/parallel-slices/slice-graph.mjs ready \
   --plan <plan-path> \
   --state <state-path>
 ```
+
+When `.parallel-slices/review.json` has `enabled=true`, also run
+`planning-review.mjs verify --state <state-path>` before calculating ready
+slices. With review disabled, state omits `planningReview` and this command does
+not apply.
 
 The `ready` result is the next optimized set. It contains only slices whose
 dependencies are accepted and whose worker paths, logical resource locks, and
@@ -82,8 +86,8 @@ Require:
 - the active branch equals the run state's non-protected goal branch;
 - the root checkout is clean except for ignored Parallel Slices runtime files;
 - the plan, state, and manifests are tracked and committed;
-- the latest independent planning review is approved for the active
-  execution-map fingerprint;
+- when multi-agent review is enabled, the latest independent planning review is
+  approved for the active execution-map fingerprint;
 - no other run owns the same checkout or goal;
 - the monotonic project stage satisfies every ready manifest;
 - each ready manifest has exact worker paths, coordinator paths, dependencies,

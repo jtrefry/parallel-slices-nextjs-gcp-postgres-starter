@@ -2,8 +2,8 @@
   "version": 1,
   "architecture": {
     "id": "nextjs-gcp-postgres",
-    "packageVersion": "0.4.3",
-    "manifestSha256": "88d108f8b5a48a2baa2bfefe083749cc58f52492e1b05f99adfcde0820e77544"
+    "packageVersion": "0.4.4",
+    "manifestSha256": "0d16d9ddb48d0e78570b9f45ca6740d5381958b15a092f3efdb74826e3d11769"
   },
   "files": [
     {
@@ -1638,7 +1638,7 @@
     },
     {
       "path": ".parallel-slices/architecture.json",
-      "sha256": "15d8a00bd2d0d4808d25e66dd604b1fe10422cdfd9120984e39122cd42226a18",
+      "sha256": "a554fda0bbd796394db8bd7844e713377a41de6af4b50bae0e53dbcbcba213c0",
       "executable": false
     },
     {
@@ -1703,7 +1703,7 @@
     },
     {
       "path": ".parallel-slices/scaffold-profile.json",
-      "sha256": "3cb6d9d5e962f05394a201b826661a8a4cd65e42c7943876d09f9fe5ca92c1ce",
+      "sha256": "6511279f76aeddfcac0ece12e5a4573e7361ae7c6204976f82ccd8c13fc0ae0f",
       "executable": false
     },
     {
@@ -1728,7 +1728,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "8ce803116009f1111704db3fe92579164b72a421895f7eb85085656ac5407c42",
+      "sha256": "6ac2a6fb265708c70f1f65d0195af1d42c9c9ecefe7b8b874486bb984a607bb4",
       "executable": false
     },
     {
@@ -1853,7 +1853,7 @@
     },
     {
       "path": "docs/parallel-slices/README.md",
-      "sha256": "5fc769844fb056148a6ee7cbf286174b58f89347daed983d84d8503bb50caae9",
+      "sha256": "3b1e8e1a1ba02b81c9bebcd958334d74d0d7112fb1a8f0bdd7e61da3877c5942",
       "executable": false
     },
     {
@@ -1868,22 +1868,22 @@
     },
     {
       "path": "docs/parallel-slices/github-automation.md",
-      "sha256": "68d1a6e89395d4732e9bacc59ab01d180e33d8dbb70409812311c4f070e9c464",
+      "sha256": "504f7968f3acf9f5b1adbb85c0ae8aa89e99fdd56664febcb3461fbebf359532",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/initialize-nextjs-gcp-postgres-project.md",
-      "sha256": "79734b4aed4d48f5f990b0a38c2ca8c8d92a23f1a16d3bf99cdd26068d20b576",
+      "sha256": "e0989ffbbbfd0405f9d2588063aa512da933f0ba7142b41bff9eb801e2348c60",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/multi-agent-review.md",
-      "sha256": "a2ffad5599db9b85b9fd6050ade9dda747e856ad8e4ccad15b527672e3fe9f29",
+      "sha256": "9f6663b974fa1474e20cf47b104e3ba1309fdf2226f787fa9359d25f71948b31",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/plan-milestone.md",
-      "sha256": "8eb14b254cdf5231db4dac322f3fd815e3d0f4e08ff52d9744be02b19499c0ab",
+      "sha256": "c2aecf748ce57cfc0c24c53ed82345b417194be3bc5b8e4e8da1915674c48fa4",
       "executable": false
     },
     {
@@ -1908,32 +1908,32 @@
     },
     {
       "path": "docs/parallel-slices/run-sliced-plan.md",
-      "sha256": "1fb12328445a78c0d13dd2871b2bfe35f27addbc89f2b2ecaf8e3c91b9fc1d1a",
+      "sha256": "f2d089dce4cffe1cf34f95fec287fc41319a3ba447143f09c82ae2718d915c38",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/using-claude-code.md",
-      "sha256": "99869052011613abbfba13bef9f9190383918ff9a59e11e66ffd39a94c4eccad",
+      "sha256": "34ea8d0ebcd4d4bd7659bf4a3152152ccdb27d4a3f50cc86fd10416b992e332e",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/using-codex.md",
-      "sha256": "8fc966313533798180f8bd62eb8a956d00fdf3ba5b60e5221d39348943bd342b",
+      "sha256": "bcf423e7ec7460431e79efa1d40f7f0c8ce7159c6612bed6470ee1803d6142d7",
       "executable": false
     },
     {
       "path": "docs/parallel-slices/using-cursor.md",
-      "sha256": "40b5769dceb49ad208bb357d2c0997e395b226ddfdb8bb479dc1dd862eb9069a",
+      "sha256": "35fed762bf42d31b5386283df92baf3bd2c3e2484d7c23b6abf45aa28eb7d4bf",
       "executable": false
     },
     {
       "path": "docs/plans/AGENTS.md",
-      "sha256": "42d45cf90445ed7459b429580dc8b12bb1f3e77c0c1572590360b25c1129b4f0",
+      "sha256": "908cdcedfe55876776ec12262131851509ddd2fab0e41290e635c48cc2977609",
       "executable": false
     },
     {
       "path": "docs/plans/_LOOP-STATE-TEMPLATE.json",
-      "sha256": "f99600085d8051130c424c38e221597b2c8a25cb8cd4e14d5e9e6bec09ba1333",
+      "sha256": "8b9e7b49136ae20b7a803e44fc460892e18feb774419dd10ea2d501da343fe31",
       "executable": false
     },
     {
@@ -1943,12 +1943,12 @@
     },
     {
       "path": "docs/plans/corrections/AGENTS.md",
-      "sha256": "b678a17c74cb35924ceeeabca428b8e47138b0d1516796bb3baa780bff50f4d1",
+      "sha256": "4ce4a387850d8870fe97df6b8d63f102ff98c9091423d6c9766e64ba404fe29b",
       "executable": false
     },
     {
       "path": "docs/plans/loop-state-template.md",
-      "sha256": "d3a4bde89ef19f187a56437bdd9ac61336c7e795ee329b1eab73112cdc0b164d",
+      "sha256": "d12d3101c06dd54249842c153145cc141152fd304298498505c07f10138d155c",
       "executable": false
     },
     {
@@ -1998,12 +1998,12 @@
     },
     {
       "path": "docs/testing/manual/multi-agent-review-test-script.md",
-      "sha256": "8cf0ca6cbd98d79bc1cbe2b8e8f32e611084a0ac5cbf466ade9060ba3aedcd96",
+      "sha256": "acbf51d3d259e13ad9021ad4be4fa4b40bf54e45c460156d3c4022705809e51f",
       "executable": false
     },
     {
       "path": "package.json",
-      "sha256": "0bdb8d08866950d7d3fef6e8dde37a44d5c16b135930f82eeae71b654319f9d3",
+      "sha256": "6df1b326de0656256e36639a5eec799f84a54bb11e4f8b730c9a63d6443abc09",
       "executable": false
     },
     {
@@ -2083,7 +2083,7 @@
     },
     {
       "path": "pnpm-lock.yaml",
-      "sha256": "eddd3a1e0037a69b110694b0e6d3750534153c0139730ddb36cfa19b329e2623",
+      "sha256": "ec3ded2550f63eb0634d02c94dbea496a7a3eeef2b2ac7a5570177ebd894a5e3",
       "executable": false
     },
     {
@@ -2093,7 +2093,7 @@
     },
     {
       "path": "scripts/architecture/nextjs-gcp-postgres/verify.mjs",
-      "sha256": "90f63744c68678615ba1f5213c928443ae955611e9efbfb80b973f485a958af2",
+      "sha256": "8afd7f349c8d803d46c06f353ffe1c3d9412e149b6fc751bd414dd863f163482",
       "executable": true
     },
     {
@@ -2124,11 +2124,6 @@
     {
       "path": "scripts/parallel-slices/corepack-runner.mjs",
       "sha256": "8a057ce1dd39fe31ae38a6276515fe134730a3d8672cb0feeb895e8e80a9eefe",
-      "executable": false
-    },
-    {
-      "path": "scripts/parallel-slices/cursor-review-provider.mjs",
-      "sha256": "6ad5d4597c955b3fd1736425edcad4778c19d601204f2a829860d0888525605d",
       "executable": false
     },
     {
@@ -2168,7 +2163,7 @@
     },
     {
       "path": "scripts/parallel-slices/quality.mjs",
-      "sha256": "586c0e0deca0f67c807ef44de8dc0265039ee6a42217d461456565fc5163a17e",
+      "sha256": "0c199ec3977a16e6b4ba4c8b50769d3695fd9144fe8d0aad3b9eab3ca102fcc7",
       "executable": false
     },
     {
@@ -2198,7 +2193,7 @@
     },
     {
       "path": "scripts/parallel-slices/review-providers.mjs",
-      "sha256": "2bf614128688fa61675fb79915cf1ae3bb0d3248002cacef344075f9bed7aaf9",
+      "sha256": "e1448c08b12bed08edfd45cb31818e843d0de6c806c046abc3e2aca25b7977a4",
       "executable": false
     },
     {
@@ -2213,7 +2208,7 @@
     },
     {
       "path": "scripts/parallel-slices/review.mjs",
-      "sha256": "5a6e881a5e3100f7991d5041063e322877abb85f728af2563ba459efb7d686cf",
+      "sha256": "b561acbee1159d8d73997e628e4b23fa215a94e8bb1ea9fe1b5bccebb05294cd",
       "executable": false
     },
     {
@@ -2263,7 +2258,7 @@
     },
     {
       "path": "scripts/parallel-slices/slice-worktree.mjs",
-      "sha256": "daddf4e3ae16a02ae955962fa86be01f1509314875fab00d86fdc5a3dca8acd9",
+      "sha256": "f41805dc9d18680d28775d586b2c9a72a8052fec6cf8782a554dab695b075789",
       "executable": false
     },
     {

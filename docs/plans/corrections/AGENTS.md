@@ -17,4 +17,5 @@ These instructions apply to immutable correction records under this directory.
   correction commit, edit an earlier manifest or record, or correct a slice
   after candidate, gate, review, or acceptance evidence exists.
 - Commit the record with exactly its replacement manifest and run-state pointer
-  update. Then renew the independent planning review before creating a worker.
+  update. When multi-agent review is enabled, renew the independent planning
+  review before creating a worker.

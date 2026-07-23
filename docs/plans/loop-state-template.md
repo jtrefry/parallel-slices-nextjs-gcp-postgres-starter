@@ -27,20 +27,22 @@ the committed and working copies of the plan to remain identical to it.
 
 The version 4 `compilation` object records the effective slice-sizing strategy,
 the exact config and Architecture Package hashes at Product Plan approval, and
-concrete sizing rationale. Its `planningReview` object declares the immutable
-goal-level review scope and permanent JSON artifact that must receive an
-independent AI approval before any worker starts. Generate the reproducible input fields after the
-approval commit with:
+concrete sizing rationale. When `.parallel-slices/review.json` has
+`enabled=true`, its `planningReview` object declares the immutable goal-level
+review scope and permanent JSON artifact that must receive an independent AI
+approval before any worker starts. When review is disabled, omit that object.
+Generate the reproducible input fields after the approval commit with:
 
 ```bash
 node scripts/parallel-slices/slice-compilation.mjs snapshot
 ```
 
-The compiled-execution commit adds the declared `_planning.scope`. Run
-`review.mjs planning --state <state-path>` only after that commit, then commit
-the generated `planning.json` and `planning.md` pair separately. Worker
-creation recomputes the planning-contract fingerprint and refuses a missing,
-rejected, malformed, or stale approval.
+With review enabled, the compiled-execution commit adds the declared
+`_planning.scope`. Run `review.mjs planning --state <state-path>` only after
+that commit, then commit the generated `planning.json` and `planning.md` pair
+separately. Worker creation recomputes the planning-contract fingerprint and
+refuses a missing, rejected, malformed, or stale approval. Disabled review has
+no planning-review target or provider preflight.
 
 Both strategies retain identical quality and safety rules. The snapshot keeps
 an active run pinned even if a later, separate goal changes repository policy.

@@ -3,8 +3,8 @@
   "version": 1,
   "id": "nextjs-gcp-postgres",
   "packageName": "@parallel-slices/architecture-nextjs-gcp-postgres",
-  "packageVersion": "0.4.3",
-  "manifestSha256": "88d108f8b5a48a2baa2bfefe083749cc58f52492e1b05f99adfcde0820e77544",
+  "packageVersion": "0.4.4",
+  "manifestSha256": "0d16d9ddb48d0e78570b9f45ca6740d5381958b15a092f3efdb74826e3d11769",
   "components": [
     {
       "id": "web-application",
